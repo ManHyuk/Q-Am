@@ -20,5 +20,3 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 ]
 
-#이야ㅣ야이야호
-
