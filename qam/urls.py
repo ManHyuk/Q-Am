@@ -21,3 +21,4 @@ urlpatterns = [
     url(r'^qam/', include('qna.urls', namespace='qna')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 ]
+
