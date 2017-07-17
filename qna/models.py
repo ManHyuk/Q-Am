@@ -10,6 +10,7 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
+
 class Answer(models.Model):
     # 답변
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
@@ -22,4 +23,8 @@ class Answer(models.Model):
 
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
+
+
+
+
 
