@@ -4,5 +4,5 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.question),
+    url(r'^$', views.exquestion, name='exquestion'),
 ]

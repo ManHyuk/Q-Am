@@ -6,6 +6,7 @@ class ExtraQuestion(models.Model):
     # 추가 질문
     title = models.CharField(max_length=32, null=False, verbose_name='제목') # 제목
     questioned_at = models.DateTimeField(verbose_name='질문일') # 질문 날짜
+    is_new = models.BooleanField(default=True) #한 번 쓰였는지, 안 쓰였는지
 
     def __str__(self):
         return self.title
@@ -23,7 +24,7 @@ class ExtraAnswer(models.Model):
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
 
-class Requied(models.Model):
+class Required(models.Model):
     #요청 질문과 그 내용
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
     title = models.CharField(max_length=32, null=False, verbose_name='요청 질문') # 요청 질문
