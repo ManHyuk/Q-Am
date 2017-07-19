@@ -18,12 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-<<<<<<< HEAD
     url(r'^qna/', include('qna.urls', namespace='qna')),
-    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-=======
     url(r'^qam/', include('qna.urls', namespace='qna')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')), # FIXME accounts namespace 제거
->>>>>>> 903c595e933b96035f04d262f66f6872b0b59b89
+    url(r'^exqna/', include('exqna.urls', namespace='exqna')),
 ]
-

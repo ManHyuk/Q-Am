@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions', #장고 셀플러스 사용!
     # local app
     'qna',
+    'exqna',
     'accounts',
 
 ]
