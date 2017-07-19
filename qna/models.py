@@ -18,8 +18,8 @@ class Answer(models.Model):
     is_public = models.BooleanField(default=False) # 공개/비공개
     created_at = models.DateTimeField(auto_now_add=True) # 생성 날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정 날짜
-    #이미지는 나중에
-
+    photo = models.FileField(upload_to='photo/')
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
 
+#photo 집어 넣을 모델은 구현 됨!

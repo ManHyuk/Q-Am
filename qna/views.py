@@ -33,3 +33,4 @@ def answer_submit(request, id):
             })
 #answer_submit.html로 이동하면서 변수 두개를 넘긴다.
 
+#form강의 듣고 view 함수 구현해보기!
