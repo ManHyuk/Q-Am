@@ -6,18 +6,22 @@ from django.utils import timezone
 
 
 def exquestion(request, user_id):
+    #추가질문에 대해 대답하는 뷰
     exquestion = ExtraQuestion.objects.filter(is_new=True).first() #안 쓰인 것들 중 가장 오래된 것 exquestion
     if not exquestion: #안 쓰인 것 없을 경우
         return redirect('qna:main')
 
-    has_extraAnswer = ExtraAnswer.objects.filter(user_id=user_id, question_id=exquestion.id)
+    has_extraAnswer = ExtraAnswer.objects.filter(user_id=user_id, question_id=exquestion.id)    #이미 질문했으면 넘어가기
     if has_extraAnswer:
         return redirect('qna:main')
 
     if request.method == 'POST':
         form = ExtraAnswerForm(request.POST)
         if form.is_valid():
-            extraAnswer = ExtraAnswer.objects.create(user_id=user_id, question_id=exquestion.id, content=form.cleaned_data['content'])
+            extraAnswer = form.save(commit=False)
+            extraAnswer.user_id = user_id
+            extraAnswer.question_id = exquestion.id
+            extraAnswer.save()
             return redirect(extraAnswer)
     else:
         form = ExtraAnswerForm()
@@ -28,10 +32,11 @@ def exquestion(request, user_id):
         })
 
 def required(request, user_id):
+    #질문 요청하는 뷰
     if request.method == 'POST':
         form = RequiredModelForm(request.POST)
         already_required = Required.objects.filter(user_id=user_id, created_at__year=timezone.now().year, created_at__month=timezone.now().month, created_at__day=timezone.now().day)
-        if already_required:
+        if already_required:    #하루에 질문 하나만 요청할 수 있게 만듦.
             return render(request, 'exqna/already_required.html')
         if form.is_valid():
             required = form.save(commit=False)
@@ -43,4 +48,24 @@ def required(request, user_id):
 
     return render(request, 'exqna/required.html', {
             'form': form,
+        })
+
+def exq_edit(request, answer_id):
+    #추가 질문 수정하는 뷰
+    extraAnswer=get_object_or_404(ExtraAnswer, id=answer_id)
+    if extaAnswer.created_at.hour + 1 > timezone.now().hour:    #1시간 지났을 경우 수정 불가
+        return redirect('qna:main')
+    if request.method=='POST':
+        form=ExtraAnswerForm(request.POST, instance=extraAnswer)
+        if form.is_valid():
+            new_extraAnswer = form.save(commit=False)
+            new_extraAnswer.user_id = extraAnswer.user_id
+            new_extraAnswer.question = extraAnswer.question
+            new_extraAnswer.save()
+            return redirect('qna:main')
+    else :
+        form = ExtraAnswerForm(instance=extraAnswer)
+    return render(request, 'qna/exquestion_edit.html', {
+            'form':form,
+            'answer':extraAnswer,
         })

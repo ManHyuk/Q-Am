@@ -3,7 +3,9 @@ from django import forms
 from .models import ExtraAnswer, Required
 
 class ExtraAnswerForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea)
+    class Meta:
+        model = ExtraAnswer
+        fields = ['content', 'is_public']
 
 
 class RequiredModelForm(forms.ModelForm):
