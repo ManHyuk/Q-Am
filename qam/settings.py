@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # local app
     'qna',
     'accounts',
-
+    'exqna',
 ]
 
 MIDDLEWARE = [

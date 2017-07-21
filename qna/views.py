@@ -33,3 +33,6 @@ def answer_submit(request, id):
             })
 #answer_submit.html로 이동하면서 변수 두개를 넘긴다.
 
+def main(request):
+    return render(request, 'qna/main.html')
+
