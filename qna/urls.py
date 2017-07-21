@@ -3,5 +3,6 @@ from django.contrib import admin
 from qna import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.question, name='question'),
+    url(r'^answer_submit/(?P<id>\d+)', views.answer_submit,name='answer_submit'),
 ]

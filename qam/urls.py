@@ -21,14 +21,15 @@ from django.shortcuts import redirect, render
 
 
 urlpatterns = [
-    url(r'^$', lambda request: render(request, 'base.html'), name='root'),
+    url(r'^$', lambda request: render(request, 'base.html'), name='root'), # TODO test용 삭제할것
 
     url(r'^admin/', admin.site.urls),
-    url(r'^qam/', include('qna.urls', namespace='qna')),
-
-    url(r'^accounts/', include('accounts.urls')), # FIXME accounts namespace 제거
+    url(r'^qna/', include('qna.urls', namespace='qna')),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^exqna/', include('exqna.urls', namespace='exqna')),
     url(r'^diary/', include('diary.urls', namespace='diary')),
+
+
 ]
 

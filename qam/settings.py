@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # allauth
     'django.contrib.sites',
     'allauth',
@@ -45,6 +46,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.naver',
+
+    'django_extensions', #장고 셀플러스 사용!
+
     # local app
     'qna',
     'exqna',
