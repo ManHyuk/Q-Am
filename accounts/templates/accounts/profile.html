@@ -6,4 +6,7 @@
     <li>is_staff : {{ user.is_staff }}</li>
     <li>is_superuser : {{ user.is_superuser }}</li>
     <li>{{ user.date_joined }}</li>
+
+
+    <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
 </ul>
