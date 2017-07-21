@@ -1,6 +1,10 @@
 from django.db import models
 from django.conf import settings
+from django import forms
 
+def min_length_3_validator(value):
+    if len(value)<1:
+        raise forms.ValidationError('1글자 이상 입력해주세요')
 
 class Question(models.Model):
     # 질문
@@ -15,13 +19,13 @@ class Answer(models.Model):
     # 답변
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True) # 유저와 1:N 관계 설정
     question = models.ForeignKey(Question) # 질문 모델과 1:N 관계 설정
-    content = models.TextField(max_length=256) # 답변 내용
+    content = models.TextField(max_length=256, validators=[min_length_3_validator]) # 답변 내용
     is_public = models.BooleanField(default=False) # 공개/비공개
-    created_at = models.DateTimeField(auto_now_add=True) # 생성 날짜
+    created_at = models.DateTimeField(auto_now_add=True)# 생성 날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정 날짜
-    photo = models.FileField(upload_to='photo/')
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
 
-#photo 집어 넣을 모델은 구현 됨!
+    def get_absolute_url(self):
+        return reverse('qna:submit',args=[self.id])
 

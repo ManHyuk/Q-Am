@@ -4,5 +4,6 @@ from qna import views
 
 urlpatterns = [
     url(r'^$', views.question, name='question'),
-    url(r'^answer_submit/(?P<id>\d+)', views.answer_submit,name='answer_submit'),
+    url(r'^(?P<id>\d+)/submit/$', views.question_submit,name='question_submit'),
+    url(r'^(?P<id>\d+)/edit/$', views.question_edit,name='question_edit'),
 ]
