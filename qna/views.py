@@ -8,12 +8,8 @@ def question(request):
     #days=time.strftime('%j', time.localtime(time.time()))
     days='3'
 #days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
-    now=int(days)
-    ques=queryset.get(id=now)
 #그날에 맞는 질문을 골라 온다.
-    return render(request, 'qna/question.html', {
-        'question' : ques,
-        'question_at' : ques.questioned_at,
+    return render(request, 'diary/index.html', {
         })
 #question.html에 그날의 질문과 질문의 날짜를 변수로 보낸다.
 
