@@ -25,11 +25,9 @@ class ExtraAnswer(models.Model):
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
 
-<<<<<<< HEAD
-=======
     def get_absolute_url(self):
         return reverse('qna:main')   #여기서 main.html은 오늘 질문에 대한 대답 포함한 페이지 의미  , args=[self.user_id] 나중에 추가
->>>>>>> fe062aba711e97ab9684214deeaf660b700fb40e
+
 class Required(models.Model):
     #요청 질문과 그 내용
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
