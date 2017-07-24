@@ -1,0 +1,12 @@
+<h1>{{ user }}'s profile</h1>
+
+<ul>
+    <li>image : <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" /></li>
+    <li>email : {{ user.email }}</li>
+    <li>name : {{ user.socialaccount_set.first.extra_data.properties.nickname }}</li>
+    <li>is_staff : {{ user.is_staff }}</li>
+    <li>is_superuser : {{ user.is_superuser }}</li>
+    <li>{{ user.date_joined }}</li>
+
+
+</ul>

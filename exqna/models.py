@@ -3,7 +3,6 @@ from django.db import models
 from django.conf import settings
 from django.urls.base import reverse
 
-
 class ExtraQuestion(models.Model):
     # 추가 질문
     title = models.CharField(max_length=32, null=False, verbose_name='제목') # 제목
@@ -28,12 +27,11 @@ class ExtraAnswer(models.Model):
 
     def get_absolute_url(self):
         return reverse('qna:main')   #여기서 main.html은 오늘 질문에 대한 대답 포함한 페이지 의미  , args=[self.user_id] 나중에 추가
-
-class Required(models.Model):
+class Requied(models.Model):
     #요청 질문과 그 내용
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
     title = models.CharField(max_length=32, null=False, verbose_name='요청 질문') # 요청 질문
-    content = models.TextField(max_length=256, verbose_name='그에 대한 나의 답변') # 그에 대한 자신의 답변 내용
+    content = models.TextField(max_length=256) # 그에 대한 자신의 답변 내용
     created_at = models.DateTimeField(auto_now_add=True) # 생성 날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정 날짜
 
