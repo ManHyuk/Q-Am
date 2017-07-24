@@ -12,8 +12,8 @@ def question(request):
     ques=queryset.get(id=now)
 #그날에 맞는 질문을 골라 온다.
     return render(request, 'qna/question.html', {
-        'question' : ques,
-        'question_at' : ques.questioned_at,
+        'question': ques,
+        'question_at': ques.questioned_at,
         })
 #question.html에 그날의 질문과 질문의 날짜를 변수로 보낸다.
 
@@ -27,7 +27,7 @@ def answer_submit(request, id):
         queryset = Answer.objects.create(question=q_idx ,content= answer)
 #전체 질문 중에 question.id로 받은 id와 같은 question을 불러와서 그 question과 content를 create함수로 저장한다.
 
-        return render(request, 'qna/answer_submit.html',{
+        return render(request, 'qna/answer_submit.html', {
             'answer': answer,
             'question':q_idx,
             })
