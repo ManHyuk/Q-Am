@@ -9,6 +9,7 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
+
 class Answer(models.Model):
     # 답변
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
@@ -17,11 +18,9 @@ class Answer(models.Model):
     is_public = models.BooleanField(default=False) # 공개/비공개
     created_at = models.DateTimeField(auto_now_add=True) # 생성 날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정 날짜
-    #이미지는 나중에
-
+    photo = models.FileField(upload_to='photo/')
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
 
     def get_absolute_url(self):
         return reverse('qna:submit',args=[self.id])
-
