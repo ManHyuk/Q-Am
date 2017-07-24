@@ -7,6 +7,10 @@ from .forms import AnswerForm
 from django.utils import timezone
 
 
+def main(request):
+    # answers = Answer.objects.filter()
+    return render(request, 'qna/main.html')
+
 def question(request,user_id):
     #days=time.strftime('%j', time.localtime(time.time()))
     days='1'
@@ -32,9 +36,6 @@ def question(request,user_id):
             'form':form,
             'question' : ques,
         })
-
-def main(request):
-    return render(request, 'qna/main.html')
 
 def question_edit(request, answer_id):
     answer=get_object_or_404(Answer,id=answer_id)
