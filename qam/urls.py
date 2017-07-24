@@ -25,9 +25,9 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^qna/', include('qna.urls', namespace='qna')),
-    url(r'^accounts/', include('accounts.urls')),
-    url(r'^accounts/', include('allauth.urls')),
     url(r'^exqna/', include('exqna.urls', namespace='exqna')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^diary/', include('diary.urls', namespace='diary')),
 
 

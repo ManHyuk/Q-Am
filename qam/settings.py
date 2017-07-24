@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'exqna',
     'accounts',
     'diary',
-
 ]
 
 MIDDLEWARE = [
