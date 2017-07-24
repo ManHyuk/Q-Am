@@ -56,3 +56,6 @@ def question_edit(request, answer_id):
             'answer':answer,
         })
 
+# def answer_list(request, user_id):
+
+
