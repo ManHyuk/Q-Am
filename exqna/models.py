@@ -1,6 +1,7 @@
 # exqna/models.py
 from django.db import models
 from django.conf import settings
+from django.urls.base import reverse
 
 class ExtraQuestion(models.Model):
     # 추가 질문
@@ -24,6 +25,8 @@ class ExtraAnswer(models.Model):
     def __str__(self):
         return '{}에 대한 {}의 답변{}'.format(self.question, self.user, self.content)
 
+    def get_absolute_url(self):
+        return reverse('qna:main')   #여기서 main.html은 오늘 질문에 대한 대답 포함한 페이지 의미  , args=[self.user_id] 나중에 추가
 class Required(models.Model):
     #요청 질문과 그 내용
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
@@ -34,3 +37,6 @@ class Required(models.Model):
 
     def __str__(self):
         return '{}의 요청 질문: {}'.format(self.user, self.title)
+
+    def get_absolute_url(self):
+        return reverse('exqna:required')

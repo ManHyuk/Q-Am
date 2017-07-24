@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+        질문 검색
+        <form action="" method='get'>
+            <input type="textarea" name="search" value="{{search}}">
+            <input type="submit" value="검색">
+        </form>
+    </div>
+    <div>
+    <br><br>
+<ul>
+{%if search_ques%}
+{% for question in search_ques %}
+    <li>
+        {{question.id}}
+        <a href="{% url "qna:question_detail" question.id%}">
+        {{question.question}}
+        </a>
+        <small> by {{question.user}} </small>
+        <small> at {{question.updated_at}}</small>
+    </li>
+{% endfor %}
+</ul>
+
+{%else%}
+<p>검색해봐여</p>
+{%endif%}
+
+{%if search_ques2%}
+{% for exquestion in search_ques2 %}
+    <li>
+        {{exquestion.id}}
+        <a href="{% url "exqna:exquestion_detail" exquestion.id%}">
+        {{exquestion.question}}
+        </a>
+        <small> by {{exquestion.user}} </small>
+        <small> at {{exquestion.updated_at}}</small>
+    </li>
+{% endfor %}
+</ul>
+
+{%else%}
+<p>검색해봐여</p>
+{%endif%}
+
+</div>
+</body>
+</html>

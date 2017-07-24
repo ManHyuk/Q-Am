@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h3>질문 : {{answer.question}}</h3>
+
+    <hr>
+
+    <h3>대답 : {{answer.content}}</h3>
+
+<hr>
+<a href="{% url "qna:main" %}">메인으로 </a><br>
+<a href="{% url "qna:question_edit" answer.id%}">수정</a>
+</body>
+
