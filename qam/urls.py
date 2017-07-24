@@ -25,15 +25,10 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^qna/', include('qna.urls', namespace='qna')),
-<<<<<<< HEAD
-    url(r'^accounts/', include('accounts.urls', namespace='accounts')), # FIXME accounts namespace 제거
-    url(r'^exqna/', include('exqna.urls', namespace='exqna')),
-=======
     url(r'^exqna/', include('exqna.urls', namespace='exqna')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^diary/', include('diary.urls', namespace='diary')),
 
 
->>>>>>> fe062aba711e97ab9684214deeaf660b700fb40e
 ]
