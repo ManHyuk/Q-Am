@@ -10,8 +10,7 @@ from exqna.models import ExtraQuestion, ExtraAnswer
 
 
 def question(request,user_id):
-    #days=time.strftime('%j', time.localtime(time.time()))
-    days='3'
+    days='1'
     #days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
     now=int(days)
     ques=Question.objects.get(id=now)
