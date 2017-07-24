@@ -1,0 +1,23 @@
+
+
+
+<div>
+    <table>
+
+        <p>{{ diary.user }}</p>
+
+        <p>{{ diary.title }}</p>
+
+        <p>{{ diary.content }}</p>
+
+    </table>
+
+</div>
+
+
+<div>
+    <p><a href="{% url "diary:diary_list" %}"> go list </a></p>
+    <p></p><a href="{% url "diary:diary_edit" diary.pk %}"> go edit </a></p>
+    <p><a href="{%  url "diary:diary_delete" diary.pk %}">go delete </a></p>
+
+</div>

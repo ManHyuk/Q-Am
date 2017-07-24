@@ -1,0 +1,14 @@
+
+
+
+
+
+{% for di in diary %}
+    <a href="{{ di.id }}/detail"><p>{{ di.id }} {{ di.user }} {{ di.title }} </p></a>
+{% endfor %}
+
+
+<a href="{% url "diary:diary_new" %}"> 새로 쓰기 </a>
+
+
+
