@@ -17,6 +17,7 @@ def diary_list(request):
     }
     return render(request, 'diary/diary_list.html', ctx)
 
+
 @login_required
 def diary_detail(request, pk):
     diary = get_object_or_404(Diary, pk=pk)
@@ -53,6 +54,7 @@ def diary_new(request):
     }
     return render(request, 'diary/diary_new.html', ctx)
 
+
 @login_required
 def diary_edit(request, pk):
     diary = get_object_or_404(Diary, id=pk)
@@ -79,6 +81,7 @@ def diary_edit(request, pk):
             'form': form
         }
         return render(request, 'diary/diary_edit.html', ctx)
+
 
 @login_required
 def diary_delete(request, pk):
