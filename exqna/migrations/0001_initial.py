@@ -32,6 +32,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=32, verbose_name='제목')),
                 ('questioned_at', models.DateTimeField(verbose_name='질문일')),
+                ('is_new', models.BooleanField(default=True)),
             ],
         ),
         migrations.CreateModel(

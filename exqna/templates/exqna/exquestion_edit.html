@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>추가질문 수정</title>
+</head>
+<body>
+
+<ul>
+    <li>
+        {{extraAnswer.question}}
+    </li>
+</ul>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<table>{{form.as_table}}</table>
+<input type="submit" value="수정">
+<!--답변을 입력받는다.
+form태그로 다음 이동할 페이지 주소를 넘긴다.
+사용자의 답변은 POST방식으로 answer라는 값으로 넘긴다.-->
+</form>
+</body>
+</html>
+
+<!--파일 업로드 하는 창을 구현해놓음-->
