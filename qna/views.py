@@ -9,6 +9,7 @@ from django.db.models import Q
 from exqna.models import ExtraQuestion, ExtraAnswer
 
 
+
 def question(request, user_id):
     days = '1'
     # days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
@@ -63,6 +64,7 @@ def question_detail(request, answer_id):
     })
 
 
+
 def question_edit(request, answer_id):
     days = '1'
     # days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
@@ -71,6 +73,7 @@ def question_edit(request, answer_id):
     # 그날에 맞는 질문을 골라 온다.
     answer = get_object_or_404(Answer, id=answer_id)
     if answer.created_at.hour + 1 > timezone.now().hour:  # 1시간 지났을 경우 수정 불가
+
         return redirect('qna:main')
     if request.method == 'POST':
         form = AnswerForm(request.POST, request.FILES, instance=answer)
@@ -82,7 +85,8 @@ def question_edit(request, answer_id):
             return redirect('qna:main')
     else:
         form = AnswerForm(instance=answer)
-    return render(request, 'qna/question_detail.html', {
-        'form': form,
-        'question': ques,
-    })
+
+    return render(request, 'qna/question.html', {
+        'form':form,
+        'question' : ques,
+        })
