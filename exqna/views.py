@@ -19,7 +19,7 @@ def exquestion(request, user_id):
         form = ExtraAnswerForm(request.POST)
         if form.is_valid():
             extraAnswer = form.save(commit=False)
-            extraAnswer.user_id = user_id
+            extraAnswer.user = request.user
             extraAnswer.question_id = exquestion.id
             extraAnswer.save()
             return redirect('qna:main')
@@ -63,7 +63,7 @@ def exquestion_edit(request, ex_answer_id):
         form=ExtraAnswerForm(request.POST, instance=extraAnswer)
         if form.is_valid():
             new_extraAnswer = form.save(commit=False)
-            new_extraAnswer.user_id = extraAnswer.user_id
+            new_extraAnswer.user = request.user
             new_extraAnswer.question = extraAnswer.question
             new_extraAnswer.save()
             return redirect('qna:main')

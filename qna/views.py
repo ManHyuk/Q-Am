@@ -54,9 +54,16 @@ def question_search(request):
 
 def question_detail(request,answer_id):
     answer=get_object_or_404(Answer,id=answer_id)
-    return render(request, 'qna/question_detail.html')
+    return render(request, 'qna/question_detail.html',{
+        'answer':answer,
+        })
 
 def question_edit(request, answer_id):
+    days='1'
+    #days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
+    now=int(days)
+    ques=Question.objects.get(id=now)
+    #그날에 맞는 질문을 골라 온다.
     answer=get_object_or_404(Answer,id=answer_id)
     if answer.created_at.hour + 1 > timezone.now().hour:    #1시간 지났을 경우 수정 불가
         return redirect('qna:main')
@@ -64,12 +71,13 @@ def question_edit(request, answer_id):
         form=AnswerForm(request.POST,request.FILES,instance=answer)
         if form.is_valid():
             new_answer = form.save(commit=False)
-            new_answer.user_id = answer.user_id
-            new_answer.question = answer.question
+            new_answer.user = request.user
+            new_answer.question = ques
             new_answer.save()
             return redirect('qna:main')
     else :
         form = AnswerForm(instance=answer)
     return render(request, 'qna/question_edit.html', {
             'form':form,
+            'question' : ques,
             })

@@ -14,8 +14,8 @@
     <div>
     <br><br>
 <ul>
-{%if search_ques%}
-{% for question in search_ques %}
+{%if search_ques1%}
+{% for question in search_ques1 %}
     <li>
         {{question.id}}
         <a href="{% url "qna:question_detail" question.id%}">
