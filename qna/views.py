@@ -44,10 +44,8 @@ def main(request):
 def question_search(request):
     if request.GET.get('search'):
         search = request.GET.get('search')
-        search_ques1 = Answer.objects.all()
-        search_ques1 = search_ques1.filter(Q(question__question__icontains=search) | Q(content__icontains=search))
-        search_ques2 = ExtraAnswer.objects.all()
-        search_ques2 = search_ques2.filter(Q(question__title__icontains=search) | Q(content__icontains=search))
+        search_ques1 = Answer.objects.filter(Q(question__question__icontains=search) | Q(content__icontains=search), user=request.user)
+        search_ques2 = ExtraAnswer.objects.filter(Q(question__title__icontains=search) | Q(content__icontains=search),user=request.user)
         return render(request, 'qna/question_search.html', {
             'search': search,
             'search_ques1': search_ques1,
