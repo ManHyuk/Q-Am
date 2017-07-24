@@ -10,7 +10,7 @@ from exqna.models import ExtraQuestion, ExtraAnswer
 
 
 def question(request,user_id):
-    days='1'
+    days='205'
     #days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
     now=int(days)
     ques=Question.objects.get(id=now)
@@ -58,8 +58,8 @@ def question_detail(request,answer_id):
         'answer':answer,
         })
 
-def question_edit(request, answer_id):
-    days='1'
+def question_edit(request,answer_id):
+    days='205'
     #days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
     now=int(days)
     ques=Question.objects.get(id=now)
@@ -77,7 +77,7 @@ def question_edit(request, answer_id):
             return redirect('qna:main')
     else :
         form = AnswerForm(instance=answer)
-    return render(request, 'qna/question_edit.html', {
-            'form':form,
-            'question' : ques,
-            })
+    return render(request, 'qna/question.html', {
+        'form':form,
+        'question' : ques,
+        })
