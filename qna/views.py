@@ -56,4 +56,3 @@ def question_edit(request, answer_id):
             'answer':answer,
         })
 
-#form강의 듣고 view 함수 구현해보기!

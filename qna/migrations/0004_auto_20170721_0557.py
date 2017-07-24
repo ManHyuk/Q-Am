@@ -14,11 +14,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='question',
-            old_name='title',
-            new_name='question',
-        ),
         migrations.AddField(
             model_name='answer',
             name='photo',
