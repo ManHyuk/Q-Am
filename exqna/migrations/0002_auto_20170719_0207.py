@@ -12,10 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameModel(
-            old_name='Requied',
-            new_name='Required',
-        ),
         migrations.AddField(
             model_name='extraquestion',
             name='is_new',

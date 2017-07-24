@@ -14,7 +14,7 @@ def question(request,user_id):
     days='3'
     #days에 걸리는 함수를 통해 오늘이 365일 중에 몇 번째 날인지 파악
     now=int(days)
-    ques=queryset.get(id=now)
+    ques=Question.objects.get(id=now)
     #그날에 맞는 질문을 골라 온다.
     already_answer = Answer.objects.filter(question_id=now, created_at__year=timezone.now().year)   #오늘 이미 답변했으면 넘어가기
     if already_answer:
@@ -24,8 +24,8 @@ def question(request,user_id):
         form=AnswerForm(request.POST,request.FILES)
         if form.is_valid():
             answer = form.save(commit=False)
-            answer.user_id = answer.user_id
-            answer.question = answer.question
+            answer.user = request.user
+            answer.question = ques
             answer=form.save()
             return redirect('qna:main')
     else :
@@ -53,11 +53,9 @@ def question_search(request):
     else :
         return render(request, 'qna/question_search.html')
 
-
 def question_detail(request,answer_id):
     answer=get_object_or_404(Answer,id=answer_id)
     return render(request, 'qna/question_detail.html')
-
 
 def question_edit(request, answer_id):
     answer=get_object_or_404(Answer,id=answer_id)
@@ -75,5 +73,4 @@ def question_edit(request, answer_id):
         form = AnswerForm(instance=answer)
     return render(request, 'qna/question_edit.html', {
             'form':form,
-            'answer':answer,
-        })
+            })

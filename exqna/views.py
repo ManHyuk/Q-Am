@@ -22,7 +22,7 @@ def exquestion(request, user_id):
             extraAnswer.user_id = user_id
             extraAnswer.question_id = exquestion.id
             extraAnswer.save()
-            return redirect(extraAnswer)
+            return redirect('qna:main')
     else:
         form = ExtraAnswerForm()
 

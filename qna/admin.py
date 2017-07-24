@@ -8,4 +8,3 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display=['user','question','content','is_public','created_at','updated_at']
-
