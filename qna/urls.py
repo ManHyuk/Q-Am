@@ -2,6 +2,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from qna import views
 
+
+
 urlpatterns = [
     url(r'^(?P<user_id>\d+)/$',views.question,name='question'),
     url(r'^main/$',views.main,name='main'),
