@@ -2,7 +2,7 @@
 from django import forms
 from .models import ExtraAnswer, Required
 
-class ExtraAnswerForm(forms.Form):
+class ExtraAnswerForm(forms.ModelForm):
     class Meta:
         model = ExtraAnswer
         fields = ['content', 'is_public']
