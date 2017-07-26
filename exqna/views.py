@@ -5,6 +5,7 @@ from .forms import ExtraAnswerForm, RequiredModelForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import datetime
 
 
 @login_required
@@ -68,7 +69,7 @@ def exquestion_detail(request, ex_answer_id):
 def exquestion_edit(request, ex_answer_id):
     #추가 질문 수정하는 뷰
     extraAnswer=get_object_or_404(ExtraAnswer, id=ex_answer_id)
-    if extaAnswer.created_at.hour + 1 > timezone.now().hour:    #1시간 지났을 경우 수정 불가
+    if extraAnswer.created_at + datetime.timedelta(hours=1) < timezone.now():    #1시간 지났을 경우 수정 불가
         return redirect('qna:main')
     if request.method=='POST':
         form=ExtraAnswerForm(request.POST, instance=extraAnswer)
@@ -80,7 +81,7 @@ def exquestion_edit(request, ex_answer_id):
             return redirect('qna:main')
     else :
         form = ExtraAnswerForm(instance=extraAnswer)
-    return render(request, 'qna/exquestion_edit.html', {
+    return render(request, 'exqna/exquestion.html', {
             'form':form,
             'answer':extraAnswer,
         })

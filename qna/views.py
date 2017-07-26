@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.db.models import Q
 from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
-
+import datetime
 
 @login_required
 def question(request):
@@ -111,7 +111,7 @@ def question_edit(request, answer_id):
     today_id = Question.get_today_id()
     question = Question.objects.get(id=today_id)  #오늘의 질문 불러오기
     answer = get_object_or_404(Answer, id=answer_id)
-    if answer.created_at.hour + 1 > timezone.now().hour:  # 1시간 지났을 경우 수정 불가
+    if answer.created_at + datetime.timedelta(hours=1) < timezone.now():  # 1시간 지났을 경우 수정 불가
         return redirect('qna:main')
 
     if request.method == 'POST':
