@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>exqna:other_people</title>
+</head>
+<body>
+    {% if exquestion%}
+        <h2><strong>Additional Question</strong> {{ exquestion }}</h2>
+        {% for answer in answer_set %}
+             <p>
+                    {{ answer.content }} <br>
+                    {{ answer.user }}
+            </p>
+        {% empty %}
+            아직 등록된 대답이 없습니다.
+        {% endfor %}
+
+    {% else %}
+        오늘은 추가질문이 없습니다ㅠ
+    {% endif %}
+
+</body>
+</html>

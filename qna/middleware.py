@@ -2,7 +2,8 @@ from django.conf import settings
 from django.db import connection
 from django.template import Template, Context
 from datetime import date
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
+from .models import Question
 
 class QuestionMiddleware(object):
     def __init__(self, get_response):
@@ -25,15 +26,23 @@ class QuestionMiddleware(object):
     def process_view(self, request, view_func, view_args, view_kwargs):
         print(request.path)
         allow_url = [
-            '/qna',
-            '/accounts/profile/',
+            '/',
+            '/qna/',
+            '/accounts/login/',
+            '/accounts/signup/',
         ]
 
-        # if not request.user.is_anonymous():
-        #     if request.user.answer_set.all().exists():
-        #         if request.user.answer_set.all().first().created_at.day != date.today().day:
-        #             if request.path not in  allow_url:
-        #                 return redirect('qna:question')
+        if request.path in allow_url:
+            return None
+
+        today_id = Question.get_today_id()
+        today_question = get_object_or_404(Question, id=today_id)
+
+        if not request.user.is_anonymous():
+            if request.user.answer_set.all().last().question == today_question:
+                return None
+
+        return redirect('qna:question')
 
     def process_template_response(self, request, response):
         return response

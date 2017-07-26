@@ -1,3 +1,4 @@
+# diary/views.py
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 
 from .models import Diary
@@ -10,7 +11,7 @@ from django.utils import timezone
 def diary_list(request):
 
     user_idx = request.user.id
-    diary = Diary.objects.filter(user_id=user_idx)
+    diary = Diary.objects.filter(user_id=user_idx, created_at__day=timezone.now().day)  #오늘것만에 대해서 다이어리 보여주기
 
     ctx = {
         'diary': diary,

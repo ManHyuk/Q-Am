@@ -13,39 +13,34 @@
     </div>
     <div>
     <br><br>
-<ul>
 {%if search_ques1%}
-{% for question in search_ques1 %}
-    <li>
-        {{question.id}}
-        <a href="{% url "qna:question_detail" question.id%}">
-        {{question.question}}
-        </a>
-        <small> by {{question.user}} </small>
-        <small> at {{question.updated_at}}</small>
-    </li>
-{% endfor %}
-</ul>
-
+    <ul>
+    {% for question in search_ques1 %}
+        <li>
+            <a href="{% url "qna:question_detail" question.id%}">
+            {{question.question}}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
 {%else%}
-<p>검색해봐여</p>
+    <p>검색해봐여</p>
 {%endif%}
 
 {%if search_ques2%}
-{% for exquestion in search_ques2 %}
-    <li>
-        {{exquestion.id}}
-        <a href="{% url "exqna:exquestion_detail" exquestion.id%}">
-        {{exquestion.question}}
-        </a>
-        <small> by {{exquestion.user}} </small>
-        <small> at {{exquestion.updated_at}}</small>
-    </li>
-{% endfor %}
-</ul>
-
+    <ul>
+    {% for exquestion in search_ques2 %}
+        <li>
+            추가질문
+            <a href="{% url "exqna:exquestion_detail" exquestion.id %}">
+            {{exquestion.question}}
+            </a>
+            <small> at {{exquestion.updated_at}}</small>
+        </li>
+    {% endfor %}
+    </ul>
 {%else%}
-<p>검색해봐여</p>
+    <p>검색해봐여</p>
 {%endif%}
 
 </div>
