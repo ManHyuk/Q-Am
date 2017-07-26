@@ -30,6 +30,8 @@ class QuestionMiddleware(object):
             '/qna/',
             '/accounts/login/',
             '/accounts/signup/',
+            '/accounts/kakao/login/',
+            '/accounts/kakao/login/callback/',
         ]
 
         if request.path in allow_url:
