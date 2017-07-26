@@ -3,7 +3,7 @@ from .models import Question,Answer
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['question']
+    list_display = ['question','month','day']
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):

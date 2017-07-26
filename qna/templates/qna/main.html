@@ -15,10 +15,14 @@
         </p>
     {% endfor %}
         </tbody>
+
+    {% if ex_answer %}
         <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>
         {{ ex_answer.content }} <br>
         <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정"></a>
-
+    {%endif%}
+    <!--추가질문은 답을 안하고 그냥 넘기면 ex_answer.id가 없기 때문에 에러가 났었다-->
+    <!--이 부분을 ex_answer가 있을 때만 추가질문 수정이 적용되게 하여 해결-->
 
     {% if form %}
         <form action="" method="post">
@@ -31,6 +35,13 @@
     {% endif %}
 
     <hr/>
-    <a href="{%url "qna:question_search"%}">검색해보기</a>
+    <a href="{%url "qna:question_search"%}"><input type="button" value="검색해보기"></a>
+    <br>
+    <a href="{%url "diary:diary_list" %}"><input type="button" value="다이어리보기"></a>
+    <br>
+    <a href="{%url "exqna:required" %}"><input type="button" value="질문 추가해보기"></a>
+    <br>
+    <a href="{%url "qna:other_people" %}"><input type="button" value="질문에 대한 다른 사람의 답변"></a>
 </body>
 </html>
+<!--메인 화면에 다이어리,질문 추가, 다른 사람의 답변 열람까지 연결 완료, 메인 화면에 질문 보는거 연결하고 그 안에 추가질문 보는거 연결함-->

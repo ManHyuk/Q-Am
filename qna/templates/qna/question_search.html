@@ -5,9 +5,9 @@
 </head>
 <body>
     <div>
-        질문 검색
+        키워드 검색
         <form action="" method='get'>
-            <input type="textarea" name="search" value="{{search}}">
+            <input type="textarea" name="search_keyword" value="{{search}}">
             <input type="submit" value="검색">
         </form>
     </div>
@@ -17,7 +17,10 @@
     {% for question in search_ques1 %}
         <li>
             <a href="{% url "qna:question_detail" question.id%}">
+            {{question.month}}월
+            {{question.day}}일
             {{question.question}}
+            <!--데이터베이스에 month,day입력해서 불러옴-->
             </a>
         </li>
     </ul>
@@ -40,7 +43,8 @@
 {%else%}
     <p>검색해봐여</p>
 {%endif%}
-
+        <hr>
+        <a href="{% url "qna:main" %}"><input type="button" value="메인으로"> </a><br>
 </div>
 </body>
 </html>
