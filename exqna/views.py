@@ -83,7 +83,7 @@ def exquestion_edit(request, ex_answer_id):
         form = ExtraAnswerForm(instance=extraAnswer)
     return render(request, 'exqna/exquestion.html', {
             'form':form,
-            'answer':extraAnswer,
+            'exquestion':extraAnswer.question,
         })
 
 
