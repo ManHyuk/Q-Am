@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.db.models import Q
 from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
-
+import datetime
 
 @login_required
 def question(request):
@@ -79,8 +79,9 @@ def question_search(request):
         today_id = Question.get_today_id()
         search = request.GET.get('search')
         search_ques1 = Question.objects.exclude(answer=None)    #답 안한 것들 제거
-        # search_ques1 = search_ques1.filter(question__icontains=search, answer__user=request.user)  #질문에 search 들어있는 것만 선택
-        search_ques1 = Answer.objects.filter(Q(question__question__icontains=search) | Q(content__icontains=search), user=request.user)
+        search_ques1 = search_ques1.filter(question__icontains=search, answer__user=request.user)  #질문에 search 들어있는 것만 선택
+        # search_ques1 = Answer.objects.filter(Q(question__question__icontains=search) | Q(content__icontains=search), user=request.user)
+
         search_ques2 = ExtraAnswer.objects.filter(question__title__icontains=search, user=request.user)    #추가질문 답한 것에 대해서도 질문에 search들어있는 것 선택
         for i in range(1, 11):  #앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
             exclude_id = (today_id +i) % 366    #366을 넘는 경우에 대해서 나머지로 처리
@@ -88,6 +89,7 @@ def question_search(request):
                 exclude_id = 366
             exclude_question = Question.objects.get(id=exclude_id)
             search_ques1 = search_ques1.exclude(question=exclude_question)
+        search_ques1 = search_ques1.distinct()  #중복 제거
         return render(request, 'qna/question_search.html', {
             'search': search,
             'search_ques1': search_ques1,
@@ -98,10 +100,10 @@ def question_search(request):
 
 
 @login_required
-def question_detail(request, answer_id):
-    answer = get_object_or_404(Answer, id=answer_id)
+def question_detail(request, question_id):
+    answer_set = Answer.objects.filter(question__id=question_id, user=request.user)
     return render(request, 'qna/question_detail.html', {
-        'answer': answer,
+        'answer_set': answer_set,
     })
 
 
@@ -110,7 +112,7 @@ def question_edit(request, answer_id):
     today_id = Question.get_today_id()
     question = Question.objects.get(id=today_id)  #오늘의 질문 불러오기
     answer = get_object_or_404(Answer, id=answer_id)
-    if answer.created_at.hour + 1 > timezone.now().hour:  # 1시간 지났을 경우 수정 불가
+    if answer.created_at + datetime.timedelta(hours=1) < timezone.now():  # 1시간 지났을 경우 수정 불가
         return redirect('qna:main')
 
     if request.method == 'POST':

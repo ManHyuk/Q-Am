@@ -4,6 +4,7 @@ from django.template import Template, Context
 from datetime import date
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Question
+import re
 
 class QuestionMiddleware(object):
     def __init__(self, get_response):
@@ -29,10 +30,15 @@ class QuestionMiddleware(object):
             '/',
             '/qna/',
             '/accounts/login/',
+            '/accounts/logout/',
             '/accounts/signup/',
-            '/accounts/kakao/login/',
-            '/accounts/kakao/login/callback/',
+            
         ]
+        if re.match(r'^/admin/', request.path):
+            return None
+
+        if re.match(r'^/accounts/kakao/', request.path):
+            return None
 
         if request.path in allow_url:
             return None
@@ -41,8 +47,9 @@ class QuestionMiddleware(object):
         today_question = get_object_or_404(Question, id=today_id)
 
         if not request.user.is_anonymous():
-            if request.user.answer_set.all().last().question == today_question:
-                return None
+            if request.user.answer_set.all():
+                if request.user.answer_set.all().last().question == today_question:
+                    return None
 
         return redirect('qna:question')
 
