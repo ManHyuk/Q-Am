@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from pytz import timezone as timezone_kor
-import datetime as datetime
+import datetime
 
 
 @login_required
@@ -56,7 +56,7 @@ def required(request):
             required = form.save(commit=False)
             required.user = request.user
             required.save()
-            return redirect(required)
+            return redirect("qna:main")
     else:
         form = RequiredModelForm()
 
