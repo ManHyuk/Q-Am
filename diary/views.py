@@ -41,9 +41,6 @@ def diary_new(request):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
-            print(obj.user)
-            print(request.user)
-
             obj.save()
             return redirect('diary:diary_list')
 

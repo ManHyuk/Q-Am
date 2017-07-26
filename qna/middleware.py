@@ -32,6 +32,7 @@ class QuestionMiddleware(object):
             '/accounts/login/',
             '/accounts/logout/',
             '/accounts/signup/',
+            
         ]
         if re.match(r'^/admin/', request.path):
             return None
