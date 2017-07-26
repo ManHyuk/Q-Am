@@ -9,7 +9,7 @@ class Question(models.Model):
     def __str__(self):
         return self.question
 
-    def get_today_id(self):     #지금 시간에 해당하는 question id  return하는 함수
+    def get_today_id():     #지금 시간에 해당하는 question id  return하는 함수
         now = time.localtime()
         year_now = now.tm_year  #올해 몇년?
         is_leap_year = False    #윤년

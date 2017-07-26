@@ -4,7 +4,30 @@
     <title>main</title>
 </head>
 <body>
-<h1>메인화면입니다</h1>
-<a href="{%url "qna:question_search"%}">검색해보기</a>
+    <h1>메인화면입니다</h1>
+    <h2>Today's Question  {{ question }}</h2>
+
+    {% for answer in answer_list %}
+        <p>
+            Year {{ answer.created_at |date:"Y" }} <br>
+            {{ answer.content }}
+        </p>
+    {% endfor %}
+        </tbody>
+        <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>
+        {{ ex_answer.content }}
+
+    {% if form %}
+        <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" name="">
+        </form>
+    {% endif %}
+
+    <hr/>
+    <a href="{%url "qna:question_search"%}">검색해보기</a>
 </body>
 </html>

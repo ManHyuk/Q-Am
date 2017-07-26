@@ -6,7 +6,8 @@
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit"/>
+        <input type="submit" value="로그인"/>
+        <a href="{% url "accounts:signup" %}"><input type="button" value="회원가입"/></a>
     </form>
     <h3>Social Login</h3>
     <ul>
