@@ -11,11 +11,9 @@
     <p>안녕하세요, 류동일의 첫 번째 웹애플리케이션 프로젝트입니다 :)</p>
     <h2>오늘의 추가 질문: {{ exquestion }}</h2>
 
-    <form action=" " method="POST">
-        {% csrf_token %}
-        <textarea cols="50" rows="2">
-            질문에 대한 답을 써넣어 보세요:)
-        </textarea>
+<form action="" method="post" >
+    {% csrf_token %}
+<table>{{form.as_table}}</table>
         <input type="submit" value="제출">
         <a href="{% url "qna:main"%}"><input type="button" value="넘어가기"></a>
 
