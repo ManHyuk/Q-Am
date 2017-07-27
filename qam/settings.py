@@ -149,5 +149,10 @@ LOGIN_REDIRECT_URL = '/qna/'    #로그인 시 질문받는 페이지로 이동
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'qam', 'static'),
+
+]
+
 
 AUTH_USER_MODEL = 'auth.User'
