@@ -85,6 +85,7 @@ def main(request):
 
 @login_required
 def question_search(request):
+
     if request.GET.get('search_keyword'):  #이거 search 에서 search_keyword로 바꿈/ day검색과의 차별성을 위해
         today_id = Question.get_today_id()
         search_keyword = request.GET.get('search_keyword')
@@ -92,21 +93,56 @@ def question_search(request):
         search_ques1 = search_ques1.filter(question__icontains=search_keyword, answer__user=request.user)  #질문에 search 들어있는 것만 선택
         search_ques2 = ExtraAnswer.objects.filter(question__title__icontains=search_keyword, user=request.user)    #추가질문 답한 것에 대해서도 질문에 search들어있는 것 선택
 
-        for i in range(1, 11):  #앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
-            exclude_id = (today_id +i) % 366    #366을 넘는 경우에 대해서 나머지로 처리
-            if not id:  #today_id+1이 0일 경우 366으로 바꿔줘야 함
+        for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
+            exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리
+        if not id:  # today_id+1이 0일 경우 366으로 바꿔줘야 함
                 exclude_id = 366
-            exclude_question = Question.objects.get(id=exclude_id)
-            search_ques1 = search_ques1.exclude(question=exclude_question)
-        search_ques1 = search_ques1.distinct()  #중복 제거
+
+        exclude_question = Question.objects.get(id=exclude_id)
+        search_ques1 = search_ques1.exclude(question=exclude_question)
+        search_ques1 = search_ques1.distinct()
+    # 중복 제거
         return render(request, 'qna/question_search.html', {
-            'search_keyword': search_keyword,
-            'search_ques1': search_ques1,
-            'search_ques2': search_ques2,
-        })
+        'search_keyword': search_keyword,
+        'search_ques1': search_ques1,
+        'search_ques2': search_ques2,
+    })
     else:
         return render(request, 'qna/question_search.html')
-    #아직 day검색 구현 안함
+
+
+@login_required
+def question_search_day(request):
+    if request.GET.get('search_day'):
+        today_id = Question.get_today_id()
+        search_day=request.GET.get('search_day')
+        #search_day는 2017-07-26 구조로 들어옴
+        daylist = search_day.split('-')
+        if daylist[1] < '10':
+            daylist[1] = list(daylist[1])[1]
+            #여기서 07을 인식 못해서 7로 바꿈
+            #년,월,일로 검색이 가능하게 했다.
+        search_day_ques1=Question.objects.filter(answer__created_at__year=daylist[0],month=daylist[1], day=daylist[2],  answer__user=request.user)
+        search_day_ques2=ExtraAnswer.objects.filter(created_at__year=daylist[0],created_at__month=daylist[1],created_at__day=daylist[2], user=request.user)
+#날짜 검색에서 년 검색 없이 월,일 검색만 하는 건 JS로 해야 한다고 함
+        for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
+            exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리
+        if not id:  # today_id+1이 0일 경우 366으로 바꿔줘야 함
+            exclude_id = 366
+
+        exclude_question = Question.objects.get(id=exclude_id)
+        search_day_ques1 = search_day_ques1.exclude(question=exclude_question)
+        search_day_ques1 = search_day_ques1.distinct()
+    # 중복 제거
+        return render(request, 'qna/question_search_day.html', {
+        'search_day': search_day,
+        'search_ques1': search_day_ques1,
+        'search_ques2':search_day_ques2,
+    })
+
+    else:
+        return render(request, 'qna/question_search_day.html')
+
 
 
 @login_required
