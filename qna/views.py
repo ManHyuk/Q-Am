@@ -8,12 +8,13 @@ from django.utils import timezone
 from django.db.models import Q
 from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
+from qna.utils import get_today_id
 import datetime
 
 
 @login_required
 def question(request):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     #우리가 윤년을 기본으로 하고 윤년이 아닌 년은 2월 29일 질문을 배제시키는 구조이기 때문에 이렇게 했다
     #today_id 기반이라 새벽 4시에 같이 바뀜
 
@@ -43,7 +44,7 @@ def question(request):
 
 @login_required
 def main(request):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     question = Question.objects.get(id=today_id)  #오늘의 질문 불러오기
     qs = Answer.objects.filter(question=question, user=request.user)    #오늘의 질문에 대해 했던 답 싹 다 불러오기
     exquestion = ExtraQuestion.objects.filter(is_new=True).first()  #오늘의 추가질문 불러오기(없을 수도 있음)
@@ -83,7 +84,7 @@ def main(request):
 def question_search(request):
 
     if request.GET.get('search_keyword'):  #이거 search 에서 search_keyword로 바꿈/ day검색과의 차별성을 위해
-        today_id = Question.get_today_id()
+        today_id = get_today_id()
         search_keyword = request.GET.get('search_keyword')
         search_ques1 = Question.objects.exclude(answer=None)    #답 안한 것들 제거
         search_ques1 = search_ques1.filter(question__icontains=search_keyword, answer__user=request.user)  #질문에 search 들어있는 것만 선택
@@ -110,7 +111,7 @@ def question_search(request):
 @login_required
 def question_search_day(request):
     if request.GET.get('search_day'):
-        today_id = Question.get_today_id()
+        today_id = get_today_id()
         search_day=request.GET.get('search_day')
         #search_day는 2017-07-26 구조로 들어옴
         daylist = search_day.split('-')
@@ -143,7 +144,7 @@ def question_search_day(request):
 @login_required
 def question_search_content(request):
     if request.GET.get('search_content'):
-        today_id = Question.get_today_id()
+        today_id = get_today_id()
         search_content=request.GET.get('search_content')
         search_content_ques1=Question.objects.filter(answer__content__icontains=search_content ,answer__user=request.user)
         search_content_ques2=ExtraAnswer.objects.filter(content__icontains=search_content ,user=request.user)
@@ -177,7 +178,7 @@ def question_detail(request, question_id):
 
 @login_required
 def question_edit(request, answer_id):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     question = Question.objects.get(id=today_id)  #오늘의 질문 불러오기
     answer = get_object_or_404(Answer, id=answer_id)
 
@@ -206,7 +207,7 @@ def question_edit(request, answer_id):
 
 @login_required
 def other_people(request):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     question = Question.objects.get(id=today_id)    #오늘의 질문 불러오기
     answer_set = Answer.objects.filter(question=question, is_public=True)   #공유한다고 한 것만 불러오기
     other_answer_set = answer_set.exclude(user=request.user)    #자기 답은 제외
