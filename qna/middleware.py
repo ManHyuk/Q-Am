@@ -7,6 +7,14 @@ from .models import Question
 import re
 
 class QuestionMiddleware(object):
+
+    DISALLOW_URLS = [
+        r'^/accounts/profile/',
+        r'^/qna/[0-9a-zA-Z]+',
+        r'^/exqna/',
+        r'^/diary/',
+    ]
+
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
@@ -26,22 +34,6 @@ class QuestionMiddleware(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         print(request.path)
-        allow_url = [
-            '/',
-            '/qna/',
-            '/accounts/login/',
-            '/accounts/logout/',
-            '/accounts/signup/',
-            
-        ]
-        if re.match(r'^/admin/', request.path):
-            return None
-
-        if re.match(r'^/accounts/kakao/', request.path):
-            return None
-
-        if request.path in allow_url:
-            return None
 
         today_id = Question.get_today_id()
         today_question = get_object_or_404(Question, id=today_id)
@@ -51,7 +43,11 @@ class QuestionMiddleware(object):
                 if request.user.answer_set.all().last().question == today_question:
                     return None
 
-        return redirect('qna:question')
+        for pattern in self.DISALLOW_URLS:
+            if re.match(pattern, request.path):
+                return redirect('qna:question')
+
+        return None
 
     def process_template_response(self, request, response):
         return response
