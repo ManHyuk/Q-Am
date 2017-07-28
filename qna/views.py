@@ -1,15 +1,14 @@
 # qna/views.py
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from .models import Question, Answer
 from .forms import AnswerForm
 from exqna.forms import ExtraAnswerForm
 from django.utils import timezone
-from django.db.models import Q
 from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
 from qna.utils import get_today_id
 import datetime
+
 
 
 @login_required
@@ -186,6 +185,7 @@ def question_edit(request, answer_id):
         return redirect('qna:main')
     # url로 남의 답변에 접근 방지
     if answer.created_at + datetime.timedelta(hours=1) < timezone.now():  # 1시간 지났을 경우 수정 불가
+
         return redirect('qna:main')
 
     if request.method == 'POST':

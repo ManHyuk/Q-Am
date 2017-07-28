@@ -11,7 +11,13 @@
         <p>
             Year {{ answer.created_at |date:"Y" }} <br>
             {{ answer.content }} <br>
-             <a href="{% url "qna:question_edit" answer.id %}"><input type="button" value="수정"></a>
+
+            {%if messages%}
+                {%for message in messages %}
+                    {{message.message}}
+                {%endfor%}
+            {%endif%}
+            <a href="{% url "qna:question_edit" answer.id %}"><input type="button" value="수정"></a>
         </p>
     {% endfor %}
         </tbody>
@@ -19,6 +25,12 @@
     {% if ex_answer %}
         <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>
         {{ ex_answer.content }} <br>
+
+            {%if messages%}
+                {%for message in messages%}
+                    {{message.message}}
+                {%endfor%}
+            {%endif%}
         <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정"></a>
     {%endif%}
     <!--추가질문은 답을 안하고 그냥 넘기면 ex_answer.id가 없기 때문에 에러가 났었다-->
