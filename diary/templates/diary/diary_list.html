@@ -1,0 +1,16 @@
+
+
+
+
+
+{% for di in diary %}
+    <a href="{{ di.id }}/detail"><p>{{ di.id }} {{ di.user }} {{ di.title }} </p></a>
+{% endfor %}
+
+
+<a href="{% url "diary:diary_new" %}"><input type="button" value="새로 쓰기"></a>
+<hr>
+<a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
+
+
+

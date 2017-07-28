@@ -1,0 +1,23 @@
+
+
+
+<div>
+    <table>
+
+        <p>{{ diary.user }}</p>
+
+        <p>{{ diary.title }}</p>
+
+        <p>{{ diary.content }}</p>
+
+    </table>
+
+</div>
+
+
+<div>
+    <p><a href="{% url "diary:diary_list" %}"> <input type="button" value="다이어리 리스트로"></a></p>
+    <p></p><a href="{% url "diary:diary_edit" diary.pk %}"> <input type="button" value="수정하기"></a></p>
+    <p><a href="{%  url "diary:diary_delete" diary.pk %}"><input type="button" value="삭제하기"></a></p>
+
+</div>

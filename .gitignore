@@ -11,7 +11,10 @@ media/
 __pycache__
 *.json
 *.sqlite3
+*.zip
 
 
 
 .idea/
+.ipynb_checkpoints/
+*.ipynb

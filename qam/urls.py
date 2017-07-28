@@ -19,9 +19,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.shortcuts import redirect, render
 
+def root(request):
+    return render(request, 'root.html')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', root, name='root'),
     url(r'^qna/', include('qna.urls', namespace='qna')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')), # FIXME accounts namespace 제거
     url(r'^exqna/', include('exqna.urls', namespace='exqna')),
