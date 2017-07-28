@@ -78,7 +78,7 @@ def main(request):
             'form':form,
         })
 
-
+#제목으로 검색
 @login_required
 def question_search(request):
 
@@ -106,7 +106,7 @@ def question_search(request):
     else:
         return render(request, 'qna/question_search.html')
 
-
+#날짜로 검색
 @login_required
 def question_search_day(request):
     if request.GET.get('search_day'):
@@ -138,6 +138,31 @@ def question_search_day(request):
 
     else:
         return render(request, 'qna/question_search_day.html')
+
+#내용으로 검색
+@login_required
+def question_search_content(request):
+    if request.GET.get('search_content'):
+        today_id = Question.get_today_id()
+        search_content=request.GET.get('search_content')
+        search_content_ques1=Question.objects.filter(answer__content__icontains=search_content ,answer__user=request.user)
+        search_content_ques2=ExtraAnswer.objects.filter(content__icontains=search_content ,user=request.user)
+
+        for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
+            exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리
+        if not id:  # today_id+1이 0일 경우 366으로 바꿔줘야 함
+            exclude_id = 366
+
+        exclude_question = Question.objects.get(id=exclude_id)
+        search_content_ques1 = search_content_ques1.exclude(question=exclude_question)
+        search_content_ques1 = search_content_ques1.distinct()
+        return render(request, 'qna/question_search_content.html',{
+            'search_content':search_content,
+            'search_content_ques1':search_content_ques1,
+            'search_content_ques2':search_content_ques2,
+        })
+    else:
+        return render(request, 'qna/question_search_content.html')
 
 
 

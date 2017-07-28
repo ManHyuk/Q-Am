@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+        다른 날의 다이어리를 검색해 보세요
+        <br>
+        <hr>
+        <br>
+        제목 검색
+        <form action="" method='get'>
+            <input type="textarea" name="search_title" value="{{search_title}}">
+            <input type="submit" value="검색">
+        </form>
+
+    </div>
+    <div>
+
+    <ul>
+    {% for diary in search_diary_title %}
+        <li>
+            <a href="{% url "diary:diary_detail" diary.id%}">
+            {{diary.created_at.month}}월
+            {{diary.created_at.day}}일
+            {{diary.title}}
+            </a>
+        </li>
+    </ul>
+    {% empty %}
+    <p>검색해봐여</p>
+        {% endfor %}
+</div>
+    <hr>
+    <br><br>
+<div>
+    내용 검색
+        <form action="" method='get'>
+            <input type="textarea" name="search_content" value="{{search_content}}">
+            <input type="submit" value="검색">
+        </form>
+</div>
+<div>
+    <ul>
+    {% for diary in search_diary_content %}
+        <li>
+            <a href="{% url "diary:diary_detail" diary.id%}">
+            {{diary.created_at.month}}월
+            {{diary.created_at.day}}일
+            {{diary.title}}
+            </a>
+        </li>
+    </ul>
+    {% empty %}
+    <p>검색해봐여</p>
+        {% endfor %}
+
+</div>
+    <hr>
+    <br><br>
+<div>
+    날짜 검색
+        <form action="" method='get'>
+            <input type="date" name="search_day" value="{{search_day}}">
+            <input type="submit" value="검색">
+        </form>
+</div>
+<div>
+    <ul>
+    {% for diary in search_diary_day %}
+        <li>
+            <a href="{% url "diary:diary_detail" diary.id%}">
+            {{diary.created_at.month}}월
+            {{diary.created_at.day}}일
+            {{diary.title}}
+            </a>
+        </li>
+    </ul>
+    {% empty %}
+    <p>검색해봐여</p>
+        {% endfor %}
+</div>
+    <a href="{%url "diary:diary_list"%}"><input type="button" value="오늘의 다이어리로 돌아가기"></a>
+</body>
+</html>
