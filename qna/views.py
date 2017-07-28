@@ -14,9 +14,6 @@ import datetime
 @login_required
 def question(request):
     today_id = Question.get_today_id()
-    now=datetime.datetime.strptime('2016 {}'.format(today_id), "%Y %j")
-    now_date=now.strftime('%m월 %d일')
-    #그날의 질문 날짜를 윤년이 포함된 2016년 기준으로 월/일 변환시켜서 now_date에 저장
     #우리가 윤년을 기본으로 하고 윤년이 아닌 년은 2월 29일 질문을 배제시키는 구조이기 때문에 이렇게 했다
     #today_id 기반이라 새벽 4시에 같이 바뀜
 
@@ -39,7 +36,6 @@ def question(request):
     return render(request, 'qna/question.html', {
         'form': form,
         'question': question,
-        'now_date':now_date,
     })
 
 
