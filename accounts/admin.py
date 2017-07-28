@@ -1,3 +1,10 @@
 from django.contrib import admin
+from accounts.models import Profile
 
-# Register your models here.
+# class FavoriteInline(admin.StackedInline):
+#     model = Favorite
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    model = Profile
+
