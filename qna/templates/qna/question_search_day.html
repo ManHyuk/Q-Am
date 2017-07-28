@@ -12,7 +12,7 @@
     </div>
     <div>
     <br><br>
-        <hr>
+
     <ul>
     {% for question in search_ques1 %}
         <li>
@@ -24,8 +24,7 @@
             </a>
         </li>
     </ul>
-    {% empty %}
-    <p>검색해봐여</p>
+
         {% endfor %}
 
 {%if search_ques2%}
@@ -40,8 +39,7 @@
         </li>
     {% endfor %}
     </ul>
-{%else%}
-    <p>검색해봐여</p>
+
 {%endif%}
         <hr>
         <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>

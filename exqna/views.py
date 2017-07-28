@@ -2,12 +2,11 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import ExtraQuestion, ExtraAnswer, Required
 from .forms import ExtraAnswerForm, RequiredModelForm
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.utils import timezone
 from pytz import timezone as timezone_kor
 import datetime
+
 
 
 @login_required
@@ -24,10 +23,10 @@ def exquestion(request):
     if request.method == 'POST':
         form = ExtraAnswerForm(request.POST)
         if form.is_valid():
-            extraAnswer = form.save(commit=False)
-            extraAnswer.user = request.user
-            extraAnswer.question = exquestion
-            extraAnswer.save()
+            extraanswer = form.save(commit=false)
+            extraanswer.user = request.user
+            extraanswer.question = exquestion
+            extraanswer.save()
             return redirect('qna:main')
     else:
         form = ExtraAnswerForm()
@@ -45,7 +44,6 @@ def required(request):
     # settings.py에서 한국 시간으로 변경하여 created_at시간도 다 한국시간이 됨
     # 고로 한국시간으로 매일매일 질문을 요청할 수 있게 됨
     if already_required:  # 하루에 질문 하나만 요청할 수 있게 만듦.
-        messages.warning(request, '질문은 하루에 하나만 요청할 수 있습니다.')  # 그때 질문 요청했을 시 메세지 띄우기
         today = datetime.datetime.now().day
         today = int(today)
         future = datetime.datetime.now().replace(day=today + 1, hour=0, minute=0, second=0)

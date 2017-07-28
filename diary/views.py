@@ -1,10 +1,10 @@
 # diary/views.py
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Diary
 from django.contrib.auth.decorators import login_required
 from .forms import DiaryForm
 from django.utils import timezone
-from qna.models import Question
+
 
 @login_required
 def diary_list(request):
