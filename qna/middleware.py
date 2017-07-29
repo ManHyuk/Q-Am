@@ -39,9 +39,9 @@ class QuestionMiddleware(object):
 
         today_id = get_today_id()
 
-        if request.user.answer_set.filter(question_id=today_id).exists():
-            # 오늘 질문에 대한 답이 있을 경우
-            return None
+        # if request.user.answer_set.filter(question_id=today_id).exists():
+        #     # 오늘 질문에 대한 답이 있을 경우
+        #     return None
 
         for pattern in self.DISALLOW_URLS:
             if re.match(pattern, request.path):
