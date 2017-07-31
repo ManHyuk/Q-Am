@@ -2,26 +2,37 @@
 <html>
 <head>
     <meta charset="utf-8" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <title>질문입니다.</title>
 </head>
 <body>
+<div class="container-fluid">
+    <h1>오늘의 질문입니다. 답해보세용.</h1>
+    {{ now_date }}
+    <ul>
+        <li>
+            {{ question.question }}
+        </li>
+    </ul>
 
-<h1>오늘의 질문입니다. 답해보세용.</h1>
-{{now_date}}
-<ul>
-    <li>
-        {{question.question}}
-    </li>
-</ul>
 
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-<table>{{form.as_table}}</table>
-<input type="submit" name='answer'>
-<!--답변을 입력받는다.
-form태그로 다음 이동할 페이지 주소를 넘긴다.
-사용자의 답변은 POST방식으로 answer라는 값으로 넘긴다.-->
-</form>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+        {% csrf_token %}
+        <table >
+            <p>
+                {{ form.as_table }}
+            </p>
+        </table>
+        <input type="submit" class="btn btn-default" name='answer'>
+        <!--답변을 입력받는다.
+        form태그로 다음 이동할 페이지 주소를 넘긴다.
+        사용자의 답변은 POST방식으로 answer라는 값으로 넘긴다.-->
+        </div>
+    </form>
+</div>
 </body>
 </html>
 

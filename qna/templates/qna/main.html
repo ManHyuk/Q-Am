@@ -19,7 +19,7 @@
     {% if ex_answer %}
         <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>
         {{ ex_answer.content }} <br>
-
+    
     {% if ex_answer %}
         <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정"></a>
 
