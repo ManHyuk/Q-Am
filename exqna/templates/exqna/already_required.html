@@ -7,9 +7,9 @@
     <title>질문 요청</title>
 </head>
 <body>
-    <h1>dongil</h1>
-    <p>안녕하세요, 류동일의 첫 번째 웹애플리케이션 프로젝트입니다 :)</p>
+    <h2>새 질문 요청까지 {{ future|timeuntil }} 남았습니다.</h2>
     <h2>질문은 하루에 한 번 요청할 수 있습니다ㅠㅠ</h2>
+
 
     <hr>
 <a href="{% url "qna:main" %}"><input type="button" value="메인으로"</a><br>

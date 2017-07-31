@@ -5,16 +5,18 @@
 </head>
 <body>
     <div>
-        <form action="">
-            <input type="date" name="search_day" value="">
-            <input type="submit" value="검">
+        내용 검색
+        <form action="" method='get'>
+            <input type="textarea" name="search_content" value="{{search_content}}">
+            <input type="submit" value="검색">
         </form>
+
     </div>
     <div>
     <br><br>
 
     <ul>
-    {% for question in search_ques1 %}
+    {% for question in search_content_ques1 %}
         <li>
             <a href="{% url "qna:question_detail" question.id%}">
             {{question.month}}월
@@ -29,7 +31,7 @@
 
 {%if search_ques2%}
     <ul>
-    {% for exquestion in search_ques2 %}
+    {% for exquestion in search_content_ques2 %}
         <li>
             추가질문
             <a href="{% url "exqna:exquestion_detail" exquestion.id %}">

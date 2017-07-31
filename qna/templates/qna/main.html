@@ -11,7 +11,13 @@
         <p>
             Year {{ answer.created_at |date:"Y" }} <br>
             {{ answer.content }} <br>
-             <a href="{% url "qna:question_edit" answer.id %}"><input type="button" value="수정"></a>
+
+            {%if messages%}
+                {%for message in messages %}
+                    {{message.message}}
+                {%endfor%}
+            {%endif%}
+            <a href="{% url "qna:question_edit" answer.id %}"><input type="button" value="수정"></a>
         </p>
     {% endfor %}
         </tbody>
@@ -19,8 +25,12 @@
     {% if ex_answer %}
         <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>
         {{ ex_answer.content }} <br>
-    
-    {% if ex_answer %}
+
+            {%if messages%}
+                {%for message in messages%}
+                    {{message.message}}
+                {%endfor%}
+            {%endif%}
         <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정"></a>
 
     {%endif%}
@@ -38,7 +48,9 @@
     {% endif %}
 
     <hr/>
-    <a href="{%url "qna:question_search"%}"><input type="button" value="키워드로 검색해보기"></a>
+    <a href="{%url "qna:question_search"%}"><input type="button" value="질문으로 검색해보기"></a>
+    <br>
+     <a href="{%url "qna:question_search_content"%}"><input type="button" value="내용으로 검색해보기"></a>
     <br>
     <a href="{%url "qna:question_search_day"%}"><input type="button" value="날짜로 검색해보기"></a>
     <br>

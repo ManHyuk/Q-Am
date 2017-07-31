@@ -1,22 +1,19 @@
 # qna/views.py
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from .models import Question, Answer
 from .forms import AnswerForm
 from exqna.forms import ExtraAnswerForm
 from django.utils import timezone
-from django.db.models import Q
 from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
+from qna.utils import get_today_id
 import datetime
+
 
 
 @login_required
 def question(request):
-    today_id = Question.get_today_id()
-    now=datetime.datetime.strptime('2016 {}'.format(today_id), "%Y %j")
-    now_date=now.strftime('%m월 %d일')
-    #그날의 질문 날짜를 윤년이 포함된 2016년 기준으로 월/일 변환시켜서 now_date에 저장
+    today_id = get_today_id()
     #우리가 윤년을 기본으로 하고 윤년이 아닌 년은 2월 29일 질문을 배제시키는 구조이기 때문에 이렇게 했다
     #today_id 기반이라 새벽 4시에 같이 바뀜
 
@@ -39,7 +36,6 @@ def question(request):
     return render(request, 'qna/question.html', {
         'form': form,
         'question': question,
-        'now_date':now_date,
     })
 
 
@@ -47,7 +43,7 @@ def question(request):
 
 @login_required
 def main(request):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     question = Question.objects.get(id=today_id)  #오늘의 질문 불러오기
     qs = Answer.objects.filter(question=question, user=request.user)    #오늘의 질문에 대해 했던 답 싹 다 불러오기
     exquestion = ExtraQuestion.objects.filter(is_new=True).first()  #오늘의 추가질문 불러오기(없을 수도 있음)
@@ -83,12 +79,12 @@ def main(request):
 
         })
 
-
+#제목으로 검색
 @login_required
 def question_search(request):
 
     if request.GET.get('search_keyword'):  #이거 search 에서 search_keyword로 바꿈/ day검색과의 차별성을 위해
-        today_id = Question.get_today_id()
+        today_id = get_today_id()
         search_keyword = request.GET.get('search_keyword')
         search_ques1 = Question.objects.exclude(answer=None)    #답 안한 것들 제거
         search_ques1 = search_ques1.filter(question__icontains=search_keyword, answer__user=request.user)  #질문에 search 들어있는 것만 선택
@@ -111,11 +107,11 @@ def question_search(request):
     else:
         return render(request, 'qna/question_search.html')
 
-
+#날짜로 검색
 @login_required
 def question_search_day(request):
     if request.GET.get('search_day'):
-        today_id = Question.get_today_id()
+        today_id = get_today_id()
         search_day=request.GET.get('search_day')
         #search_day는 2017-07-26 구조로 들어옴
         daylist = search_day.split('-')
@@ -144,6 +140,31 @@ def question_search_day(request):
     else:
         return render(request, 'qna/question_search_day.html')
 
+#내용으로 검색
+@login_required
+def question_search_content(request):
+    if request.GET.get('search_content'):
+        today_id = get_today_id()
+        search_content=request.GET.get('search_content')
+        search_content_ques1=Question.objects.filter(answer__content__icontains=search_content ,answer__user=request.user)
+        search_content_ques2=ExtraAnswer.objects.filter(content__icontains=search_content ,user=request.user)
+
+        for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
+            exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리
+        if not id:  # today_id+1이 0일 경우 366으로 바꿔줘야 함
+            exclude_id = 366
+
+        exclude_question = Question.objects.get(id=exclude_id)
+        search_content_ques1 = search_content_ques1.exclude(question=exclude_question)
+        search_content_ques1 = search_content_ques1.distinct()
+        return render(request, 'qna/question_search_content.html',{
+            'search_content':search_content,
+            'search_content_ques1':search_content_ques1,
+            'search_content_ques2':search_content_ques2,
+        })
+    else:
+        return render(request, 'qna/question_search_content.html')
+
 
 
 @login_required
@@ -157,7 +178,7 @@ def question_detail(request, question_id):
 
 @login_required
 def question_edit(request, answer_id):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     question = Question.objects.get(id=today_id)  #오늘의 질문 불러오기
     answer = get_object_or_404(Answer, id=answer_id)
 
@@ -165,6 +186,7 @@ def question_edit(request, answer_id):
         return redirect('qna:main')
     # url로 남의 답변에 접근 방지
     if answer.created_at + datetime.timedelta(hours=1) < timezone.now():  # 1시간 지났을 경우 수정 불가
+
         return redirect('qna:main')
 
     if request.method == 'POST':
@@ -186,7 +208,7 @@ def question_edit(request, answer_id):
 
 @login_required
 def other_people(request):
-    today_id = Question.get_today_id()
+    today_id = get_today_id()
     question = Question.objects.get(id=today_id)    #오늘의 질문 불러오기
     answer_set = Answer.objects.filter(question=question, is_public=True)   #공유한다고 한 것만 불러오기
     other_answer_set = answer_set.exclude(user=request.user)    #자기 답은 제외

@@ -1,14 +1,21 @@
 
+##오늘의 다이어리##<br><br>
+{{month}}월 {{day}}일 {{week_day}} 게시물
 
-
-
+<br>
+<hr>
+<br>
 
 {% for di in diary %}
-    <a href="{{ di.id }}/detail"><p>{{ di.id }} {{ di.user }} {{ di.title }} </p></a>
+    <a href="{{ di.id }}/detail">
+        <p>#타이틀:{{ di.title }}
+        <br>내용:{{di.content}} </p></a>
 {% endfor %}
 
 
 <a href="{% url "diary:diary_new" %}"><input type="button" value="새로 쓰기"></a>
+
+<a href="{%url "diary:diary_search" %}"><input type="button" value="다른날 검색해보기"></a>
 <hr>
 <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
 

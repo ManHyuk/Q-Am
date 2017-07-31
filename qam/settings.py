@@ -145,7 +145,7 @@ TIME_ZONE = 'Asia/Seoul'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-LOGIN_REDIRECT_URL = '/qna/'    #로그인 시 질문받는 페이지로 이동
+LOGIN_REDIRECT_URL = 'accounts:signup_info'    #로그인 시 질문받는 페이지로 이동
 
 STATIC_URL = '/static/'
 
