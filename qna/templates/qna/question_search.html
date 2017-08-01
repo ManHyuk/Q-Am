@@ -11,12 +11,14 @@
             <input type="submit" value="검색">
         </form>
 
+
     </div>
     <div>
     <br><br>
 
-    <ul>
+
     {% for question in search_ques1 %}
+        <ul>
         <li>
             <a href="{% url "qna:question_detail" question.id%}">
             {{question.month}}월
@@ -26,12 +28,12 @@
             </a>
         </li>
     </ul>
-
         {% endfor %}
 
-{%if search_ques2%}
-    <ul>
+
+{%if search_search_ques2%}
     {% for exquestion in search_ques2 %}
+        <ul>
         <li>
             추가질문
             <a href="{% url "exqna:exquestion_detail" exquestion.id %}">
@@ -39,10 +41,9 @@
             </a>
             <small> at {{exquestion.updated_at}}</small>
         </li>
+      </ul>
     {% endfor %}
-    </ul>
-
-{%endif%}
+        {%endif%}
         <hr>
         <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
 </div>

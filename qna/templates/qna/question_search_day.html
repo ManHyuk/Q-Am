@@ -2,19 +2,50 @@
 <html>
 <head>
     <title></title>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+<script type="text/javascript">
+$(function() {
+    $('.date-picker').datepicker( {
+        changeYear: false,
+        changeMonth: true,
+        changeDay : true,
+        showButtonPanel: true,
+        dateFormat: 'MM dd',
+        onClose: function(dateText, inst) {
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+            var day = $("#ui-datepicker-div .ui-datepicker-day :selected").val();
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth,inst.selectedDay,));
+        }
+    });
+});
+</script>
+<style>
+.ui-datepicker-year{
+    display:none;
+}
+</style>
 </head>
+
+
 <body>
     <div>
-        <form action="">
-            <input type="date" name="search_day" value="">
-            <input type="submit" value="검">
+        <form action="" method='get'>
+    <input type='text 'name="search_day" id="startDate" class="date-picker" />
+            <input type="submit" value="검색">
         </form>
     </div>
     <div>
     <br><br>
 
-    <ul>
+        {%if search_ques1%}
     {% for question in search_ques1 %}
+        <ul>
         <li>
             <a href="{% url "qna:question_detail" question.id%}">
             {{question.month}}월
@@ -23,13 +54,14 @@
             <!--데이터베이스에 month,day입력해서 불러옴-->
             </a>
         </li>
-    </ul>
-
+        </ul>
         {% endfor %}
+        {%endif%}
 
-{%if search_ques2%}
-    <ul>
+
+    {%if search_ques2%}
     {% for exquestion in search_ques2 %}
+        <ul>
         <li>
             추가질문
             <a href="{% url "exqna:exquestion_detail" exquestion.id %}">
@@ -37,10 +69,10 @@
             </a>
             <small> at {{exquestion.updated_at}}</small>
         </li>
+        </ul>
     {% endfor %}
-    </ul>
+    {%endif%}
 
-{%endif%}
         <hr>
         <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
 </div>

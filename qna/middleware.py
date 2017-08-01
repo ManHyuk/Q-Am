@@ -3,7 +3,6 @@ from django.db import connection
 from django.template import Template, Context
 from datetime import date
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Question
 from qna.utils import get_today_id
 import re
 
@@ -42,6 +41,10 @@ class QuestionMiddleware(object):
         # if request.user.answer_set.filter(question_id=today_id).exists():
         #     # 오늘 질문에 대한 답이 있을 경우
         #     return None
+        if not request.user.is_anonymous():
+            if request.user.answer_set.filter(question_id=today_id).exists():
+                # 오늘 질문에 대한 답변이 있을 경우
+                    return None
 
         for pattern in self.DISALLOW_URLS:
             if re.match(pattern, request.path):

@@ -16,6 +16,7 @@
     <br><br>
 
     <ul>
+
     {% for question in search_content_ques1 %}
         <li>
             <a href="{% url "qna:question_detail" question.id%}">
@@ -29,7 +30,8 @@
 
         {% endfor %}
 
-{%if search_ques2%}
+
+{%if search_content_ques2%}
     <ul>
     {% for exquestion in search_content_ques2 %}
         <li>
@@ -42,7 +44,7 @@
     {% endfor %}
     </ul>
 
-{%endif%}
+        {%endif%}
         <hr>
         <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
 </div>

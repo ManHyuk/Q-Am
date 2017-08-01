@@ -12,11 +12,6 @@
             Year {{ answer.created_at |date:"Y" }} <br>
             {{ answer.content }} <br>
 
-            {%if messages%}
-                {%for message in messages %}
-                    {{message.message}}
-                {%endfor%}
-            {%endif%}
             <a href="{% url "qna:question_edit" answer.id %}"><input type="button" value="수정"></a>
         </p>
     {% endfor %}
@@ -26,11 +21,7 @@
         <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>
         {{ ex_answer.content }} <br>
 
-            {%if messages%}
-                {%for message in messages%}
-                    {{message.message}}
-                {%endfor%}
-            {%endif%}
+
         <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정"></a>
     {%endif%}
     <!--추가질문은 답을 안하고 그냥 넘기면 ex_answer.id가 없기 때문에 에러가 났었다-->
@@ -58,6 +49,12 @@
     <a href="{%url "exqna:required" %}"><input type="button" value="질문 추가해보기"></a>
     <br>
     <a href="{%url "qna:other_people" %}"><input type="button" value="질문에 대한 다른 사람의 답변"></a>
+    <hr>
+    <br>
+    <a href="{% url "accounts:logout"%}?next={{request.path}}"><input type="button" value="로그아웃"></a>
+    <br>
+    <br>
+    <a href="{%url "accounts:profile" %}"><input type="button" value="내 프로필 보기"></a>
 </body>
 </html>
 <!--메인 화면에 다이어리,질문 추가, 다른 사람의 답변 열람까지 연결 완료, 메인 화면에 질문 보는거 연결하고 그 안에 추가질문 보는거 연결함-->

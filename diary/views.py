@@ -45,7 +45,7 @@ def diary_search(request):
         })
     if request.GET.get('search_day'):
         search_day=request.GET.get('search_day')
-        daylist=search_day.split('-')
+        daylist=search_day.split(' ')
         if daylist[1]<'10':
             daylist[1]=list(daylist[1])[1]
         search_diary_day=Diary.objects.filter(created_at__year=daylist[0],created_at__month=daylist[1],created_at__day=daylist[2],user=request.user)

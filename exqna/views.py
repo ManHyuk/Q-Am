@@ -23,7 +23,7 @@ def exquestion(request):
     if request.method == 'POST':
         form = ExtraAnswerForm(request.POST)
         if form.is_valid():
-            extraanswer = form.save(commit=false)
+            extraanswer = form.save(commit=False)
             extraanswer.user = request.user
             extraanswer.question = exquestion
             extraanswer.save()
@@ -46,7 +46,7 @@ def required(request):
     if already_required:  # 하루에 질문 하나만 요청할 수 있게 만듦.
         today = datetime.datetime.now().day
         today = int(today)
-        future = datetime.datetime.now().replace(day=today + 1, hour=0, minute=0, second=0)
+        future = datetime.datetime.now().replace(hour=0, minute=0, second=0)+datetime.timedelta(days=1)
         return render(request, 'exqna/already_required.html',{
             'future':future,
         })

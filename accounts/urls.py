@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.conf import settings
 
+
 urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^signup-info/$', views.signup_info, name='signup_info'),
@@ -12,3 +13,4 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout', kwargs={'next_page': '/accounts/login'}), #로그아웃 시 홈페이지로 이동
     url(r'^profile/$', views.profile, name='profile'),
 ]
+
