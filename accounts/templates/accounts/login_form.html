@@ -1,6 +1,7 @@
 {% load socialaccount %}
 {% load static %}
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <link rel="stylesheet" href="{% static "accounts/css/accounts.css" %}">
 
@@ -34,10 +35,45 @@
         {% endfor %}
     </ul>
 
+    <p>
     <a id="kakao-login-btn"></a>
     <a href="http://developers.kakao.com/logout"></a>
+    </p>
 
+    <a href="#layer2" class="btn-example"> 팝업 </a>
+        <div class="dim-layer">
+            <div class="dimBg"></div>
+            <div id="layer2" class="pop-layer">
+                <div class="pop-container">
+                    <div class="pop-conts">
+                        <!--content //-->
+                        <p class="ctxt mb20">LogIn</p>
+                        <div class="">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <table>
+                                    {{ form.as_table }}
+                                </table>
+                                <input type="submit" value="로그인"/>
+                                <a href="{% url "accounts:signup" %}"><input type="button" value="회원가입"/></a>
+                            </form>
+
+                            <a id="kakao-login-btn"></a>
+                            <a href="http://developers.kakao.com/logout"></a>
+                        </div>
+
+
+
+                        <div class="btn-r">
+                            <a href="#" class="btn-layerClose">Close</a>
+                        </div>
+                        <!--// content-->
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     <script src="{% static "accounts/js/accounts.js" %}"></script>
+    <script src="{% static "accounts/js/layerpopup.js" %}"></script>
 {% endblock %}
