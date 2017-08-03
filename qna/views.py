@@ -141,8 +141,12 @@ def question_search_day(request):
         num=month_string_to_number(daylist[0])
         num=str(num)
 
+        if daylist[1] < '10':
+            daylist[1] = daylist[1][1]
+
         search_day_ques1=Question.objects.filter(month=num, day=daylist[1],  answer__user=request.user)
-        search_day_ques2=ExtraAnswer.objects.filter(created_at__month=num,created_at__day=daylist[1], user=request.user)
+
+        search_day_ques2=ExtraAnswer.objects.filter(created_at__month=num,created_at__day=daylist[1],user=request.user)
 
         for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
             exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리
@@ -168,7 +172,9 @@ def question_search_content(request):
     if request.GET.get('search_content'):
         today_id = get_today_id()
         search_content=request.GET.get('search_content')
+
         search_content_ques1=Question.objects.filter(answer__content__icontains=search_content ,answer__user=request.user)
+
         search_content_ques2=ExtraAnswer.objects.filter(content__icontains=search_content ,user=request.user)
 
         for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기

@@ -4,10 +4,11 @@
     <title></title>
 </head>
 <body>
+
     {% for answer in answer_set %}
     <h3>질문 : {{answer.question}}</h3><br>
 
-    <h3>대답 : {{answer.content}}</h3>
+    <h3>{{answer.created_at.year}}년 대답 : {{answer.content}}</h3>
     <hr>
     {% endfor %}
 
