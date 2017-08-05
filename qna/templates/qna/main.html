@@ -11,11 +11,23 @@
         <p>
             Year {{ answer.created_at |date:"Y" }} <br>
             {{ answer.content }} <br>
-
+<div>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                {{ message.message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+</div>
+    <br><br>
             <a href="{% url "qna:question_edit" answer.id %}"><input type="button" value="수정"></a>
         </p>
     {% endfor %}
-        </tbody>
+
+
 
     {% if ex_answer %}
         <strong>오늘의 추가질문</strong> {{ exquestion }}   <br>

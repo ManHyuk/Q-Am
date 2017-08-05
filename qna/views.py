@@ -8,6 +8,7 @@ from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
 from qna.utils import get_today_id
 import datetime
+from django.contrib import messages
 
 
 
@@ -97,6 +98,11 @@ def question_search(request):
         exclude_question = Question.objects.get(id=exclude_id)
         search_ques1 = search_ques1.exclude(question=exclude_question)
         search_ques1 = search_ques1.distinct()
+
+        if search_ques1.count()==0 and search_ques2.count()==0 :
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('qna:question_search')
+
     # 중복 제거
         return render(request, 'qna/question_search.html', {
         'search_keyword': search_keyword,
@@ -156,6 +162,11 @@ def question_search_day(request):
         exclude_question = Question.objects.get(id=exclude_id)
         search_day_ques1 = search_day_ques1.exclude(question=exclude_question)
         search_day_ques1 = search_day_ques1.distinct()
+
+        if search_day_ques1.count()==0 and search_day_ques2.count()==0 :
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('qna:question_search_day')
+
     # 중복 제거
         return render(request, 'qna/question_search_day.html', {
         'search_day': search_day,
@@ -185,6 +196,11 @@ def question_search_content(request):
         exclude_question = Question.objects.get(id=exclude_id)
         search_content_ques1 = search_content_ques1.exclude(question=exclude_question)
         search_content_ques1 = search_content_ques1.distinct()
+
+        if search_content_ques1.count()==0 and search_content_ques2.count()==0 :
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('qna:question_search_content')
+
         return render(request, 'qna/question_search_content.html',{
             'search_content':search_content,
             'search_content_ques1':search_content_ques1,
@@ -213,7 +229,9 @@ def question_edit(request, answer_id):
     if answer.user_id != request.user.id:
         return redirect('qna:main')
     # url로 남의 답변에 접근 방지
-    if answer.created_at + datetime.timedelta(hours=1) < timezone.now():  # 1시간 지났을 경우 수정 불가
+    if answer.created_at + datetime.timedelta(hours=1) < timezone.now():
+        messages.info(request, '수정 가능 시간이 지났습니다.')
+        # 1시간 지났을 경우 수정 불가
 
         return redirect('qna:main')
 

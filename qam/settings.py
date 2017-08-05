@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     #'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.kakao',
-    'allauth.socialaccount.providers.naver',
+    #'allauth.socialaccount.providers.naver',
 
     'django_extensions', #장고 셀플러스 사용!
 
@@ -150,3 +150,18 @@ LOGIN_REDIRECT_URL = 'accounts:signup_info'    #로그인 시 질문받는 페�
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'auth.User'
+
+
+#이미지 업로드
+MEDIA_URL='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#비번찾기
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jkjun2091@gmail.com'
+EMAIL_HOST_PASSWORD = 'jinkwang12!'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
