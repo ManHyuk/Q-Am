@@ -4,8 +4,14 @@
 
 
     <li>image :
-        <!--<img src="{{ user.profile.img.url }}">-->
-        <!--<img src="{{ user.profile.img }}">-->
+        {% if user.profile.img.url %}
+            <img src="{{ user.profile.img.url }}">
+        {%endif%}
+        {% if user.socialaccount_set.all.first.get_avatar_url %}
+            <img src="{{user.socialaccount_set.all.first.get_avatar_url}}">
+        {%endif%}
+
+
 
 
 
