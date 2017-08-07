@@ -149,6 +149,10 @@ LOGIN_REDIRECT_URL = 'accounts:signup_info'    #로그인 시 질문받는 페�
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+ os.path.join(BASE_DIR, 'qam', 'static'),
+]
+
 AUTH_USER_MODEL = 'auth.User'
 
 

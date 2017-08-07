@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title lang="en">Q:AM</title>
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+     <!-- bootstrap css -->
+      {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+    <!-- my custom css -->
+     {% load static %}
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <style type="text/css">
+      {% block style %}
+      {% endblock %}
+    </style>
+</head>
+<body>
+
+{% block content %}
+{% endblock %}
+
+<!-- bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"   integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+{% load static %}
+<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+{% load static %}
+<script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+
+
+</body>
+</html>
