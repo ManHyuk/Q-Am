@@ -24,7 +24,7 @@ class LoginForm(AuthenticationForm):
         max_length=254,
         widget=forms.TextInput(attrs={
             'autofocus': '',
-            'placeholder': 'id'
+            'placeholder': 'Username'
         }),
         label=''
     )
@@ -32,5 +32,5 @@ class LoginForm(AuthenticationForm):
         label=(""),
         strip=False,
         required=True,
-        widget=forms.PasswordInput(attrs={'placeholder':'password'}))
+        widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 
