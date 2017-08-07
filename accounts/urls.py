@@ -7,10 +7,15 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
-    url(r'^signup-info/$', views.signup_info, name='signup_info'),
+    url(r'^signup_info/$', views.signup_info, name='signup_info'),
     url(r'^login/$', views.login, name='login'),
-    # url(r'^login/$', auth_views.login, name='login', kwargs={'template_name': 'accounts/login_form.html'}),
     url(r'^logout/$', auth_views.logout, name='logout', kwargs={'next_page': '/accounts/login'}), #로그아웃 시 홈페이지로 이동
     url(r'^profile/$', views.profile, name='profile'),
-]
+    url(r'^edit_pw/$',views.edit_pw, name='edit_pw'),
+
+
+    url(r'^reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
+            views.reset_confirm, name='reset_confirm'),
+    url(r'^reset/$', views.reset, name='reset'),
+    ]
 

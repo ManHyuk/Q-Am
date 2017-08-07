@@ -1,6 +1,5 @@
 {% load socialaccount %}
 
-{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         <table>
@@ -8,6 +7,7 @@
         </table>
         <input type="submit" value="로그인"/>
         <a href="{% url "accounts:signup" %}"><input type="button" value="회원가입"/></a>
+        <a href="{%url "accounts:reset"%}"><input type="button" value="비밀번호 찾기"/></a>
     </form>
     <h3>Social Login</h3>
     <ul>
@@ -25,4 +25,3 @@
             </li>
         {% endfor %}
     </ul>
-{% endblock %}

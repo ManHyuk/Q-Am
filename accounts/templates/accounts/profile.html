@@ -1,12 +1,23 @@
-<h1>{{ user }}'s profile</h1>
+<h1>{{ user.profile.nickname }}'s profile</h1>
 
 <ul>
-    <li>image : <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" /></li>
-    <li>email : {{ user.email }}</li>
-    <li>name : {{ user.socialaccount_set.first.extra_data.properties.nickname }}</li>
-    <li>is_staff : {{ user.is_staff }}</li>
-    <li>is_superuser : {{ user.is_superuser }}</li>
-    <li>{{ user.date_joined }}</li>
+
+
+    <li>image :
+        <!--<img src="{{ user.profile.img.url }}">-->
+        <!--<img src="{{ user.profile.img }}">-->
+
+
+
+
+    </li>
+    <li>email : {{ user.profile.email }}</li>
+    <li>이름 : {{user.profile.name}}</li>
+    <li>nickname : {{user.profile.nickname}}</li>
+    <li>가입일 : {{ user.date_joined }}</li>
 </ul>
 
 <a href="{%url "qna:main"%}"><input type="button" value="메인으로"></a>
+{%if not user.socialaccount_set.all.first.get_avatar_url%}
+<a href="{%url "accounts:edit_pw"%}"><input type="button" value="비번 변경"></a>
+{%endif%}

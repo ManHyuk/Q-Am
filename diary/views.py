@@ -4,6 +4,7 @@ from .models import Diary
 from django.contrib.auth.decorators import login_required
 from .forms import DiaryForm
 from django.utils import timezone
+from django.contrib import messages
 
 
 @login_required
@@ -32,23 +33,42 @@ def diary_search(request):
     if request.GET.get('search_title'):
         search_title=request.GET.get('search_title')
         search_diary_title = Diary.objects.filter(title__icontains=search_title,user=request.user)
+
+        if search_diary_title.count()==0:
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('diary:diary_search')
+
         return render(request, 'diary/diary_search.html',{
             'search_diary_title':search_diary_title,
             'search_title':search_title,
         })
+
+
     if request.GET.get('search_content'):
         search_content=request.GET.get('search_content')
         search_diary_content = Diary.objects.filter(title__icontains=search_content,user=request.user)
+
+        if search_diary_content.count()==0:
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('diary:diary_search')
+
         return render(request, 'diary/diary_search.html',{
             'search_diary_content':search_diary_content,
             'search_content':search_content,
         })
+
+
     if request.GET.get('search_day'):
         search_day=request.GET.get('search_day')
-        daylist=search_day.split(' ')
+        daylist=search_day.split('-')
         if daylist[1]<'10':
             daylist[1]=list(daylist[1])[1]
         search_diary_day=Diary.objects.filter(created_at__year=daylist[0],created_at__month=daylist[1],created_at__day=daylist[2],user=request.user)
+
+        if search_diary_day.count()==0:
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('diary:diary_search')
+
         return render(request, 'diary/diary_search.html',{
             'search_diary_day':search_diary_day,
             'search_day':search_day,
@@ -75,6 +95,14 @@ def diary_detail(request, pk):
 
 @login_required
 def diary_new(request):
+
+    diary_num=Diary.objects.filter(user=request.user,created_at__year=timezone.now().year,created_at__month=timezone.now().month,created_at__day=timezone.now().day).count()
+
+    if diary_num >= 5 :
+        messages.info(request, ' 오늘 입력 가능한 다이어리 수를 초과했습니다.')
+        return redirect('diary:diary_list')
+
+
     if request.method == 'POST':
         form = DiaryForm(request.POST, request.FILES)
 

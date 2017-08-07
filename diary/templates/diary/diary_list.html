@@ -2,6 +2,20 @@
 ##오늘의 다이어리##<br><br>
 {{month}}월 {{day}}일 {{week_day}} 게시물
 
+
+<div>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                {{ message.message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+</div>
+
 <br>
 <hr>
 <br>

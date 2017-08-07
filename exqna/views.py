@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from pytz import timezone as timezone_kor
 import datetime
+from django.contrib import messages
 
 
 
@@ -86,8 +87,11 @@ def exquestion_edit(request, ex_answer_id):
     if extraAnswer.user_id != request.user.id:
         return redirect('qna:main')
     #url로 남의 답변에 접근 방지
-    if extraAnswer.created_at + datetime.timedelta(hours=1) < timezone.now():   #1시간 지났을 경우 수정 불가
+    if extraAnswer.created_at + datetime.timedelta(hours=1) < timezone.now():
+        messages.info(request, '수정 가능 시간이 지났습니다.')
+        #1시간 지났을 경우 수정 불가
         return redirect('qna:main')
+
     if request.method=='POST':
         form=ExtraAnswerForm(request.POST, instance=extraAnswer)
         if form.is_valid():

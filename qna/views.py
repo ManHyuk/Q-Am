@@ -8,6 +8,7 @@ from exqna.models import ExtraQuestion, ExtraAnswer
 from django.contrib.auth.decorators import login_required
 from qna.utils import get_today_id
 import datetime
+from django.contrib import messages
 
 
 
@@ -97,6 +98,11 @@ def question_search(request):
         exclude_question = Question.objects.get(id=exclude_id)
         search_ques1 = search_ques1.exclude(question=exclude_question)
         search_ques1 = search_ques1.distinct()
+
+        if search_ques1.count()==0 and search_ques2.count()==0 :
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('qna:question_search')
+
     # 중복 제거
         return render(request, 'qna/question_search.html', {
         'search_keyword': search_keyword,
@@ -141,8 +147,12 @@ def question_search_day(request):
         num=month_string_to_number(daylist[0])
         num=str(num)
 
+        if daylist[1] < '10':
+            daylist[1] = daylist[1][1]
+
         search_day_ques1=Question.objects.filter(month=num, day=daylist[1],  answer__user=request.user)
-        search_day_ques2=ExtraAnswer.objects.filter(created_at__month=num,created_at__day=daylist[1], user=request.user)
+
+        search_day_ques2=ExtraAnswer.objects.filter(created_at__month=num,created_at__day=daylist[1],user=request.user)
 
         for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
             exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리
@@ -152,6 +162,11 @@ def question_search_day(request):
         exclude_question = Question.objects.get(id=exclude_id)
         search_day_ques1 = search_day_ques1.exclude(question=exclude_question)
         search_day_ques1 = search_day_ques1.distinct()
+
+        if search_day_ques1.count()==0 and search_day_ques2.count()==0 :
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('qna:question_search_day')
+
     # 중복 제거
         return render(request, 'qna/question_search_day.html', {
         'search_day': search_day,
@@ -168,7 +183,9 @@ def question_search_content(request):
     if request.GET.get('search_content'):
         today_id = get_today_id()
         search_content=request.GET.get('search_content')
+
         search_content_ques1=Question.objects.filter(answer__content__icontains=search_content ,answer__user=request.user)
+
         search_content_ques2=ExtraAnswer.objects.filter(content__icontains=search_content ,user=request.user)
 
         for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
@@ -179,6 +196,11 @@ def question_search_content(request):
         exclude_question = Question.objects.get(id=exclude_id)
         search_content_ques1 = search_content_ques1.exclude(question=exclude_question)
         search_content_ques1 = search_content_ques1.distinct()
+
+        if search_content_ques1.count()==0 and search_content_ques2.count()==0 :
+            messages.info(request, '검색결과가 없습니다')
+            return redirect('qna:question_search_content')
+
         return render(request, 'qna/question_search_content.html',{
             'search_content':search_content,
             'search_content_ques1':search_content_ques1,
@@ -207,7 +229,9 @@ def question_edit(request, answer_id):
     if answer.user_id != request.user.id:
         return redirect('qna:main')
     # url로 남의 답변에 접근 방지
-    if answer.created_at + datetime.timedelta(hours=1) < timezone.now():  # 1시간 지났을 경우 수정 불가
+    if answer.created_at + datetime.timedelta(hours=1) < timezone.now():
+        messages.info(request, '수정 가능 시간이 지났습니다.')
+        # 1시간 지났을 경우 수정 불가
 
         return redirect('qna:main')
 
