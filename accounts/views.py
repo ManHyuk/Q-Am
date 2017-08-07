@@ -51,6 +51,37 @@ def signup_info(request):
 
 
 @login_required
+def signup_info(request):
+    # 회원 가입 추가정보 받아오기
+    if Profile.objects.filter(user=request.user).exists():
+        # 프로필이 이미 있으면 질문페이지로
+        return redirect('qna:question')
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            try:
+                # 카카오가 있으면
+                profile.user.username = profile.user.socialaccount_set.first().extra_data['properties']['nickname'] # 유저의 이름은 카카오톡 닉네임으로 저장
+            except AttributeError:
+                # 없어서 에러가 나면
+                profile.user.username = profile.nickname
+            finally:
+                profile.user.save()
+                profile.save()
+
+            return redirect('qna:question')
+    else:
+        form = ProfileForm()
+
+    return render(request, 'accounts/signup_info.html', {
+        'form': form,
+        })
+
+
+@login_required
 def profile(request):
     return render(request, 'accounts/profile.html')
 

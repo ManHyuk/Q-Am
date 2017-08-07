@@ -1,14 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
 {% load socialaccount %}
 
-    <form action="" method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="form-title sign-in">Sign In</p>
+    <form action="" method="post" class="login">
         {% csrf_token %}
+
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+
+        <!-- hidden fields는 위젯만 렌더링 -->
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
 
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" value="로그인"/>
-        <a href="{% url "accounts:signup" %}"><input type="button" value="회원가입"/></a>
-        <a href="{%url "accounts:reset"%}"><input type="button" value="비밀번호 찾기"/></a>
+        <input type="submit" value="Sign In" class="btn btn-success bg-success" />
+        <div class="remember-forgot">
+               <div class="row">
+                  <div class="col-md-8">
+                       <div class="checkbox">
+                         <label>
+                               <input type="checkbox" />
+                              Remember Me
+                        </label>
+                     </div>
+                  </div>
+              </div>
+        </div>
+        <a class="btn btn-success bg-success" href="{% url "accounts:signup" %}">SIGN UP</a>
+        <a class="btn btn-success bg-success" href="{%url "accounts:reset"%}">FORGOT PASSWORD</a>
+
     </form>
     <h3>Social Login</h3>
     <ul>
@@ -26,3 +54,5 @@
             </li>
         {% endfor %}
     </ul>
+
+{% endblock %}
