@@ -152,6 +152,11 @@ form.login
     margin: 0 auto;
 }
 
+form.login table
+{
+  width: 250px;
+}
+
 form.login input[type="text"], form.login input[type="password"]
 {
     width: 100%;

@@ -20,17 +20,20 @@
                 </span> <br>
                       {{question.question}}
                 </label>
-                {{ form.content }}
 
-            <textarea class="form-control" id="exampleTextarea" rows="2">{{ form.content }}</textarea>
+
+
+            <textarea class="form-control" id="exampleTextarea" rows="2" name='content' value={{ form.content }}></textarea>
             </div>
         </div>
         <div class="row">
             <div class="submit__answer col-12 col-md-10 push-md-1">
                 <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input">
+                    <input type="checkbox" class="custom-control-input" name='is_public' value={{ form.is_public }}>
                     <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">공유하기</span>
+                    <span class="custom-control-description">
+
+                    공유하기</span>
                 </label>
                 <input type="submit" name="answer" value="제출하기" class="btn btn-success bg-success" />
             </div>

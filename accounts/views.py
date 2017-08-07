@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login as auth_login
-from .forms import SignupForm, ProfileForm,EditPasswordForm
+from .forms import SignupForm, ProfileForm, EditPasswordForm, LoginForm
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from accounts.models import Profile
@@ -100,6 +100,7 @@ def login(request):
         providers.append(provider)
 
     return auth_login(request,
+                    authentication_form=LoginForm,
                       template_name='accounts/login_form.html',
                       extra_context={'providers': providers})
 
