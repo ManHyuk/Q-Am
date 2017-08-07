@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.core.validators import RegexValidator
 from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
+from django.contrib.auth.forms import AuthenticationForm
 
 
 # Create your models here.
@@ -27,26 +28,4 @@ class Profile(models.Model):
 
 
 
-
-
-# def if_ok_answer():
-#
-#     answer_list=Answer.objects.filter(created_at__year=timezone.now().year, question__month=timezone.now().month, question__day=timezone.now().day)
-#
-#     user_list=User.objects.all()
-#
-#     user_id_total = []
-#     for user_id in user_list:
-#         user_id_total.append(user_id.id)
-#
-#     user_id_answer = []
-#     for answer_id in answer_list:
-#         user_id_answer.append(answer_id.user_id)
-#
-#     user_id_kakao = list(set(user_id_total).difference(user_id_answer))
-    #답변안한 user_id 얻음
-
-    #전화번호 받는 부분 만들기
-    #그들의 전화번호를 얻음
-    #문자를 보내는 곳으로 전화번호를 보냄
 
