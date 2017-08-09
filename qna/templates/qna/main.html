@@ -1,7 +1,122 @@
+{% extends "layout_navi.html"%}
+{%block content%}
+
+<main>
+  <div class="container">
+    <p class="today__question">Today's Question<br>
+    <span lang="ko">{{ question }}</span></p>
+
+
+      {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                {{ message.message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+
+      {% for answer in answer_list %}
+    <div class="row">
+      <div id="accordion" role="tablist" aria-multiselectable="true" class="col-12">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+        <h5 class="mb-0">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Year {{ answer.created_at |date:"Y" }}
+          </a>
+        </h5>
+      </div>
+
+      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+        <div class="card-block" lang="ko">
+          {{ answer.content }}
+        </div>
+        <div class="main__card__button">
+          <a class="mx-3" lang="ko" href="{% url "qna:question_edit" answer.id %}">수정</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+    </div>
+  </div>
+    </div>
+
+    {%if ex_answer %}
+    <div class="row">
+      <div class="form-group answer__form main__part col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
+                <label class="question" for="exampleTextarea" lang="ko">
+                      <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br> {{ exquestion }}
+                </label>
+
+          <div class="logo__box col-10 col-lg-8 push-1 push-lg-1 py-1" lang="ko">{{ ex_answer.content }}
+          </div>
+
+            </div>
+        </div>
+    <div class="row">
+            <div class="submit__answer col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
+                <label class="custom-control custom-checkbox">
+                    <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정" class="btn btn-success bg-success"></a>
+                </label>
+            </div>
+        </div>
+    {%endif%}
+
+
+
+
+{% if form %}
+          <form action="" method="POST">
+              {% csrf_token %}
+             {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+
+        <!-- hidden fields는 위젯만 렌더링 -->
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+
+    <div class="row">
+      <div class="form-group answer__form main__part col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
+                <label class="question" for="exampleTextarea" lang="ko">
+                      <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br> {{ exquestion }}
+                </label>
+            <textarea class="form-control" id="exampleTextarea" rows="1" name="content" value='{{ form.content }}'></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="submit__answer col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
+                <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="is_public" value={{form.is_public}}>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">공유하기</span>
+                </label>
+                <input type="submit" value="제출하기" name="ex_answer" class="btn btn-success bg-success" />
+            </div>
+        </div>
+</form>
+ {% endif %}
+
+
+
+</main>{%endblock%}
+
+
+
+
+
+
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>main</title>
+
 </head>
 <body>
     <h1>메인화면입니다</h1>
@@ -52,9 +167,7 @@
     <hr/>
     <a href="{%url "qna:question_search"%}"><input type="button" value="질문으로 검색해보기"></a>
     <br>
-     <a href="{%url "qna:question_search_content"%}"><input type="button" value="내용으로 검색해보기"></a>
-    <br>
-    <a href="{%url "qna:question_search_day"%}"><input type="button" value="날짜로 검색해보기"></a>
+
     <br>
     <a href="{%url "diary:diary_list" %}"><input type="button" value="다이어리보기"></a>
     <br>
@@ -63,10 +176,10 @@
     <a href="{%url "qna:other_people" %}"><input type="button" value="질문에 대한 다른 사람의 답변"></a>
     <hr>
     <br>
-    <a href="{% url "accounts:logout"%}?next={{request.path}}"><input type="button" value="로그아웃"></a>
+    <a href="{% url "logout"%}?next={{request.path}}"><input type="button" value="로그아웃"></a>
     <br>
     <br>
-    <a href="{%url "accounts:profile" %}"><input type="button" value="내 프로필 보기"></a>
+    <a href="{%url "profile" %}"><input type="button" value="내 프로필 보기"></a>
 </body>
 </html>
 <!--메인 화면에 다이어리,질문 추가, 다른 사람의 답변 열람까지 연결 완료, 메인 화면에 질문 보는거 연결하고 그 안에 추가질문 보는거 연결함-->

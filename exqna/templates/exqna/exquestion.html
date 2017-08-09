@@ -1,4 +1,45 @@
 <!-- exqna/template/exqna/question.html -->
+{% extends "layout.html" %}
+{% block content%}
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+             {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+
+        <!-- hidden fields는 위젯만 렌더링 -->
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+
+        <div class="row">
+            <div class="form-group answer__form col-12 col-md-10 push-md-1">
+                <label class="question" for="exampleTextarea" lang="ko">
+                      <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br> {{exquestion}}
+                </label>
+
+            <textarea class="form-control" id="exampleTextarea" rows="2" name="content" value="{{form.content}}"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="submit__answer col-12 col-md-10 push-md-1">
+                <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="is_public" value={{form.is_public}}>
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">공유하기</span>
+                </label>
+                <input type="submit" value="제출하기" class="btn btn-success bg-success" name="ex_answer"/>
+                <a href="{% url "qna:main"%}"><input type="button" value="넘어가기" class="btn btn-success"  /></a>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+
 <!DOCTYPE html>
 <html>
 <head>

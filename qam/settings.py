@@ -145,7 +145,7 @@ TIME_ZONE = 'Asia/Seoul'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-LOGIN_REDIRECT_URL = 'accounts:signup_info'    #로그인 시 질문받는 페이지로 이동
+LOGIN_REDIRECT_URL = 'signup_info'    #로그인 시 질문받는 페이지로 이동
 
 STATIC_URL = '/static/'
 
@@ -166,6 +166,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'jkjun2091@gmail.com'
 EMAIL_HOST_PASSWORD = 'jinkwang12!'
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'jkjun2091@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

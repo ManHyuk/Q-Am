@@ -31,7 +31,7 @@
         {% endfor %}
 
 
-{%if search_search_ques2%}
+{%if search_ques2%}
     {% for exquestion in search_ques2 %}
         <ul>
         <li>
@@ -58,5 +58,9 @@
 </div>
 <hr>
 <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
+
+<a href="{%url "qna:question_search_content"%}"><input type="button" value="내용으로 검색해보기"></a>
+    <br><br>
+<a href="{%url "qna:question_search_day"%}"><input type="button" value="날짜로 검색해보기"></a>
 </body>
 </html>

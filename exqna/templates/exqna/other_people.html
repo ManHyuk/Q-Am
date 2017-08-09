@@ -1,3 +1,168 @@
+{%extends "layout_navi.html"%}
+{%block content%}
+
+
+<main class="other_people container">
+    {% if exquestion%}
+<p class="today__question">Additional Question<br>
+    <span lang="ko">{{ exquestion }}</span>
+</p>
+<div class="row">
+
+
+<div class="card-columns mx-3">
+{% for answer in answer_set %}
+  <div class="card p-3 mr-3 mb-3">
+    <blockquote class="card-block card-blockquote">
+      <article class="card__body">
+        <p>{{ answer.content }}</p>
+      </article>
+      <footer>
+        <small class="text-muted">
+          Someone famous in <cite title="Source Title">Source Title</cite>
+        </small>
+          <p class="card-text"><small class="text-muted">Last updated {{ answer.created_at|timesince }} ago</small></p>
+      </footer>
+    </blockquote>
+  </div>
+{%endfor%}
+</div>
+</div>
+{%endif%}
+
+  <!--<div class="card p-3 mr-3 mb-3">-->
+    <!--<blockquote class="card-block card-blockquote">-->
+      <!--<article class="card__body">-->
+        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+      <!--</article>-->
+      <!--<footer>-->
+        <!--<small class="text-muted">-->
+          <!--Someone famous in <cite title="Source Title">Source Title</cite>-->
+        <!--</small>-->
+      <!--</footer>-->
+    <!--</blockquote>-->
+  <!--</div>-->
+
+  <!--<div class="card p-3 mr-3 mb-3">-->
+    <!--<blockquote class="card-block card-blockquote">-->
+      <!--<article class="card__body">-->
+        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+      <!--</article>-->
+      <!--<footer>-->
+        <!--<small class="text-muted">-->
+          <!--Someone famous in <cite title="Source Title">Source Title</cite>-->
+        <!--</small>-->
+      <!--</footer>-->
+    <!--</blockquote>-->
+  <!--</div>-->
+
+  <!--<div class="card p-3 mr-3 mb-3">-->
+    <!--<blockquote class="card-block card-blockquote">-->
+      <!--<article class="card__body">-->
+        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+      <!--</article>-->
+      <!--<footer>-->
+        <!--<small class="text-muted">-->
+          <!--Someone famous in <cite title="Source Title">Source Title</cite>-->
+        <!--</small>-->
+      <!--</footer>-->
+    <!--</blockquote>-->
+  <!--</div>-->
+
+  <!--<div class="card p-3 mr-3 mb-3">-->
+    <!--<blockquote class="card-block card-blockquote">-->
+      <!--<article class="card__body">-->
+        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+      <!--</article>-->
+      <!--<footer>-->
+        <!--<small class="text-muted">-->
+          <!--Someone famous in <cite title="Source Title">Source Title</cite>-->
+        <!--</small>-->
+      <!--</footer>-->
+    <!--</blockquote>-->
+  <!--</div>-->
+
+  <!--<div class="card">-->
+    <!--<div class="card-block">-->
+      <!--<h4 class="card-title">Card title</h4>-->
+      <!--<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+      <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="card card-inverse card-primary p-3 text-center">-->
+    <!--<blockquote class="card-blockquote">-->
+      <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>-->
+      <!--<footer>-->
+        <!--<small>-->
+          <!--Someone famous in <cite title="Source Title">Source Title</cite>-->
+        <!--</small>-->
+      <!--</footer>-->
+    <!--</blockquote>-->
+  <!--</div>-->
+
+  <!--<div class="card text-center">-->
+    <!--<div class="card-block">-->
+      <!--<h4 class="card-title">Card title</h4>-->
+      <!--<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+      <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="card p-3 text-right">-->
+    <!--<blockquote class="card-blockquote">-->
+      <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
+      <!--<footer>-->
+        <!--<small class="text-muted">-->
+          <!--Someone famous in <cite title="Source Title">Source Title</cite>-->
+        <!--</small>-->
+      <!--</footer>-->
+    <!--</blockquote>-->
+  <!--</div>-->
+    <!---->
+  <!--<div class="card">-->
+    <!--<div class="card-block">-->
+      <!--<h4 class="card-title">Card title</h4>-->
+      <!--<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>-->
+      <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+    {%if not exquestion %}
+    <p class="today__question">Additional Question<br>
+    <span lang="ko">오늘은 추가질문이 없습니다.</span>
+    <span lang="ko">명언을 보면서 하루를 되돌아 보세요.</span>
+
+</p>
+<div class="row">
+<div class="card-columns mx-3">
+{% for answer in answer_set %}
+  <div class="card p-3 mr-3 mb-3">
+    <blockquote class="card-block card-blockquote">
+      <article class="card__body">
+        <p>{{ answer.content }}</p>
+      </article>
+      <footer>
+        <small class="text-muted">
+          Someone famous in <cite title="Source Title">Source Title</cite>
+        </small>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </footer>
+    </blockquote>
+  </div>
+{%endfor%}
+</div>
+</div>
+    {% endif%}
+</main>
+{%endblock%}
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>

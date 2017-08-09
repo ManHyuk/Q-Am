@@ -88,7 +88,7 @@ def question_search(request):
         search_keyword = request.GET.get('search_keyword')
         search_ques1 = Question.objects.exclude(answer=None)    #답 안한 것들 제거
         search_ques1 = search_ques1.filter(question__icontains=search_keyword, answer__user=request.user)  #질문에 search 들어있는 것만 선택
-        search_ques2 = ExtraAnswer.objects.filter(question__title__icontains=search_keyword, user=request.user)    #추가질문 답한 것에 대해서도 질문에 search들어있는 것 선택
+        search_ques2 = ExtraAnswer.objects.filter(question__title__icontains=search_keyword,user=request.user)    #추가질문 답한 것에 대해서도 질문에 search들어있는 것 선택
 
         for i in range(1, 11):  # 앞으로의 열흘 동안의 질문은 검색되지 않도록 하기
             exclude_id = (today_id + i) % 366  # 366을 넘는 경우에 대해서 나머지로 처리

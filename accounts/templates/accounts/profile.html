@@ -4,8 +4,8 @@
 
 
     <li>image :
-        {% if user.profile.img.url %}
-            <img src="{{ user.profile.img.url }}">
+        {% if profile.img.url %}
+            <img src="{{ profile.img.url }}">
         {%endif%}
         {% if user.socialaccount_set.all.first.get_avatar_url %}
             <img src="{{user.socialaccount_set.all.first.get_avatar_url}}">
@@ -25,5 +25,5 @@
 
 <a href="{%url "qna:main"%}"><input type="button" value="메인으로"></a>
 {%if not user.socialaccount_set.all.first.get_avatar_url%}
-<a href="{%url "accounts:edit_pw"%}"><input type="button" value="비번 변경"></a>
+<a href="{%url "edit_pw"%}"><input type="button" value="비번 변경"></a>
 {%endif%}

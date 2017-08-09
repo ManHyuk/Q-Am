@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
     <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
      <!-- bootstrap css -->
       {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
@@ -26,23 +27,25 @@
       <button class="navbar-toggler navbar-toggler-right mt-4" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span>Menu</span>
       </button>
-      <a class="navbar-brand pb-4" href="#">Q:AM</a>
+      <a class="navbar-brand pb-4" href="{%url "qna:main"%}">Q:AM</a>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a id="other_people" class="nav-link px-4" href="#">Other People<span class="sr-only">(current)</span></a>
+          <li class="nav-item">
+            <a id="other_people" class="nav-link px-4" href="{%url "qna:other_people" %}">Other People</a>
           </li>
           <li class="nav-item">
-            <a id="my_diary" class="nav-link px-4" href="#">My Diary</a>
+            <a id="my_diary" class="nav-link px-4" href="{%url "diary:diary_list" %}">My Diary</a>
           </li>
           <li class="nav-item">
-            <a id="answer_before" class="nav-link px-4" href="#">Answer Before</a>
+            <a id="answer_before" class="nav-link px-4" href="{%url "qna:question_search"%}">Answer Before</a>
           </li>
           <li class="nav-item">
-            <a id="suggest_question" class="nav-link px-4" href="#">Suggest Question</a>
+            <a id="suggest_question" class="nav-link px-4" href="{%url "exqna:required" %}">Suggest Question</a>
           </li>
         </ul>
-        <a id="my_information" class="nav-item-last nav-link px-lg-3" href="#">My Information</a>
+        <a id="my_information" class="nav-item-last nav-link px-lg-3" href="{%url "profile" %}">My Information</a>
+          <a id="Log Out" class="nav-item-last nav-link px-lg-3" href="{% url "logout"%}?next={{request.path}}">Log Out</a>
+
       </div>
     </nav>
   </header>
@@ -52,11 +55,12 @@
 
 <!-- bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"   integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-{% load static %}
-<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+
 {% load static %}
 <script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
 
+{% load static %}
+<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
 
 </body>
 </html>

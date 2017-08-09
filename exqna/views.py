@@ -117,6 +117,7 @@ def other_people(request):
         return redirect("qna:other_people")
     answer_set = ExtraAnswer.objects.filter(question=exquestion, is_public=True)   #공유한다고 한 것만 불러오기
     other_answer_set = answer_set.exclude(user=request.user)    #자기 답은 제외
+
     return render(request, 'exqna/other_people.html', {
             'exquestion':exquestion,
             'answer_set':other_answer_set,
