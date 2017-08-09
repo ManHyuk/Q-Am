@@ -7,7 +7,7 @@
     <span lang="ko">{{ question }}</span></p>
 
 
-      {% if messages %}
+{% if messages %}
     <div class="messages">
         {% for message in messages %}
             <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
@@ -18,20 +18,20 @@
 {% endif %}
 
 
-
-      {% for answer in answer_list %}
-    <div class="row">
-      <div id="accordion" role="tablist" aria-multiselectable="true" class="col-12">
+<div class="row">
+{% for answer in answer_list %}
+{% if forloop.first %}
+<div id="accordion" role="tablist" aria-multiselectable="true" class="col-12">
     <div class="card">
-      <div class="card-header" role="tab" id="headingOne">
+      <div class="card-header" role="tab" id="{{answer.id}}id">
         <h5 class="mb-0">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <a data-toggle="collapse" data-parent="#accordion" href="#kk{{answer.id}}" aria-expanded="true" aria-controls="kk{{answer.id}}">
             Year {{ answer.created_at |date:"Y" }}
           </a>
         </h5>
       </div>
 
-      <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+      <div id="kk{{answer.id}}" class="collapse show" role="tabpanel" aria-labelledby="{{answer.id}}id">
         <div class="card-block" lang="ko">
           {{ answer.content }}
         </div>
@@ -40,31 +40,51 @@
         </div>
       </div>
     </div>
-  {% endfor %}
-    </div>
-  </div>
-    </div>
+{% else %}
+    <div class="card">
+      <div class="card-header" role="tab" id="{{answer.id}}id">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#kk{{answer.id}}" aria-expanded="false" aria-controls="kk{{answer.id}}">
+            Year {{ answer.created_at |date:"Y" }}
+          </a>
+        </h5>
+      </div>
 
-    {%if ex_answer %}
-    <div class="row">
-      <div class="form-group answer__form main__part col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
-                <label class="question" for="exampleTextarea" lang="ko">
-                      <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br> {{ exquestion }}
-                </label>
-
-          <div class="logo__box col-10 col-lg-8 push-1 push-lg-1 py-1" lang="ko">{{ ex_answer.content }}
-          </div>
-
-            </div>
+      <div id="kk{{answer.id}}" class="collapse" role="tabpanel" aria-labelledby="{{answer.id}}id">
+        <div class="card-block" lang="ko">
+          {{ answer.content }}
         </div>
-    <div class="row">
-            <div class="submit__answer col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
-                <label class="custom-control custom-checkbox">
-                    <a href="{% url "exqna:exquestion_edit" ex_answer.id %}"><input type="button" value="수정" class="btn btn-success bg-success"></a>
-                </label>
-            </div>
+        <div class="main__card__button">
+          <a class="mx-3" lang="ko" href="{% url "qna:question_edit" answer.id %}">수정</a>
         </div>
-    {%endif%}
+      </div>
+    </div>
+{% endif %}
+{% endfor %}
+
+
+{%if ex_answer %}
+    <div class="card">
+      <div class="card-header" role="tab" id="{{ex_answer.id}}dk">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#kk{{ ex_answer.id }}" aria-expanded="false" aria-controls="kk{{ ex_answer.id }}" lang="ko">
+            추가질문: {{ exquestion }}
+          </a>
+        </h5>
+      </div>
+
+      <div id="kk{{ ex_answer.id }}" class="collapse" role="tabpanel" aria-labelledby="{{ex_answer.id}}dk">
+        <div class="card-block" lang="ko">
+          {{ ex_answer.content }}
+        </div>
+        <div class="main__card__button">
+          <a class="mx-3" lang="ko" href="{% url "exqna:exquestion_edit" ex_answer.id %}">수정</a>
+        </div>
+      </div>
+    </div>
+{%endif%}
+    </div>
+</div>
 
 
 
@@ -86,14 +106,18 @@
                 <label class="question" for="exampleTextarea" lang="ko">
                       <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br> {{ exquestion }}
                 </label>
-            <textarea class="form-control" id="exampleTextarea" rows="1" name="content" value='{{ form.content }}'></textarea>
+            <textarea class="form-control" id="exampleTextarea" rows="1" name="content">{{ form.content | striptags }}</textarea>
             </div>
         </div>
 
         <div class="row">
             <div class="submit__answer col-12 col-sm-8 col-lg-6 push-sm-4 push-lg-6">
                 <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="is_public" value={{form.is_public}}>
+                    <input type="checkbox" class="custom-control-input" name="is_public"
+                    {% if form.is_public|make_list|length >= 78 %}
+                    checked="checked"
+                    {% endif %}
+                    />
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">공유하기</span>
                 </label>
@@ -104,7 +128,7 @@
  {% endif %}
 
 
-
+</div>
 </main>{%endblock%}
 
 

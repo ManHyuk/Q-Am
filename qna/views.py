@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from qna.utils import get_today_id
 import datetime
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -268,3 +269,27 @@ def other_people(request):
             'answer_set':other_answer_set,
         })
 
+@login_required
+def other_people(request):
+    today_id = get_today_id()
+    question = Question.objects.get(id=today_id)    #오늘의 질문 불러오기
+
+    answer_set = Answer.objects.filter(question=question, is_public=True)   #공유한다고 한 것만 불러오기
+    other_answer_set = answer_set.exclude(user=request.user)#자기 답은 제외
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(other_answer_set, 12)
+
+    try:
+        other_answer = paginator.page(page)
+    except PageNotAnInteger:
+        other_answer = paginator.page(1)
+    except EmptyPage:
+        other_answer = paginator.page(paginator.num_pages)
+
+
+    return render(request, 'qna/other_people.html', {
+            'question':question,
+            'answer_set':other_answer_set,
+            'other_answer': other_answer
+        })
