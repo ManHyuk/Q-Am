@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
     <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <!-- bootstrap css -->
       {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
@@ -46,6 +47,7 @@
         <a id="my_information" class="nav-item-last nav-link px-lg-3" href="{%url "profile" %}">My Information</a>
           <a id="Log Out" class="nav-item-last nav-link px-lg-3" href="{% url "logout"%}?next={{request.path}}">Log Out</a>
 
+        <a id="my_information" class="nav-item-last nav-link px-lg-3" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> My Information</a>
       </div>
     </nav>
   </header>

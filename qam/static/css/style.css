@@ -45,11 +45,11 @@ ul, ol {
   border-color: #8d8d8d !important;
 }
 
-input[type="submit"] {
+input[type="submit"], input[type="button"] {
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, input[type="button"]:hover  {
     background-color: #757575 !important;
     transition: background-color 0.5s ease;
 }

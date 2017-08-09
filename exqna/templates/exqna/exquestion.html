@@ -52,13 +52,45 @@
     <p>안녕하세요, 류동일의 첫 번째 웹애플리케이션 프로젝트입니다 :)</p>
     <h2>오늘의 추가 질문: {{ exquestion }}</h2>
 
-<form action="" method="post" >
-    {% csrf_token %}
-<table>{{form.as_table}}</table>
-        <input type="submit" value="제출">
-        <a href="{% url "qna:main"%}"><input type="button" value="넘어가기"></a>
+{% block content %}
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+             {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
 
-    </form>
+        <!-- hidden fields는 위젯만 렌더링 -->
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
 
-</body>
-</html>
+        <div class="row">
+            <div class="form-group answer__form col-12 col-md-10 push-md-1">
+                <label class="question" for="exampleTextarea" lang="ko">
+                      <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br>
+                      {{ exquestion }}
+                </label>
+            <textarea class="form-control" id="exampleTextarea" rows="2" name="content">{{ form.content | striptags }}</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="submit__answer col-12 col-md-10 push-md-1">
+                <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name='is_public'
+                    {% if form.is_public|make_list|length >= 78 %}
+                    checked="checked"
+                    {% endif %}
+                    />
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">공유하기</span>
+                </label>
+                <a href="{% url "qna:main"%}"><input type="button" value="넘어가기" class="btn btn-success" /></a>
+                <input type="submit" value="제출하기" class="btn btn-success bg-success" />
+            </div>
+        </div>
+        </form>
+
+    </div>
+
+{% endblock %}

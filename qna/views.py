@@ -21,6 +21,7 @@ def question(request):
     question = Question.objects.get(id=today_id)
     # 그날에 맞는 질문을 골라 온다.
     already_answer = Answer.objects.filter(question=question, user=request.user, created_at__year=timezone.now().year)  # 오늘 이미 답변했으면 넘어가기
+
     if already_answer:
         return redirect('exqna:exquestion')
 
@@ -34,6 +35,10 @@ def question(request):
             return redirect('exqna:exquestion')
     else:
         form = AnswerForm()
+
+
+    # if 'check' in form.is_public:
+    #     checked = 'asdnjkgsd'
     return render(request, 'qna/question.html', {
         'form': form,
         'question': question,
