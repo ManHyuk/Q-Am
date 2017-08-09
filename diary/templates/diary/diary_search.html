@@ -1,102 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "diary/layout_navi.html" %}
+
+{% block content %}
+
+
+
+    <div class="container">
+        <form action="" method="get">
+        <div class="row">
+            <div class="form-group search__form col-12 col-md-10 push-md-1">
+
+
+                <input type="text" class="form-control" id="exampleTextarea" name="search_keyword" value="{{search_keyword}}">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="search__type col-4 col-md-3 push-md-1">
+                <a href="#">Diary</a>
+            </div>
+            <div class="submit__answer col-8 col-md-7 push-md-1">
+                <input type="submit" value="검색하기" class="btn btn-success bg-success"/>
+            </div>
+        </div>
+        </form>
+    <label class="search" for="exampleTextarea" lang="ko"> <a href="#" lang="ko">날짜로 찾아보기</a></label>
+
+    </div>
+
+
+
     <div>
-        다른 날의 다이어리를 검색해 보세요
-        <br>
-        <hr>
-        <div>
-{% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-                {{ message.message }}
+
+        {% for question in search_ques1 %}
+            <div class="row">
+            <div class="search__list col-3 push-5 mt-3" lang="ko">
+                    <a href="{% url "qna:question_detail" question.id %}">
+                        <p>{{ question.month }}월 {{ question.day }}일 /
+                        {{ question.question }}</p>
+                        <!--데이터베이스에 month,day입력해서 불러옴-->
+                    </a>
+            </div>
             </div>
         {% endfor %}
+
+        {% if search_ques2 %}
+            {% for exquestion in search_ques2 %}
+                <ul>
+                    <li>
+                        추가질문
+                        <a href="{% url "exqna:exquestion_detail" exquestion.id %}">
+                            {{ exquestion.question }}
+                        </a>
+                        <small> at {{ exquestion.updated_at }}</small>
+                    </li>
+                </ul>
+            {% endfor %}
+        {% endif %}
     </div>
-{% endif %}
-</div>
-        <hr>
-        <br>
-        제목 검색
-        <form action="" method='get'>
-            <input type="textarea" name="search_title" value="{{search_title}}">
-            <input type="submit" value="검색">
-        </form>
-
-    </div>
-    <div>
-
-    <ul>
-
-    {% for diary in search_diary_title %}
-        <li>
-            <a href="{% url "diary:diary_detail" diary.id%}">
-            {{diary.created_at.month}}월
-            {{diary.created_at.day}}일
-            {{diary.title}}
-            </a>
-        </li>
-    </ul>
-
-        {% endfor %}
-
-</div>
-    <hr>
-    <br><br>
-<div>
-    내용 검색
-        <form action="" method='get'>
-            <input type="textarea" name="search_content" value="{{search_content}}">
-            <input type="submit" value="검색">
-        </form>
-</div>
-<div>
-    <ul>
-
-    {% for diary in search_diary_content %}
-        <li>
-            <a href="{% url "diary:diary_detail" diary.id%}">
-            {{diary.created_at.month}}월
-            {{diary.created_at.day}}일
-            {{diary.title}}
-            </a>
-        </li>
-    </ul>
-
-        {% endfor %}
-
-
-</div>
-    <hr>
-    <br><br>
-<div>
-    날짜 검색
-
-        <form action="" method='get'>
-            <input type="date" name="search_day" value="{{search_day}}">
-            <input type="submit" value="검색">
-        </form>
-</div>
-<div>
-    <ul>
-
-    {% for diary in search_diary_day %}
-        <li>
-            <a href="{% url "diary:diary_detail" diary.id%}">
-            {{diary.created_at.month}}월
-            {{diary.created_at.day}}일
-            {{diary.title}}
-            </a>
-        </li>
-    </ul>
-
-        {% endfor %}
-
-</div>
-    <a href="{%url "diary:diary_list"%}"><input type="button" value="오늘의 다이어리로 돌아가기"></a>
-</body>
-</html>
+{% endblock %}

@@ -1,8 +1,26 @@
-<h1>간단한 회원가입 입니다.</h1>
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" >
-</form>
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="form-title sign-in">Sign Up</p>
+<form action="" method="post" class="login">
+        {% csrf_token %}
+
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+
+        <!-- hidden fields는 위젯만 렌더링 -->
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
+
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="제출" class="btn btn-success bg-success" />
+        </div>
+    </div>
+</div>
+{%endblock%}

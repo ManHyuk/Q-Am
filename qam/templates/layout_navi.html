@@ -44,10 +44,9 @@
             <a id="suggest_question" class="nav-link px-4" href="{%url "exqna:required" %}">Suggest Question</a>
           </li>
         </ul>
-        <a id="my_information" class="nav-item-last nav-link px-lg-3" href="{%url "profile" %}">My Information</a>
           <a id="Log Out" class="nav-item-last nav-link px-lg-3" href="{% url "logout"%}?next={{request.path}}">Log Out</a>
 
-        <a id="my_information" class="nav-item-last nav-link px-lg-3" href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> My Information</a>
+        <a id="my_information" class="nav-item-last nav-link px-lg-3" href="{%url "profile"%}"><i class="fa fa-user-circle" aria-hidden="true"></i> My Information</a>
       </div>
     </nav>
   </header>
