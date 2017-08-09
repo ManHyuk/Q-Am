@@ -1,4 +1,17 @@
 <!-- exqna/templates/exqna/already_required.html -->
+{% extends "layout_navi.html" %}
+{%block content%}
+
+<div class="container">
+    <div class="row">
+        <h2 lang="ko">새 질문 요청까지 {{ future|timeuntil }} 남았습니다.</h2>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +20,7 @@
     <title>질문 요청</title>
 </head>
 <body>
-    <h2>새 질문 요청까지 {{ future|timeuntil }} 남았습니다.</h2>
-    <h2>질문은 하루에 한 번 요청할 수 있습니다ㅠㅠ</h2>
+
 
 
     <hr>

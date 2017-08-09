@@ -31,7 +31,7 @@ class ExtraAnswer(models.Model):
 class Required(models.Model):
     #요청 질문과 그 내용
     user = models.ForeignKey(settings.AUTH_USER_MODEL) # 유저와 1:N 관계 설정
-    title = models.CharField(max_length=32, null=False, verbose_name='요청 질문') # 요청 질문
+    title = models.CharField(max_length=32, null=False) # 요청 질문
     content = models.TextField(max_length=256) # 그에 대한 자신의 답변 내용
     created_at = models.DateTimeField(auto_now_add=True) # 생성 날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정 날짜
