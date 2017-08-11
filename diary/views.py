@@ -50,7 +50,7 @@ def diary_search_title(request):
 def diary_search_content(request):
     if request.GET.get('search_content'):
         search_content=request.GET.get('search_content')
-        search_diary_content = Diary.objects.filter(title__icontains=search_content,user=request.user)
+        search_diary_content = Diary.objects.filter(content__icontains=search_content,user=request.user)
 
         if search_diary_content.count()==0:
             messages.info(request, '검색결과가 없습니다')
