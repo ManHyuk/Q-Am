@@ -7,6 +7,7 @@ from django.utils import timezone
 from pytz import timezone as timezone_kor
 import datetime
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -112,13 +113,25 @@ def exquestion_edit(request, ex_answer_id):
 def other_people(request):
     exquestion = ExtraQuestion.objects.filter(is_new=True).first()  #오늘의 추가질문 가져오기
 
-#if로 바꿔서 오늘 추가질문이 없을 경우에 qna/other people 뷰로 넘어갈 수 있게
+
+    #if로 바꿔서 오늘 추가질문이 없을 경우에 qna/other people 뷰로 넘어갈 수 있게
     if not exquestion:
         return redirect("qna:other_people")
     answer_set = ExtraAnswer.objects.filter(question=exquestion, is_public=True)   #공유한다고 한 것만 불러오기
     other_answer_set = answer_set.exclude(user=request.user)    #자기 답은 제외
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(other_answer_set, 12)
+
+    try:
+        other_answer = paginator.page(page)
+    except PageNotAnInteger:
+        other_answer = paginator.page(1)
+    except EmptyPage:
+        other_answer = paginator.page(paginator.num_pages)
+
     return render(request, 'exqna/other_people.html', {
             'exquestion':exquestion,
             'answer_set':other_answer_set,
+            'other_answer': other_answer
         })

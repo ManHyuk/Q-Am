@@ -1,16 +1,52 @@
+{% extends "layout_navi.html "%}
+{% block style %}
+::-webkit-input-placeholder {
+    text-align: center;
+}
+#exampleTextarea {
+    font-size: 3rem;
+}
+.form-group.answer__form {
+    margin-top: 2vh;
+}
+.form-group.answer__form.title {
+    margin-top: 10vh;
+}
+.diary__date {
+    margin-bottom: 2vh;
+}
+#my_diary {
+    text-decoration: line-through;
+}
+{% endblock %}
 
+{% block content%}
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- hidden fields는 위젯만 렌더링 -->
+        {% for field in form.hidden_fields %}
+          {{ field }}
+        {% endfor %}
 
-
-
-<hr>
-
-<div>
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-
-    </table>
-    <input type="submit">
-</form>
+        <div class="row">
+            <div class="form-group answer__form title col-12 col-md-10 push-md-1">
+                <p class="diary__date" lang="ko">
+                    {{ month }}월 {{ day }}일 {{ week_day }}
+                </p>
+                <textarea class="form-control title" id="exampleTextarea" rows="1" name='title' placeholder='키워드' ></textarea>
+                <span class="form__errors" lang="ko">{{ form.title.errors }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group answer__form col-12 col-md-10 push-md-1">
+                <textarea class="form-control" id="exampleTextarea" rows="1" name='content' placeholder='내용' ></textarea>
+                <span class="form__errors" lang="ko">{{ form.content.errors }}</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <input type="submit" name="answer" value="제출하기" class="mt-4 btn btn-success bg-success btn-lg" />
+        </div>
+    </form>
 </div>
+{% endblock %}

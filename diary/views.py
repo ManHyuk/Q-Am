@@ -124,8 +124,19 @@ def diary_new(request):
     else:
         form = DiaryForm()
 
+    week = ('월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일')
+    #한글 안먹으면 아래 week로 해보세요
+    #week = ('MONDAY','THESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
+    now=timezone.now()
+    month=now.month
+    day=now.day
+    week_day=week[now.weekday()]
+    #그날의 날짜와 요일을 보여줌
     ctx = {
-        'form': form
+        'form': form,
+        'month':month,
+        'day':day,
+        'week_day':week_day,
     }
     return render(request, 'diary/diary_new.html', ctx)
 

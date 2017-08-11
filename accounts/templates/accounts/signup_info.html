@@ -1,29 +1,32 @@
 {%extends 'layout.html'%}
+
 {%block content%}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <p class="form-title sign-in" lang="ko">처음 로그인 하시네요!</p>
-            <p class="form-title sign-in" lang="ko">프로필 정보를 입력해 주세요!</p>
-<form action="" method="post" class="login">
-        {% csrf_token %}
+            <p class="form-title sign-in input__profile">
+                your profile
+            </p>
+                <form action="" method="post" class="login input__profile">
+                        {% csrf_token %}
 
-        {% for error in form.non_field_errors %}
-            {{ error }}
-        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
 
-        <!-- hidden fields는 위젯만 렌더링 -->
-        {% for field in form.hidden_fields %}
-          {{ field }}
-        {% endfor %}
+                        <!-- hidden fields는 위젯만 렌더링 -->
+                        {% for field in form.hidden_fields %}
+                          {{ field }}
+                        {% endfor %}
 
-        {% for field in form.visible_fields %}
-            {{ field }}
-            {{ field.errors }}
-        {% endfor %}
+                        {% for field in form.visible_fields %}
+                            {{ field }}
+                            {{ field.errors }}
+                        {% endfor %}
 
 
-        <input type="submit" value="제출" class="btn btn-success bg-success" />
+                        <input type="submit" value="제출하기" class="btn btn-success bg-success" />
+                </form>
         </div>
     </div>
 </div>

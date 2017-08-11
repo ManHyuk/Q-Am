@@ -1,3 +1,66 @@
+{% extends "layout_navi.html" %}
+{% block style %}
+#search_previous {
+    text-decoration: line-through;
+}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="" method='get'>
+        <div class="row">
+            <div class="form-group search__form col-12 col-md-10 push-md-1">
+                <label class="search" for="exampleTextarea" lang="ko">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" lang="ko">질문으로 찾아보기</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" lang="ko">질문으로 찾아보기</a>
+                            <a class="dropdown-item" href="#" lang="ko">내용으로 찾아보기</a>
+                            <a class="dropdown-item" href="#" lang="ko">날짜로 찾아보기</a>
+                        </div>
+                    </div>
+                </label>
+                <input type="textarea" class="form-control" id="exampleTextarea" rows="1" name="search_keyword" value="{{search_keyword}}"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="search__type col-4 col-md-3 push-md-1">
+                <a class="active" href="#">Question</a>&nbsp;&nbsp;&nbsp;
+                <a href="#">Diary</a>
+            </div>
+            <div class="submit__answer col-8 col-md-7 push-md-1">
+                <input type="submit" value="검색하기" class="btn btn-success bg-success" />
+            </div>
+        </div>
+    </form>
+
+    {% for question in search_ques1 %}
+    <div class="row">
+        <div class="search__list col-9 push-{{random_list | random}} mt-3" lang="ko">
+            <a href="{% url "qna:question_detail" question.id%}" lang="ko">
+                <span lang="ko">{{question.month}}월 {{question.day}}일</span>
+                {{question.question}}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {%if search_ques2%}
+    {% for exquestion in search_ques2 %}
+    <div class="row">
+        <div class="search__list col-9 push-{{random_list | random}} mt-3" lang="ko">
+            <a href="{% url "exqna:exquestion_detail" exquestion.id %}" lang="ko">
+                <span lang="ko">추가질문</span> {{exquestion.question}}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+    {%endif%}
+</div>
+{% endblock %}
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +70,31 @@
     <div>
         질문 검색
         <form action="" method='get'>
-            <input type="textarea" name="search_keyword" value="{{search_keyword}}">
-            <input type="submit" value="검색">
+            <label class="search" for="exampleTextarea" lang="ko">
+                      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" lang="ko">
+        날짜로 찾아보기
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#" lang="ko">날짜로 찾아보기</a>
+        <a class="dropdown-item" href="#" lang="ko">내용으로 찾아보기</a>
+        <a class="dropdown-item" href="#" lang="ko">질문 or 키워드로 찾아보기</a>
+        </div>
+        </div>
+
+                    </label>
+            <textarea class="form-control" id="exampleTextarea" rows="1" name="search_keyword" value="{{search_keyword}}"></textarea>
+                 </div>
+      </div>
+    <div class="row">
+            <div class="search__type col-4 col-md-3 push-md-1">
+              <a href="#">Question</a>&nbsp;&nbsp;&nbsp;
+              <a href="#">Diary</a>
+            </div>
+            <div class="submit__answer col-8 col-md-7 push-md-1">
+                <input type="submit" value="검색하기" class="btn btn-success bg-success" />
+            </div>
+        </div>
         </form>
 
 

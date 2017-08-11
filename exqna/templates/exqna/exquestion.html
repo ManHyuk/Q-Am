@@ -5,7 +5,7 @@
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-             {% for error in form.non_field_errors %}
+        {% for error in form.non_field_errors %}
             {{ error }}
         {% endfor %}
 
@@ -20,18 +20,22 @@
                       <span lang="ko" class="extra-question">오늘의 추가 질문 :</span> <br> {{exquestion}}
                 </label>
 
-            <textarea class="form-control" id="exampleTextarea" rows="2" name="content" value="{{form.content}}"></textarea>
+            <textarea class="form-control" id="exampleTextarea" rows="2" name="content">{{form.content | striptags }}</textarea>
             </div>
         </div>
         <div class="row">
             <div class="submit__answer col-12 col-md-10 push-md-1">
                 <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="is_public" value={{form.is_public}}>
+                    <input type="checkbox" class="custom-control-input" name="is_public"
+                    {% if form.is_public|make_list|length >= 78 %}
+                    checked="checked"
+                    {% endif %}
+                    />
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">공유하기</span>
                 </label>
-                <input type="submit" value="제출하기" class="btn btn-success bg-success" name="ex_answer"/>
                 <a href="{% url "qna:main"%}"><input type="button" value="넘어가기" class="btn btn-success"  /></a>
+                <input type="submit" value="제출하기" class="btn btn-success bg-success" name="ex_answer"/>
             </div>
         </div>
     </form>
