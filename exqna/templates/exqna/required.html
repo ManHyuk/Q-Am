@@ -1,29 +1,28 @@
 <!-- exqna/templates/exqna/required.html -->
 {% extends "layout_navi.html" %}
 {% block style %}
-::-webkit-input-placeholder {
-    text-align: center;
-}
-#exampleTextarea {
-    font-size: 3rem;
-}
-.form-group.answer__form {
-    margin-top: 2vh;
-}
-.form-group.answer__form .title {
-    margin-top: 10vh;
-}
-#suggest_question {
-    text-decoration: line-through;
-}
+<style type="text/css">
+    ::-webkit-input-placeholder {
+        text-align: center;
+    }
+    #exampleTextarea {
+        font-size: 3rem;
+    }
+    .form-group.answer__form {
+        margin-top: 2vh;
+    }
+    .form-group.answer__form .title {
+        margin-top: 10vh;
+    }
+    #suggest_question {
+        text-decoration: line-through;
+    }
+</style>
 {% endblock %}
 {% block content%}
 <div class="container">
     <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-        {% for error in form.non_field_errors %}
-            {{ error }}
-        {% endfor %}
 
         <!-- hidden fields는 위젯만 렌더링 -->
         {% for field in form.hidden_fields %}
@@ -32,11 +31,13 @@
         <div class="row">
             <div class="form-group answer__form col-12 col-md-10 push-md-1">
                 <textarea class="form-control title" id="exampleTextarea" rows="1" name='title' placeholder='질문' ></textarea>
+                <span class="form__errors" lang="ko">{{ form.title.errors }}</span>
             </div>
         </div>
         <div class="row">
             <div class="form-group answer__form col-12 col-md-10 push-md-1">
                 <textarea class="form-control" id="exampleTextarea" rows="1" name='content' placeholder='그에 대한 나의 답변' ></textarea>
+                <span class="form__errors" lang="ko">{{ form.content.errors }}</span>
             </div>
         </div>
         <div class="row justify-content-center">

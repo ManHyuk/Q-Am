@@ -1,23 +1,25 @@
 {% extends "diary/layout_navi.html" %}
 {% block style %}
-::-webkit-input-placeholder {
-    text-align: center;
-}
-#exampleTextarea {
-    font-size: 3rem;
-}
-.form-group.answer__form {
-    margin-top: 2vh;
-}
-.form-group.answer__form.title {
-    margin-top: 10vh;
-}
-.diary__date {
-    margin-bottom: 2vh;
-}
-#my_diary {
-    text-decoration: line-through;
-}
+<style type="text/css">
+    ::-webkit-input-placeholder {
+        text-align: center;
+    }
+    #exampleTextarea {
+        font-size: 3rem;
+    }
+    .form-group.answer__form {
+        margin-top: 2vh;
+    }
+    .form-group.answer__form.title {
+        margin-top: 10vh;
+    }
+    .diary__date {
+        margin-bottom: 2vh;
+    }
+    #my_diary {
+        text-decoration: line-through;
+    }
+</style>
 {% endblock %}
 
 {% block content%}
