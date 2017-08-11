@@ -21,7 +21,7 @@ class Profile(models.Model):
         upload_to='blog/%Y/%m/%d',
         blank=True,
         null=True,
-        processors=[Thumbnail(100, 100)],  # 처리할 작업목록
+        processors=[Thumbnail(150, 150)],  # 처리할 작업목록
         format='JPEG',
         options={'quality': 80}
     )

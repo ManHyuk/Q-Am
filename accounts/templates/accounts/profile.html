@@ -1,29 +1,84 @@
-<h1>{{ user.profile.nickname }}'s profile</h1>
+{% extends "layout_navi.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static "accounts/css/profile.css" %}">
+<script src="{% static 'accounts/js/profile.js' %}"></script>
+
+<link rel="stylesheet" href="../../static/css/profile.css">
+<scirpt src="../../static/js/profile.js"></scirpt>
+
+
+
+    <div class="profile-card">
+        <div class="profile-cover">
+            <div class="profile-avatar">
+                <a href="#">
+                    {% if user.socialaccount_set.all.first.get_avatar_url %}
+            <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
+        {% else %}
+                        <img src="{% static 'joy.jpeg' %}" >
+        {% endif %}
+                </a>
+            </div>
+            <div class="profile-details">
+                <div style="font-size: 1.5rem"> {{ user }} </div>
+                <div> {{ user.email }}</div>
+            </div>
+        </div>
+        <div class="profile-content">
+            <ul>
+                <li>
+                    <div class="digits">{{ answer.count }}</div>
+                    답변 수
+                </li>
+                <li>
+                    <div class="digits">{{ answer_public }}</div>
+                    공개 답변 수
+                </li>
+                <li>
+                    <div class="digits">{{ ex_answer.count }}</div>
+                    추가 답변 수
+                </li>
+                <li>
+                    <div class="digits">{{ ex_answer_public }}</div>
+                    추가 공개 답변 수
+                </li>
+
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+
+    <h1>{{ user }}'s profile</h1>
 
 <ul>
-
-
     <li>image :
-        {% if profile.img.url %}
-            <img src="{{ profile.img.url }}">
-        {%endif%}
         {% if user.socialaccount_set.all.first.get_avatar_url %}
-            <img src="{{user.socialaccount_set.all.first.get_avatar_url}}">
-        {%endif%}
+            <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
+        {% else %}
+            이미지가 없어
+        {% endif %}
+        </li>
+    <li>email : {{ user.email }}</li>
+    <li>name :
+        {% if user.socialaccount_set.first.extra_data.properties.nickname %}
+            {{ user.socialaccount_set.first.extra_data.properties.nickname }}</li>
+        {% else %}
+            없어
+        {% endif %}
 
 
-
-
-
-
-    </li>
-    <li>email : {{ user.profile.email }}</li>
-    <li>이름 : {{user.profile.name}}</li>
-    <li>nickname : {{user.profile.nickname}}</li>
     <li>가입일 : {{ user.date_joined }}</li>
 </ul>
 
 <a href="{%url "qna:main"%}"><input type="button" value="메인으로"></a>
-{%if not user.socialaccount_set.all.first.get_avatar_url%}
-<a href="{%url "edit_pw"%}"><input type="button" value="비번 변경"></a>
-{%endif%}
+
+
+<a href="{% url "edit_pw" %}"> 비밀번호 변경</a>
+
+
+<a href="{% url "edit_pw" %}">eidt pw</a>
+
+{% endblock %}

@@ -7,7 +7,7 @@
             <p class="form-title sign-in input__profile">
                 your profile
             </p>
-                <form action="" method="post" class="login input__profile">
+                <form action="" method="post" class="login input__profile" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         {% for error in form.non_field_errors %}
