@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,15 +13,12 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <!-- bootstrap css -->
-      {% load static %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/css/tether.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
     <!-- my custom css -->
-     {% load static %}
     <link rel="stylesheet" href="{% static "css/style.css" %}">
-    <style type="text/css">
-      {% block style %}
-      {% endblock %}
-    </style>
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
 
@@ -54,14 +53,13 @@
 {% block content %}
 {% endblock %}
 
-<!-- bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"   integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<!-- script -->
+<script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"   integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-{% load static %}
-<script type="text/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
-
-{% load static %}
-<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+{% block extra_script %}
+{% endblock %}
 
 </body>
 </html>

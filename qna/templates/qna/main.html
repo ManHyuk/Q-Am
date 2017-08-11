@@ -1,6 +1,21 @@
 {% extends "layout_navi.html"%}
-{%block content%}
 
+{% block extra_script %}
+<script>
+$(function() {
+    $('#edit_button').click(function() {
+        var timestamp = parseInt($(this).data("possible-timestamp"));
+        if ( timestamp < (new Date()).getTime() ) {
+          alert("???");
+          return false;
+        }
+        return true;
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
 <main>
   <div class="container">
     <p class="today__question">Today's Question<br>
@@ -36,7 +51,7 @@
           {{ answer.content }}
         </div>
         <div class="main__card__button">
-          <a class="mx-3" lang="ko" href="{% url "qna:question_edit" answer.id %}">수정</a>
+          <a id="edit_button" class="mx-3" lang="ko" href="{% url "qna:question_edit" answer.id %}" data-possible-timestamp="131231312412">수정</a>
         </div>
       </div>
     </div>
