@@ -16,9 +16,11 @@
           {{ field }}
         {% endfor %}
 
-        <table>
-            {{ form.as_table }}
-        </table>
+        {% for field in form.visible_fields %}
+            {{ field }}
+            {{ field.errors }}
+        {% endfor %}
+
         <input type="submit" value="제출" class="btn btn-success bg-success" />
         </div>
     </div>

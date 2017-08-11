@@ -1,0 +1,17 @@
+<form action="" method="get">
+    <input type="date" name="search_day" value="{{search_day}}">
+    <input type="submit" value="검색">
+</form>
+
+{%for diary in search_diary_day%}
+    <ul>
+        <li>
+            <a href="{%url "diary:diary_detail" diary.pk %}">
+            <p>
+            {{ diary.created_at.year}}년 {{ diary.created_at.month}}월 {{ diary.created_at.day}}일 /
+                        {{ diary.title}}
+            </p>
+            </a>
+        </li>
+    </ul>
+{%endfor%}
