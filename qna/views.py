@@ -116,7 +116,7 @@ def question_search(request):
         'search_keyword': search_keyword,
         'search_ques1': search_ques1,
         'search_ques2': search_ques2,
-        'random_list' : random_list,
+        'random_list': random_list,
     })
     else:
         return render(request, 'qna/question_search.html')
@@ -176,11 +176,14 @@ def question_search_day(request):
             messages.info(request, '검색결과가 없습니다')
             return redirect('qna:question_search_day')
 
+        random_list = [1, 2, 3]
+
     # 중복 제거
         return render(request, 'qna/question_search_day.html', {
         'search_day': search_day,
         'search_ques1': search_day_ques1,
         'search_ques2':search_day_ques2,
+        'random_list': random_list,
     })
 
     else:
@@ -210,10 +213,13 @@ def question_search_content(request):
             messages.info(request, '검색결과가 없습니다')
             return redirect('qna:question_search_content')
 
+        random_list = [1, 2, 3]
+
         return render(request, 'qna/question_search_content.html',{
             'search_content':search_content,
-            'search_content_ques1':search_content_ques1,
-            'search_content_ques2':search_content_ques2,
+            'search_ques1':search_content_ques1,
+            'search_ques2':search_content_ques2,
+            'random_list': random_list,
         })
     else:
         return render(request, 'qna/question_search_content.html')
