@@ -1,8 +1,10 @@
 {% extends "diary/layout_navi.html" %}
 {% block style %}
-#my_diary {
-    text-decoration: line-through;
-}
+<style type="text/css">
+    #my_diary {
+        text-decoration: line-through;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -30,11 +32,18 @@
         {% for di in diary %}
             <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
                <div class="diary__contents px-3">
-                    <p class="diary__title" lang="ko">
-                        #{{ di.title }}</p>
-                    <p class="diary__body" lang="ko">
-                        {{ di.content }}</p>
-                </div></a>
+                    <div class="diary__box">
+                        <p class="diary__title" lang="ko">
+                            #{{ di.title }}</p>
+                        <p class="diary__body" lang="ko">
+                            {{ di.content }}</p>
+                    </div>
+                    <div class="diary__app main__card__button">
+                        <a href="{% url 'diary:diary_edit' di.pk %}" lang="ko">수정</a>&nbsp;&nbsp;
+                        <a href="{% url 'diary:diary_delete' di.pk %}" lang="ko">삭제</a>
+                    </div>
+                </div>
+
             </div>
         {% endfor %}
         <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">

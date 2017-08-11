@@ -306,7 +306,6 @@ button.navbar-toggler.navbar-toggler-right span {
 .diary__contents {
   border: 1px solid #999;
   box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.75);
-  overflow: hidden;
   height: 20rem;
   cursor: pointer;
   transition: 0.2s all ease-in-out;
@@ -318,6 +317,11 @@ button.navbar-toggler.navbar-toggler-right span {
 
 .diary__body {
   font-size: 1.5em;
+}
+
+.diary__box {
+  height: 18rem;
+  overflow: hidden;
 }
 
 .new__diary {
@@ -334,6 +338,15 @@ a.plus {
 
 .diary__contents:hover {  /*클릭하면 레이어팝업 뜨도록 */
   background-color: #e7e7e7;
+}
+
+.diary__box:hover {
+  overflow: auto;
+}
+
+.diary__app {
+  vertical-align: bottom;
+  font-size: 1.2rem;
 }
 
 /* main page */
