@@ -7,12 +7,12 @@ h6 { font-size: 13px; }
 
 .profile-card {
     margin: 50px;
-    width: 500px;
+    width: 550px;
     height: 400px;
     font: 12px "Myriad Pro";
 }
 .profile-card .profile-cover {
-    background: url('https://dl.dropboxusercontent.com/s/b9zehob0bif4zr0/newyork.jpg') no-repeat center;
+    background: url('../background.jpeg') no-repeat center;
     position: relative;
     height: 260px;
 
