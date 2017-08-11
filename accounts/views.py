@@ -80,6 +80,8 @@ def login(request):
             provider.social_app = None
         providers.append(provider)
 
+
+
     return auth_login(request,
                       authentication_form=LoginForm,
                       template_name='accounts/login_form.html',

@@ -27,41 +27,6 @@ class ProfileForm(forms.ModelForm):
         self.fields['phone_number'].widget.attrs['placeholder'] = 'PhoneNumber/ex>01012341234'
         self.fields['email'].widget.attrs['placeholder'] = 'E-Mail/ex>qam@qam.qam'
 
-        # fields=['name','nickname','phone_number','email','img']
-
-
-
-    # name=forms.CharField(
-    #         label='',
-    #         max_length=254,
-    #         widget=forms.TextInput(attrs={
-    #             'autofocus': '',
-    #             'placeholder': 'name'
-    #         })
-    #     )
-    # nickname = forms.CharField(
-    #     help_text='',
-    #     label='',
-    #     widget=forms.TextInput(attrs={
-    #             'autofocus': '',
-    #             'placeholder': 'nickname(공유될 때 이름)'
-    #         }))
-    # phone_number = forms.CharField(
-    #     # help_text='ex> 01012341234',
-    #     label='',
-    #     widget=forms.TextInput(attrs={
-    #             'autofocus': '',
-    #             'placeholder': 'phone number/ex>01012341234'
-    #         }))
-    # email = forms.EmailField(
-    #             max_length=100,
-    #             label='',
-    #             widget=forms.TextInput(attrs={
-    #                              'autofocus': '',
-    #                              'placeholder': 'email/ex>qam@qam.qam'
-    #                          }))
-    # # img = ProcessedImageField(spec_id='accounts:profile:img')
-
 
 
 class EditPasswordForm(forms.Form):
