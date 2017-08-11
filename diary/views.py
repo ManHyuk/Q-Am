@@ -144,6 +144,8 @@ def diary_new(request):
 @login_required
 def diary_edit(request, pk):
     diary = get_object_or_404(Diary, id=pk)
+    diary_title=diary.title
+    diary_content=diary.content
 
     # 글의 유저인덱스와 로그인한 유저인덱스의 값이 다를 경우 되돌려보냄
     if diary.user_id != request.user.id:
@@ -151,7 +153,7 @@ def diary_edit(request, pk):
 
     # 질문 등록 날짜와 현재 날짜가 다르면 수정 불가
     if diary.created_at.day != timezone.now().day:
-        return redirect('diary:diary_detail', pk)
+        return redirect('diary:diary_list')
 
     if request.method == 'POST':
         form = DiaryForm(request.POST, request.FILES, instance=diary)
@@ -159,14 +161,28 @@ def diary_edit(request, pk):
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
-            return redirect('diary:diary_detail', pk)
+            return redirect('diary:diary_list')
     else:
         form = DiaryForm()
 
+        week = ('월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일')
+        # 한글 안먹으면 아래 week로 해보세요
+        # week = ('MONDAY','THESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
+        now = timezone.now()
+        month = now.month
+        day = now.day
+        week_day = week[now.weekday()]
+        # 그날의 날짜와 요일을 보여줌
+
         ctx = {
-            'form': form
+            'form': form,
+            'diary_title':diary_title,
+            'diary_content':diary_content,
+            'month': month,
+            'day': day,
+            'week_day': week_day,
         }
-        return render(request, 'diary/diary_edit.html', ctx)
+        return render(request, 'diary/diary_new.html', ctx)
 
 
 @login_required

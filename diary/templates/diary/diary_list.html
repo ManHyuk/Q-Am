@@ -29,12 +29,14 @@
     <div class="row">
         {% for di in diary %}
             <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
-               <div class="diary__contents px-3">
+               <div class="diary__contents px-3 ">
                     <p class="diary__title" lang="ko">
                         #{{ di.title }}</p>
                     <p class="diary__">
-                        {{ di.content }}</p>
-                </div></a>
+                        {{ di.content|linebreaksbr }}</p>
+                   <a href="{% url 'diary:diary_edit' di.pk %}">수정</a>
+                   <a href="{% url 'diary:diary_delete' di.pk %}">삭제</a>
+                </div>
             </div>
         {% endfor %}
         <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">

@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'exqna',
     'accounts',
     'diary',
+
+
 ]
 
 MIDDLEWARE = [
@@ -168,3 +170,5 @@ EMAIL_HOST_USER = 'jkjun2091@gmail.com'
 EMAIL_HOST_PASSWORD = 'jinkwang12!'
 DEFAULT_FROM_EMAIL = 'jkjun2091@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#remember me 만료 시간 세션

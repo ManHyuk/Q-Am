@@ -18,22 +18,26 @@
         </div>
         </form>
         <div class="search__type col-4 col-md-3 push-md-1">
-                <a href="{%url "diary:diary_search_content"%}">내용으로 찾아보기</a>
+                <a href="{%url "diary:diary_search_title"%}">제목으로 찾아보기</a>
             </div>
     <label class="search" for="exampleTextarea" lang="ko"> <a href="{%url "diary:diary_search_day"%}" lang="ko">날짜로 찾아보기</a></label>
-    </div>
 
-    <div>
-        {% for diary in search_diary_content %}
-            <div class="row">
-            <div class="search__list col-3 push-5 mt-3" lang="ko">
-                    <a href="{% url "diary:diary_detail" diary.pk %}">
-                        <p>{{ diary.created_at.year}}년 {{ diary.created_at.month}}월 {{ diary.created_at.day}}일 /
-                        {{ diary.title}}</p>
-                    </a>
-            </div>
+    <div class="row">
+         {% for diary in search_diary_content %}
+            <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
+               <div class="diary__contents px-3 ">
+                    <p class="diary__title" lang="ko">
+                        #{{ diary.title }}</p>
+                    <p class="diary__">
+                        {{ diary.content|linebreaksbr }}</p>
+                   <a href="{% url 'diary:diary_edit' diary.pk %}">수정</a>
+                   <a href="{% url 'diary:diary_delete' diary.pk %}">삭제</a>
+                </div>
             </div>
         {% endfor %}
 
     </div>
+    </div>
+
+
 {% endblock %}

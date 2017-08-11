@@ -34,13 +34,13 @@
                 <p class="diary__date" lang="ko">
                     {{ month }}월 {{ day }}일 {{ week_day }}
                 </p>
-                <textarea class="form-control title" id="exampleTextarea" rows="1" name='title' placeholder='키워드' ></textarea>
+                <textarea class="form-control title" id="exampleTextarea" rows="1" name='title' placeholder='키워드' >{{ diary_title }}</textarea>
                 <span class="form__errors" lang="ko">{{ form.title.errors }}</span>
             </div>
         </div>
         <div class="row">
             <div class="form-group answer__form col-12 col-md-10 push-md-1">
-                <textarea class="form-control" id="exampleTextarea" rows="1" name='content' placeholder='내용' ></textarea>
+                <textarea class="form-control" id="exampleTextarea" rows="1" name='content'  placeholder='내용'  >{{ diary_content }}</textarea>
                 <span class="form__errors" lang="ko">{{ form.content.errors }}</span>
             </div>
         </div>
