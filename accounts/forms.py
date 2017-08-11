@@ -47,7 +47,7 @@ class ProfileForm(forms.Form):
             max_length=254,
             widget=forms.TextInput(attrs={
                 'autofocus': '',
-                'placeholder': 'name'
+                'placeholder': 'Name'
             })
         )
     nickname = forms.CharField(
@@ -55,21 +55,21 @@ class ProfileForm(forms.Form):
         label='',
         widget=forms.TextInput(attrs={
                 'autofocus': '',
-                'placeholder': 'nickname(공유될 때 이름)'
+                'placeholder': 'Nickname(공유될 때 이름)'
             }))
     phone_number = forms.CharField(
         # help_text='ex> 01012341234',
         label='',
         widget=forms.TextInput(attrs={
                 'autofocus': '',
-                'placeholder': 'phone number/ex>01012341234'
+                'placeholder': 'Phone Number/ex>01012341234'
             }))
     email = forms.EmailField(
                 max_length=100,
                 label='',
                 widget=forms.TextInput(attrs={
                                  'autofocus': '',
-                                 'placeholder': 'email/ex>qam@qam.qam'
+                                 'placeholder': 'Email/ex>qam@qam.qam'
                              }))
     # img = ProcessedImageField(spec_id='accounts:profile:img')
 

@@ -1,4 +1,10 @@
 {%extends "layout_navi.html"%}
+{% block style %}
+#other_people {
+    text-decoration: line-through;
+}
+{% endblock %}
+
 {%block content%}
 
 
@@ -7,7 +13,7 @@
   <p class="today__question">Additional Question<br>
       <span lang="ko">{{ exquestion }}</span>
   </p>
-  <div class="about pb-2"><a href="#">About Today's Question</a></div>
+  <div class="about pb-2"><a href="{% url "qna:other_people" %}">About Today's Question</a></div>
 
 <div class="row justify-content-center">
   <div class="card-columns mx-3">
@@ -39,7 +45,7 @@
 <div class="row justify-content-center pagination">
     <ul class="pagination">
         {% if other_answer.has_previous %}
-            <a href="?page={{ other_answer.previous_page_number }}">&laquo;</a>
+            <a href="?page={{ other_answer.previous_page_number }}"></a>
         {% else %}
             <span class="disabled"></span>
         {% endif %}
@@ -53,7 +59,7 @@
         {% if other_answer.has_next %}
             <a href="?page={{ other_answer.next_page_number }}"></a>
         {% else %}
-            <span class="disabled">&raquo;</span>
+            <span class="disabled"></span>
         {% endif %}
 
     </ul>

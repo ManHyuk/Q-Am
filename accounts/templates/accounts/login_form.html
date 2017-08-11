@@ -1,5 +1,11 @@
 {% extends "layout.html" %}
-{%load static%}
+{% load static %}
+{% block style %}
+@media screen and (min-width: 320px) {
+  * { font-size: 16px;
+  }
+}
+{% endblock %}
 {% block content %}
 {% load socialaccount %}
 
@@ -35,12 +41,20 @@
                   </div>
               </div>
         </div>
-        <a class="btn btn-success bg-success" href="{% url "signup" %}">SIGN UP</a>
-        <a class="btn btn-success bg-success" href="{%url "password_reset"%}">FORGOT PASSWORD</a>
 
 
     </form>
-             <ul>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-12 buttons">
+    <a class="btn btn-success bg-success" href="{% url "signup" %}">SIGN UP</a>
+        <a class="btn btn-success bg-success" href="{%url "password_reset"%}">FORGOT PASSWORD</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 buttons mt-3">
+    <ul>
         {% for provider in providers %}
             <li>
                 {% if provider.social_app %}
@@ -56,8 +70,8 @@
             </li>
         {% endfor %}
     </ul>
+    </div>
 
         </div>
-    </div>
 </div>
 {% endblock %}

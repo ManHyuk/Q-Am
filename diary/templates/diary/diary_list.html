@@ -1,4 +1,9 @@
 {% extends "diary/layout_navi.html" %}
+{% block style %}
+#my_diary {
+    text-decoration: line-through;
+}
+{% endblock%}
 
 {% block content %}
 
@@ -18,9 +23,9 @@
 </div>
 
 
-    <a href="{% url "diary:diary_search" %}"><input type="button" value="다른날 검색해보기"></a>
+<!--     <a href="{% url "diary:diary_search" %}"><input type="button" value="다른날 검색해보기"></a>
     <hr>
-    <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
+    <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br> -->
 
 
 
@@ -29,8 +34,9 @@
     <main>
         <div class="container">
             <p class="diary__date" lang="ko">
-                {{ month }}월 {{ day }}일 {{ week_day }} 게시물
+                {{ month }}월 {{ day }}일 {{ week_day }}
             </p>
+            <div class="about pb-2"><a href="{% url "diary:diary_search" %}">Search Diary</a></div>
             <div class="row">
 
                 {% for di in diary %}

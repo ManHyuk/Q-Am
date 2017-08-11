@@ -5,7 +5,7 @@ from django.conf import settings
 class Diary(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
-    title = models.CharField(max_length=10, null=False,verbose_name='제목')
+    title = models.CharField(max_length=10, null=False)
 
     content = models.TextField(max_length=500)
 

@@ -1,9 +1,15 @@
 {%extends "layout_navi.html"%}
+{% block style %}
+#other_people {
+    text-decoration: line-through;
+}
+{% endblock %}
+
 {%block content%}
 <main class="other_people container">
 <p class="today__question">Today's Question<br>
     <span lang="ko">{{ question }}</span></p>
-    <div class="about pb-2"><a href="#">About Additional Question</a></div>
+    <div class="about pb-2"><a href="{% url "exqna:other_people" %}">About Additional Question</a></div>
 
 <div class="row justify-content-center">
   <div class="card-columns mx-3">
@@ -36,9 +42,9 @@
 <div class="row justify-content-center pagination">
         <ul class="pagination">
             {% if other_answer.has_previous %}
-                <a href="?page={{ other_answer.previous_page_number }}">&laquo;</a>
+                <a href="?page={{ other_answer.previous_page_number }}"></a>
             {% else %}
-                <span class="disabled">&laquo;</span>
+                <span class="disabled"></span>
             {% endif %}
             {% for i in other_answer.paginator.page_range %}
                 {% if other_answer.number == i %}
@@ -48,9 +54,9 @@
                 {% endif %}
             {% endfor %}
             {% if other_answer.has_next %}
-                <a href="?page={{ other_answer.next_page_number }}">&raquo;</a>
+                <a href="?page={{ other_answer.next_page_number }}"></a>
             {% else %}
-                <span class="disabled">&raquo;</span>
+                <span class="disabled"></span>
             {% endif %}
 
         </ul>
