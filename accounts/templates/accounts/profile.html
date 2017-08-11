@@ -29,19 +29,23 @@
             <ul>
                 <li>
                     <div class="digits">{{ answer.count }}</div>
-                    답변 수
+                    답변
                 </li>
                 <li>
                     <div class="digits">{{ answer_public }}</div>
-                    공개 답변 수
+                    공개답변
                 </li>
                 <li>
                     <div class="digits">{{ ex_answer.count }}</div>
-                    추가 답변 수
+                    추가답변
                 </li>
                 <li>
                     <div class="digits">{{ ex_answer_public }}</div>
-                    추가 공개 답변 수
+                    추가질문답변
+                </li>
+                <li>
+                    <div class="digits"><a href="{% url 'edit_pw' %}">pw</a></div>
+                    변경
                 </li>
 
             </ul>
@@ -49,36 +53,5 @@
         </div>
     </div>
 
-
-
-    <h1>{{ user }}'s profile</h1>
-
-<ul>
-    <li>image :
-        {% if user.socialaccount_set.all.first.get_avatar_url %}
-            <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
-        {% else %}
-            이미지가 없어
-        {% endif %}
-        </li>
-    <li>email : {{ user.email }}</li>
-    <li>name :
-        {% if user.socialaccount_set.first.extra_data.properties.nickname %}
-            {{ user.socialaccount_set.first.extra_data.properties.nickname }}</li>
-        {% else %}
-            없어
-        {% endif %}
-
-
-    <li>가입일 : {{ user.date_joined }}</li>
-</ul>
-
-<a href="{%url "qna:main"%}"><input type="button" value="메인으로"></a>
-
-
-<a href="{% url "edit_pw" %}"> 비밀번호 변경</a>
-
-
-<a href="{% url "edit_pw" %}">eidt pw</a>
 
 {% endblock %}
