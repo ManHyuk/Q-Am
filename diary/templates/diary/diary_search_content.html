@@ -1,0 +1,39 @@
+{% extends "diary/layout_navi.html" %}
+
+{% block content %}
+
+
+
+    <div class="container">
+        <form action="" method="get">
+        <div class="row">
+            <div class="form-group search__form col-12 col-md-10 push-md-1">
+                <input type="text" class="form-control" id="exampleTextarea" name="search_content" value="{{search_content}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="submit__answer col-8 col-md-7 push-md-1">
+                <input type="submit" value="검색하기" class="btn btn-success bg-success"/>
+            </div>
+        </div>
+        </form>
+        <div class="search__type col-4 col-md-3 push-md-1">
+                <a href="{%url "diary:diary_search_content"%}">내용으로 찾아보기</a>
+            </div>
+    <label class="search" for="exampleTextarea" lang="ko"> <a href="{%url "diary:diary_search_day"%}" lang="ko">날짜로 찾아보기</a></label>
+    </div>
+
+    <div>
+        {% for diary in search_diary_content %}
+            <div class="row">
+            <div class="search__list col-3 push-5 mt-3" lang="ko">
+                    <a href="{% url "diary:diary_detail" diary.pk %}">
+                        <p>{{ diary.created_at.year}}년 {{ diary.created_at.month}}월 {{ diary.created_at.day}}일 /
+                        {{ diary.title}}</p>
+                    </a>
+            </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

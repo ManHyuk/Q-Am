@@ -16,14 +16,10 @@
     <form action="" method="post" class="login">
         {% csrf_token %}
 
-        {% for error in form.non_field_errors %}
-            {{ error }}
-        {% endfor %}
+        <!--{% for error in form.non_field_errors %}-->
+            <!--{{ error }}-->
+        <!--{% endfor %}-->
 
-        <!-- hidden fields는 위젯만 렌더링 -->
-        {% for field in form.hidden_fields %}
-          {{ field }}
-        {% endfor %}
 
         <table>
             {{ form.as_table }}

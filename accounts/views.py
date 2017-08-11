@@ -10,6 +10,9 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from accounts.models import Profile
+from qna.models import Answer
+from exqna.models import ExtraAnswer
 
 
 def signup(request):
@@ -51,7 +54,17 @@ def signup_info(request):
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    answer = Answer.objects.filter(user_id=request.user)
+    answer_public = Answer.objects.filter(user_id=request.user,is_public=True).count()
+    ex_answer = ExtraAnswer.objects.filter(user_id=request.user)
+    ex_answer_public = ExtraAnswer.objects.filter(user_id=request.user, is_public=True).count()
+    ctx = {
+        'answer': answer,
+        'answer_public': answer_public,
+        'ex_answer': ex_answer,
+        'ex_answer_public': ex_answer_public,
+    }
+    return render(request, 'accounts/profile.html', ctx)
 
 
 

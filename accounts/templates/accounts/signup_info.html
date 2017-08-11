@@ -7,22 +7,26 @@
             <p class="form-title sign-in input__profile">
                 your profile
             </p>
-<form action="" method="post" class="login input__profile">
-        {% csrf_token %}
+                <form action="" method="post" class="login input__profile" enctype="multipart/form-data">
+                        {% csrf_token %}
 
-        {% for error in form.non_field_errors %}
-            {{ error }}
-        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
 
-        <!-- hidden fields는 위젯만 렌더링 -->
-        {% for field in form.hidden_fields %}
-          {{ field }}
-        {% endfor %}
+                        <!-- hidden fields는 위젯만 렌더링 -->
+                        {% for field in form.hidden_fields %}
+                          {{ field }}
+                        {% endfor %}
 
-        <table>
-            {{ form.as_p }}
-        </table>
-        <input type="submit" value="제출하기" class="btn btn-success bg-success" />
+                        {% for field in form.visible_fields %}
+                            {{ field }}
+                            {{ field.errors }}
+                        {% endfor %}
+
+
+                        <input type="submit" value="제출하기" class="btn btn-success bg-success" />
+                </form>
         </div>
     </div>
 </div>
