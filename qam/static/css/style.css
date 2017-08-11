@@ -33,6 +33,7 @@ button:focus {
 ul, ol {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 [lang="ko"] {
@@ -62,6 +63,11 @@ a {
 
 div.pagination {
   font-size: 2rem;
+}
+
+span.form__errors li {
+  font-size: 1.5rem;
+  font-family: 'nanum myeongjo', serif;
 }
 
 
@@ -274,7 +280,7 @@ button.navbar-toggler.navbar-toggler-right span {
   font-weight: 600;
 }
 
-.navbar-light .nav-item a.nav-link:hover, .nav-item-last:hover, .active {
+.navbar-light .nav-item a.nav-link:hover, .nav-item-last:hover {
   text-decoration: line-through;
 }
 
@@ -403,7 +409,7 @@ a.plus {
   font-size: 1.2rem;
 }
 
-/* word_search */
+/* search_previous */
 .search__form {
   text-align: right;
   font-size: 1.2rem;
@@ -425,4 +431,17 @@ a.plus {
 
 .search__list a:hover {
   font-size: 2.1rem;
+}
+
+.search__type a.active {
+  background-color: #cfcfcf;
+}
+
+.search_diary a {
+  font-size: 1.3rem;
+}
+
+.search__list a span {
+  font-size: 1.5rem;
+  font-weight: 600;
 }

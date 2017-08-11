@@ -109,11 +109,14 @@ def question_search(request):
             messages.info(request, '검색결과가 없습니다')
             return redirect('qna:question_search')
 
+        random_list = [1, 2, 3]
+
     # 중복 제거
         return render(request, 'qna/question_search.html', {
         'search_keyword': search_keyword,
         'search_ques1': search_ques1,
         'search_ques2': search_ques2,
+        'random_list' : random_list,
     })
     else:
         return render(request, 'qna/question_search.html')
