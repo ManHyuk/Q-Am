@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "layout_navi.html"%}
+{% block content %}
 
     {% for answer in answer_set %}
     <h3>질문 : {{answer.question}}</h3><br>
@@ -16,4 +12,5 @@
 <hr>
 <a href="{% url "qna:main" %}"><input type="button" value="메인으로"></a><br>
 {#<a href="{% url "qna:question_edit" answer.id%}"><input type="button" value="수정"></a>#}
-</body>
+
+{%endblock%}

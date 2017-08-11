@@ -33,7 +33,7 @@
         <div class="row">
             <div class="search__type col-4 col-md-3 push-md-1">
                 <a class="active" href="{% url "qna:question_search" %}">Question</a>&nbsp;&nbsp;&nbsp;
-                <a href="#">Diary</a>
+                <a href="{% url 'diary:diary_search_title' %}">Diary</a>
             </div>
             <div class="submit__answer col-8 col-md-7 push-md-1">
                 <input type="submit" value="검색하기" class="btn btn-success bg-success" />

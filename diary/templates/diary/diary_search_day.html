@@ -1,15 +1,31 @@
-<form action="" method="get">
-    <input type="date" name="search_day" value="{{search_day}}">
-    <input type="submit" value="검색">
-</form>
+{% extends "layout_search_diary.html" %}
+{% block active__button %}
+    날짜로 찾아보기
+{% endblock %}
 
-{%for diary in search_diary_day%}
-    <ul>
-        <li>
-            <p>
-            {{ diary.created_at.year}}년 {{ diary.created_at.month}}월 {{ diary.created_at.day}}일 /
-                        {{ diary.title}}
-            </p>
-        </li>
-    </ul>
-{%endfor%}
+{% block search_type %}
+    <input type='date' name="search_day" class="form-control" id="exampleTextarea" rows="1" value="{{search_day}}"/>
+{% endblock %}
+
+
+{% block search %}
+    <div class="row">
+        {% for diary in search_diary_day %}
+            <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
+               <div class="diary__contents px-3">
+                    <div class="diary__box">
+                        <p class="diary__title" lang="ko">
+                            #{{ diary.title }}</p>
+                        <p class="diary__body" lang="ko">
+                            {{ diary.content }}</p>
+                    </div>
+                    <div class="diary__app main__card__button">
+                        <a href="{% url 'diary:diary_edit' diary.pk %}" lang="ko">수정</a>&nbsp;&nbsp;
+                        <a href="{% url 'diary:diary_delete' diary.pk %}" lang="ko">삭제</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

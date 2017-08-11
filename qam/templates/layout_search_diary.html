@@ -7,3 +7,56 @@
     }
     </style>
 {% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="" method='get'>
+        <div class="row">
+            <div class="form-group search__form col-12 col-md-10 push-md-1">
+                <label class="search" for="exampleTextarea" lang="ko">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" lang="ko">
+                            {% block active__button %}
+                            {% endblock %}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{% url "diary:diary_search_title" %}" lang="ko">제목으로 찾아보기</a>
+                            <a class="dropdown-item" href="{% url "diary:diary_search_content" %}" lang="ko">내용으로 찾아보기</a>
+                            <a class="dropdown-item" href="{% url "diary:diary_search_day" %}" lang="ko">날짜로 찾아보기</a>
+                        </div>
+                    </div>
+                </label>
+                {% block search_type %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="search__type col-4 col-md-3 push-md-1">
+                <a href="{% url "qna:question_search" %}">Question</a>&nbsp;&nbsp;&nbsp;
+                <a class="active" href="{% url 'diary:diary_search_title' %}">Diary</a>
+            </div>
+            <div class="submit__answer col-8 col-md-7 push-md-1">
+                <input type="submit" value="검색하기" class="btn btn-success bg-success" />
+            </div>
+        </div>
+    </form>
+
+    {% if messages %}
+        <div class="row">
+            <div class="form-group col-12 col-md-10 push-md-1 mt-3">
+                <div class="messages">
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                            {{ message.message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% block search %}
+
+{% endblock %}
+</div>
+{% endblock %}

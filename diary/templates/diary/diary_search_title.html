@@ -1,42 +1,29 @@
-{% extends "diary/layout_navi.html" %}
+{% extends "layout_search_diary.html" %}
+{% block active__button %}
+제목으로 찾아보기
+{% endblock %}
 
-{% block content %}
+{% block search_type %}
+<input type="textarea" class="form-control" id="exampleTextarea" rows="1" name="search_title" value="{{search_title}}"/>
+{% endblock %}
 
-
-
-    <div class="container">
-        <form action="" method="get">
-        <div class="row">
-            <div class="form-group search__form col-12 col-md-10 push-md-1">
-                <input type="text" class="form-control" id="exampleTextarea" name="search_title" value="{{search_title}}">
-            </div>
-        </div>
-        <div class="row">
-            <div class="submit__answer col-8 col-md-7 push-md-1">
-                <input type="submit" value="검색하기" class="btn btn-success bg-success"/>
-            </div>
-        </div>
-        </form>
-        <div class="search__type col-4 col-md-3 push-md-1">
-                <a href="{%url "diary:diary_search_content"%}">내용으로 찾아보기</a>
-            </div>
-    <label class="search" for="exampleTextarea" lang="ko"> <a href="{%url "diary:diary_search_day"%}" lang="ko">날짜로 찾아보기</a></label>
-
+{% block search %}
     <div class="row">
-         {% for diary in search_diary_title %}
+        {% for diary in search_diary_title %}
             <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
-               <div class="diary__contents px-3 ">
-                    <p class="diary__title" lang="ko">
-                        #{{ diary.title }}</p>
-                    <p class="diary__">
-                        {{ diary.content|linebreaksbr }}</p>
-                   <a href="{% url 'diary:diary_edit' diary.pk %}">수정</a>
-                   <a href="{% url 'diary:diary_delete' diary.pk %}">삭제</a>
+               <div class="diary__contents px-3">
+                    <div class="diary__box">
+                        <p class="diary__title" lang="ko">
+                            #{{ diary.title }}</p>
+                        <p class="diary__body" lang="ko">
+                            {{ diary.content }}</p>
+                    </div>
+                    <div class="diary__app main__card__button">
+                        <a href="{% url 'diary:diary_edit' diary.pk %}" lang="ko">수정</a>&nbsp;&nbsp;
+                        <a href="{% url 'diary:diary_delete' diary.pk %}" lang="ko">삭제</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
-
     </div>
-    </div>
-
 {% endblock %}
