@@ -30,8 +30,9 @@ class ProfileForm(forms.ModelForm):
 
 
 class EditPasswordForm(forms.Form):
-    pw1 = forms.CharField(max_length=50, label="new password", widget=forms.PasswordInput)
-    pw2 = forms.CharField(max_length=50, label="new password again", widget=forms.PasswordInput)
+    pw1 = forms.CharField(max_length=50, label="new password",
+           widget=forms.PasswordInput(attrs={'placeholder':'PassWord'}))
+    pw2 = forms.CharField(max_length=50, label="new password again", widget=forms.PasswordInput(attrs={'placeholder':'Confirm PassWord'}))
 
 
 
