@@ -1,57 +1,57 @@
 {% extends "layout_navi.html" %}
-{% block content %}
 {% load static %}
+
+{% block style %}
 <link rel="stylesheet" href="{% static "accounts/css/profile.css" %}">
-<script src="{% static 'accounts/js/profile.js' %}"></script>
+{% endblock %}
 
-<link rel="stylesheet" href="../../static/css/profile.css">
-<scirpt src="../../static/js/profile.js"></scirpt>
+{% block extra_script %}
+<!-- <script src="{% static 'accounts/js/profile.js' %}"></script> -->
+{% endblock %}
 
-
-
-    <div class="profile-card">
-        <div class="profile-cover">
-            <div class="profile-avatar">
-                <a href="#">
-                    {% if user.socialaccount_set.all.first.get_avatar_url %}
-            <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
-        {% else %}
-                        <img src="{% static 'joy.jpeg' %}" >
-        {% endif %}
-                </a>
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="profile-card">
+            <div class="profile-cover">
+                <div class="profile-avatar">
+                    <a href="#">
+                        {% if user.socialaccount_set.all.first.get_avatar_url %}
+                            <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
+                        {% else %}
+                            <img src="{% static 'joy.jpeg' %}" >
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="profile-details">
+                    <div class="profile_username"> {{ user.profile.name }} </div>
+                    <div class="profile_email"> {{ user.profile.email }}</div>
+                </div>
             </div>
-            <div class="profile-details">
-                <div style="font-size: 1.5rem"> {{ user }} </div>
-                <div> {{ user.email }}</div>
+            <div class="profile-content d-flex justify-content-center">
+                <ul>
+                    <li>
+                        <div class="digits">{{ answer.count }}</div>
+                        <div class="char">답변</div>
+                    </li>
+                    <li>
+                        <div class="digits">{{ answer_public }}</div>
+                        <div class="char">공개답변</div>
+                    </li>
+                    <li>
+                        <div class="digits">{{ ex_answer.count }}</div>
+                        <div class="char">추가답변</div>
+                    </li>
+                    <li>
+                        <a href="{% url 'edit_pw' %}" class="char"><div class="digits">PW</div>변경</a>
+                    </li>
+                    <li>
+                        <div class="digits"><a href="{% url "logout" %}?next={{request.path}}">Log<br>Out</a></div>
+                    </li>
+                </ul>
+                <div class="clear"></div>
             </div>
-        </div>
-        <div class="profile-content">
-            <ul>
-                <li>
-                    <div class="digits">{{ answer.count }}</div>
-                    답변
-                </li>
-                <li>
-                    <div class="digits">{{ answer_public }}</div>
-                    공개답변
-                </li>
-                <li>
-                    <div class="digits">{{ ex_answer.count }}</div>
-                    추가답변
-                </li>
-                <li>
-                    <div class="digits">{{ ex_answer_public }}</div>
-                    추가질문답변
-                </li>
-                <li>
-                    <div class="digits"><a href="{% url 'edit_pw' %}">pw</a></div>
-                    변경
-                </li>
-
-            </ul>
-            <div class="clear"></div>
         </div>
     </div>
-
-
+</div>
 {% endblock %}

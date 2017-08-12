@@ -70,6 +70,15 @@ span.form__errors li {
   font-family: 'nanum myeongjo', serif;
 }
 
+.pagination .active {
+  text-decoration: line-through;
+}
+
+.pagination a, .pagination span {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 
 /* homepage */
 .logo {
@@ -86,10 +95,20 @@ span.form__errors li {
   font-size: 2.5rem;
   border: 5px solid black;
 }
+
 .logo__start {
   font-size: 2rem;
   margin-top: 9vh;
 }
+
+.logo__down {
+  margin-top: 5vh;
+  font-size: 2rem;
+  border: 1.5px solid black;
+  border-radius: 100%;
+}
+
+
 
 @media screen and (max-width: 576px) {
   * {
@@ -134,8 +153,11 @@ a.top {
     margin-bottom: 2rem;
 }
 
+.inform {
+  text-align: center;
+}
 .inform__body {
-  margin-top: 40vh;
+  margin-top: 20vh;
   text-align: center;
   font-size: 1.8rem;
   line-height: 1.5;
@@ -456,4 +478,19 @@ a.plus {
 
 .search__list a span {
   font-size: 1.5rem;
+}
+
+/* profile */
+.profile-details .profile_username {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.profile-details .profile_email {
+  color: white;
+}
+
+.profile-content .char {
+  font-size: 0.9rem;
+  font-family: 'EB Garamond', sans-serif;
 }
