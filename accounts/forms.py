@@ -28,7 +28,6 @@ class ProfileForm(forms.ModelForm):
         self.fields['email'].widget.attrs['placeholder'] = 'E-Mail/ex>qam@qam.qam'
 
 
-
 class EditPasswordForm(forms.Form):
     pw1 = forms.CharField(max_length=50, label="new password",
            widget=forms.PasswordInput(attrs={'placeholder':'PassWord'}))

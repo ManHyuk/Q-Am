@@ -24,13 +24,13 @@
                         <p lang="ko">{{answer.content|linebreaksbr}}</p>
                     </article>
                     <footer>
-                        <small class="text-muted" lang="ko">
+                        <div class="text-muted" lang="ko">
                         {% if answer.user %}
                             {{ answer.user.profile.nickname }}
                         {% else %}
                             익명
                         {% endif %}
-                        </small>
+                        </div>
                     </footer>
                 </blockquote>
             </div>
@@ -78,13 +78,13 @@
           <p lang="ko">{{answer.content|linebreaksbr}}</p>
         </article>
         <footer>
-          <small class="text-muted" lang="ko">
+          <div class="text-muted" lang="ko">
             {% if answer.user %}
               {{ answer.user.profile.nickname }}
             {% else %}
               익명
             {% endif %}
-          </small>
+          </div>
         </footer>
       </blockquote>
   </div>
