@@ -23,12 +23,14 @@ def exquestion(request):
     if exquestion.questioned_at:    #오늘의 추가질문인지 체크, 아니면 is_new 바꾸기
         if exquestion.questioned_at != today_id:
             exquestion.is_new = False   #is_new 바꾸고 다음 추가질문 얻어오기
+            exquestion.save()
             exquestion = ExtraQuestion.objects.filter(is_new=True).first()
             if not exquestion: #안 쓰인 것 없을 경우
                 return redirect('qna:main')
             exquestion.questioned_at = today_id
     else:   #questioned_at 등록안되어 있으면 today_id로 등록
         exquestion.questioned_at = today_id
+    exquestion.save()
 
 
     has_extraAnswer = ExtraAnswer.objects.filter(question=exquestion, user=request.user)    #이미 대답했으면 넘어가기

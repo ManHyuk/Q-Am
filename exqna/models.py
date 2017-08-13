@@ -6,7 +6,7 @@ from django.urls.base import reverse
 class ExtraQuestion(models.Model):
     # 추가 질문
     title = models.CharField(max_length=32, null=False, verbose_name='제목') # 제목
-    questioned_at = models.IntegerField(blank=True) # 질문 날짜
+    questioned_at = models.IntegerField(null=True) # 질문 날짜
     is_new = models.BooleanField(default=True) #한 번 쓰였는지, 안 쓰였는지
 
     def __str__(self):
