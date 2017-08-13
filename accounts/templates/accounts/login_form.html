@@ -14,61 +14,47 @@
     <div class="row">
         <div class="col-md-12">
             <p class="form-title sign-in">Sign In</p>
-    <form action="" method="post" class="login">
-        {% csrf_token %}
-
-        <!--{% for error in form.non_field_errors %}-->
-            <!--{{ error }}-->
-        <!--{% endfor %}-->
-
-
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Sign In" class="btn btn-success bg-success" />
-        <div class="remember-forgot">
-               <div class="row">
-                  <div class="col-md-8">
-                       <div class="checkbox">
-                         <label>
-                               <input type="checkbox" />
-                              Remember Me
-                        </label>
-                     </div>
-                  </div>
-              </div>
+            <form action="" method="post" class="login">
+                {% csrf_token %}
+                <table>{{ form.as_table }}</table>
+                <input type="submit" value="Sign In" class="btn btn-success bg-success" />
+                <div class="remember-forgot">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" />
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-
-
-    </form>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-12 buttons">
-    <a class="btn btn-success bg-success" href="{% url "signup" %}">SIGN UP</a>
-        <a class="btn btn-success bg-success" href="{%url "password_reset"%}">FORGOT PASSWORD</a>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12 buttons mt-3">
-    <ul>
-        {% for provider in providers %}
-            <li>
-                {% if provider.social_app %}
-
+    <div class="row">
+        <div class="col-12 buttons">
+            <a class="btn btn-success bg-success" href="{% url "signup" %}">SIGN UP</a>
+            <a class="btn btn-success bg-success" href="{%url "password_reset"%}">FORGOT PASSWORD</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 buttons mt-3">
+            <ul>
+                {% for provider in providers %}
+                <li>
+                    {% if provider.social_app %}
                     <a href="{% provider_login_url provider.id %}">
                         <img src="{%static "kakao_button.png"%}" alt="">
                     </a>
-                {% else %}
-                    <a>
-                        Provider {{ provider.name }} 설정이 필요합니다.
-                    </a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-    </div>
-
+                    {% else %}
+                    <a>Provider {{ provider.name }} 설정이 필요합니다.</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
         </div>
+    </div>
 </div>
 {% endblock %}

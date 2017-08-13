@@ -1,17 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <h3>질문 : {{ex_answer.question}}</h3>
-
-    <hr>
-
-    <h3>대답 : {{ex_answer.content}}</h3>
-
-<hr>
-<a href="{% url "qna:main" %}"><input type="button" value="메인으로"> </a><br>
-<a href="{% url "exqna:exquestion_edit" ex_answer.id%}"><input type="button" value="수정"></a>
-</body>
+{% extends "layout_navi.html"%}
+{% block style%}
+<style type="text/css">
+main {
+  margin-top: 10vh;
+}
+</style>
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div id="accordion" role="tablist" aria-multiselectable="true" class="col-12">
+                <div class="card">
+                  <div class="card-header" role="tab" id="{{ex_answer.id}}dk">
+                    <h5 class="mb-0">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#kk{{ ex_answer.id }}" aria-expanded="true" aria-controls="kk{{ ex_answer.id }}" lang="ko">
+                        추가질문: {{ ex_answer.question }}
+                      </a>
+                    </h5>
+                  </div>
+                  <div id="kk{{ ex_answer.id }}" class="collapse show" role="tabpanel" aria-labelledby="{{ex_answer.id}}dk">
+                    <div class="card-block" lang="ko">
+                      {{ ex_answer.content }}
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
 
