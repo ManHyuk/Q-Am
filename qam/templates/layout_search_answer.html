@@ -61,6 +61,7 @@
             <a href="{% url "qna:question_detail" question.id%}" lang="ko">
                 <span lang="ko">{{question.month}}월 {{question.day}}일</span>
                 {{question.question}}
+
             </a>
         </div>
     </div>
@@ -78,4 +79,57 @@
     {% endfor %}
     {%endif%}
 </div>
+
+
+    {% if search_ques1.has_other_pages %}
+        <div class="row justify-content-center pagination">
+            <ul class="pagination">
+                {% if search_ques1.has_previous %}
+                    <a href="?page={{ search_ques1.previous_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+                {% for i in search_ques1.paginator.page_range %}
+                    {% if search_ques1.number == i %}
+                        <span class="active">{{ i }} <span class="sr-only"></span></span>
+                    {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if search_ques1.has_next %}
+                    <a href="?page={{ search_ques1.next_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+
+            </ul>
+        </div>
+
+    {% endif %}
+    {% if search_ques2.has_other_pages %}
+        <div class="row justify-content-center pagination">
+            <ul class="pagination">
+                {% if search_ques2.has_previous %}
+                    <a href="?page={{ search_ques2.previous_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+                {% for i in search_ques2.paginator.page_range %}
+                    {% if search_ques2.number == i %}
+                        <span class="active">{{ i }} <span class="sr-only"></span></span>
+                    {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if search_ques2.has_next %}
+                    <a href="?page={{ search_ques2.next_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+
 {% endblock %}
