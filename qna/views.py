@@ -105,18 +105,37 @@ def question_search(request):
         search_ques1 = search_ques1.exclude(question=exclude_question)
         search_ques1 = search_ques1.distinct()
 
+        page = request.GET.get('page', 1)
+        paginator1 = Paginator(search_ques1, 12)
+        paginator2 = Paginator(search_ques2, 12)
+
         if search_ques1.count()==0 and search_ques2.count()==0 :
             messages.info(request, '검색결과가 없습니다')
             return redirect('qna:question_search')
+
+        # 페이징
+        try:
+            searched_keyword1 = paginator1.page(page)
+            searched_keyword2 = paginator2.page(page)
+
+        except PageNotAnInteger:
+            searched_keyword1 = paginator1.page(1)
+            searched_keyword2 = paginator2.page(1)
+        except EmptyPage:
+            searched_keyword1 = paginator1.page(paginator1.num_pages)
+            searched_keyword2 = paginator2.page(paginator2.num_pages)
 
         random_list = [1, 2, 3]
 
     # 중복 제거
         return render(request, 'qna/question_search.html', {
         'search_keyword': search_keyword,
-        'search_ques1': search_ques1,
-        'search_ques2': search_ques2,
+        # 'search_ques1': search_ques1,
+        # 'search_ques2': search_ques2,
+        'search_ques1' : searched_keyword1,
+        'search_ques2' : searched_keyword2,
         'random_list': random_list,
+
     })
     else:
         return render(request, 'qna/question_search.html')
@@ -178,11 +197,30 @@ def question_search_day(request):
 
         random_list = [1, 2, 3]
 
-    # 중복 제거
+        page = request.GET.get('page', 1)
+        paginator1 = Paginator(search_day_ques1, 12)
+        paginator2 = Paginator(search_day_ques2, 12)
+
+        # 페이징
+        try:
+            searched_day1 = paginator1.page(page)
+            searched_day2 = paginator2.page(page)
+
+        except PageNotAnInteger:
+            searched_day1 = paginator1.page(1)
+            searched_day2 = paginator2.page(1)
+        except EmptyPage:
+            searched_day1 = paginator1.page(paginator1.num_pages)
+            searched_day2 = paginator2.page(paginator2.num_pages)
+
+
+            # 중복 제거
         return render(request, 'qna/question_search_day.html', {
         'search_day': search_day,
-        'search_ques1': search_day_ques1,
-        'search_ques2':search_day_ques2,
+        # 'search_ques1': search_day_ques1,
+        # 'search_ques2':search_day_ques2,
+        'search_ques1': searched_day1,
+        'search_ques2': searched_day2,
         'random_list': random_list,
     })
 
@@ -215,10 +253,28 @@ def question_search_content(request):
 
         random_list = [1, 2, 3]
 
+        page = request.GET.get('page', 1)
+        paginator1 = Paginator(search_content_ques1, 12)
+        paginator2 = Paginator(search_content_ques2, 12)
+
+        # 페이징
+        try:
+            searched_content1 = paginator1.page(page)
+            searched_content2 = paginator2.page(page)
+
+        except PageNotAnInteger:
+            searched_content1 = paginator1.page(1)
+            searched_content2 = paginator2.page(1)
+        except EmptyPage:
+            searched_content1 = paginator1.page(paginator1.num_pages)
+            searched_content2 = paginator2.page(paginator2.num_pages)
+
         return render(request, 'qna/question_search_content.html',{
             'search_content':search_content,
-            'search_ques1':search_content_ques1,
-            'search_ques2':search_content_ques2,
+            # 'search_ques1':search_content_ques1,
+            # 'search_ques2':search_content_ques2,
+            'searched_ques1':searched_content1,
+            'searched_ques2':searched_content2,
             'random_list': random_list,
         })
     else:
