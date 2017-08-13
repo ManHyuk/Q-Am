@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout', kwargs={'next_page': '/accounts/login'}), #로그아웃 시 홈페이지로 이동
     url(r'^profile/$', views.profile, name='profile'),
+    url(r'^profile_edit/$',views.profile_edit, name='profile_edit'),
     url(r'^edit_pw/$',views.edit_pw, name='edit_pw'),
 
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
