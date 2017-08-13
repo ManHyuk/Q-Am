@@ -1,9 +1,7 @@
-from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, AuthenticationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from accounts.models import Profile
 from django.contrib.auth.forms import UsernameField
-from django.contrib.auth.models import User
-from imagekit.forms import ProcessedImageField
 
 
 class SignupForm(UserCreationForm):
@@ -15,17 +13,24 @@ class SignupForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Check Password'
 
 
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
         fields=['name','nickname','phone_number','email','img']
-
     def __init__(self,*args,**kwargs):
         super(ProfileForm,self).__init__(*args,**kwargs)
         self.fields['name'].widget.attrs['placeholder']='Name'
         self.fields['nickname'].widget.attrs['placeholder'] = 'Nickname(공유될 때 이름)'
         self.fields['phone_number'].widget.attrs['placeholder'] = 'PhoneNumber/ex>01012341234'
         self.fields['email'].widget.attrs['placeholder'] = 'E-Mail/ex>qam@qam.qam'
+
+
+
+class ProfileImgForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        fields=['img']
 
 
 

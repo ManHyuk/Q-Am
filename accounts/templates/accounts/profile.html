@@ -12,19 +12,19 @@
     <div class="profile-card">
         <div class="profile-cover">
             <div class="profile-avatar">
-                <a href="#">
-                    {% if user.socialaccount_set.all.first.get_avatar_url %}
-            <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
-        {% else %}
-                        <img src="{% static 'joy.jpeg' %}" >
-        {% endif %}
-                </a>
+                        {% if user.profile.img.url %}
+                            <img src="{{ user.profile.img.url }}" />
+                        {% else %}
+                            <img src="{% static 'joy.jpeg' %}" >
+                        {% endif %}
             </div>
             <div class="profile-details">
-                <div style="font-size: 1.5rem"> {{ user }} </div>
+                <div style="font-size: 1.5rem"> {{ user.name }} </div>
                 <div> {{ user.email }}</div>
             </div>
         </div>
+
+
         <div class="profile-content">
             <ul>
                 <li>
@@ -44,7 +44,7 @@
                     추가질문답변
                 </li>
                 <li>
-                    <div class="digits"><a href="{% url 'edit_pw' %}">pw</a></div>
+                    <div class="digits"><a href="{% url 'profile_edit' %}">프로필</a></div>
                     변경
                 </li>
 

@@ -51,6 +51,7 @@ def required(request):
         future = datetime.datetime.now().replace(hour=0, minute=0, second=0)+datetime.timedelta(days=1)
         return render(request, 'exqna/already_required.html',{
             'future':future,
+            'already_required':already_required,
         })
         # 메세지 만들어지면 required.html 로 넘어가자
 

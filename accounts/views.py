@@ -1,8 +1,8 @@
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login as auth_login
-from .forms import SignupForm, ProfileForm, EditPasswordForm, LoginForm
+from .forms import SignupForm, ProfileForm, EditPasswordForm, LoginForm, ProfileImgForm
 from allauth.socialaccount.models import SocialApp
 from allauth.socialaccount.templatetags.socialaccount import get_providers
 from accounts.models import Profile
@@ -58,13 +58,33 @@ def profile(request):
     answer_public = Answer.objects.filter(user_id=request.user,is_public=True).count()
     ex_answer = ExtraAnswer.objects.filter(user_id=request.user)
     ex_answer_public = ExtraAnswer.objects.filter(user_id=request.user, is_public=True).count()
-    ctx = {
+
+
+    return render(request, 'accounts/profile.html', {
         'answer': answer,
         'answer_public': answer_public,
         'ex_answer': ex_answer,
         'ex_answer_public': ex_answer_public,
-    }
-    return render(request, 'accounts/profile.html', ctx)
+    })
+
+
+@login_required
+def profile_edit(request):
+    profile=get_object_or_404(Profile, user=request.user)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES,instance=profile)
+        if form.is_valid():
+            new_profile=form.save(commit=False)
+            new_profile.user=request.user
+            new_profile.save()
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'accounts/profile_edit.html',{
+        'form':form,
+    })
+
 
 
 
