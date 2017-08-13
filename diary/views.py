@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import DiaryForm
 from django.utils import timezone
 from django.contrib import messages
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def diary_list(request):
@@ -34,14 +34,28 @@ def diary_search_title(request):
         search_title=request.GET.get('search_title')
         search_diary_title = Diary.objects.filter(title__icontains=search_title,user=request.user)
 
+        page = request.GET.get('page', 1)
+        paginator = Paginator(search_diary_title, 6)
+
         if search_diary_title.count()==0:
             messages.info(request, '검색결과가 없습니다')
+
             return redirect('diary:diary_search_title')
+
+        # 페이징된 값을 searched_title에 담음
+        try:
+            searched_title = paginator.page(page)
+        except PageNotAnInteger:
+            searched_title = paginator.page(1)
+        except EmptyPage:
+            searched_title = paginator.page(paginator.num_pages)
 
         return render(request, 'diary/diary_search_title.html',{
             'search_diary_title':search_diary_title,
             'search_title':search_title,
+            'searched_title':searched_title,
         })
+
     else:
         return render(request, 'diary/diary_search_title.html')
 
@@ -52,13 +66,26 @@ def diary_search_content(request):
         search_content=request.GET.get('search_content')
         search_diary_content = Diary.objects.filter(content__icontains=search_content,user=request.user)
 
+        page = request.GET.get('page', 1)
+        paginator = Paginator(search_diary_content, 6)
+
         if search_diary_content.count()==0:
             messages.info(request, '검색결과가 없습니다')
             return redirect('diary:diary_search_content')
 
+        # 페이징된 값을 searched_content에 담음
+        try:
+            searched_content = paginator.page(page)
+        except PageNotAnInteger:
+            searched_content = paginator.page(1)
+        except EmptyPage:
+            searched_content = paginator.page(paginator.num_pages)
+
+
         return render(request, 'diary/diary_search_content.html',{
             'search_diary_content':search_diary_content,
             'search_content':search_content,
+            'searched_content': searched_content,
         })
     else:
         return render(request, 'diary/diary_search_content.html')
@@ -74,13 +101,26 @@ def diary_search_day(request):
             daylist[2]=list(daylist[2])[1]
         search_diary_day=Diary.objects.filter(created_at__year=daylist[0],created_at__month=daylist[1],created_at__day=daylist[2],user=request.user)
 
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(search_diary_day, 6)
+
         if search_diary_day.count()==0:
             messages.info(request, '검색결과가 없습니다')
             return redirect('diary:diary_search_day')
 
+        # 페이징된 값을 searched_content에 담음
+        try:
+            searched_day = paginator.page(page)
+        except PageNotAnInteger:
+            searched_day = paginator.page(1)
+        except EmptyPage:
+            searched_day = paginator.page(paginator.num_pages)
+
         return render(request, 'diary/diary_search_day.html',{
             'search_diary_day':search_diary_day,
             'search_day':search_day,
+            'searched_day': searched_day,
         })
     else:
         return render(request, 'diary/diary_search_day.html')

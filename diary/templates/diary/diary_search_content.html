@@ -10,7 +10,7 @@
 
 {% block search %}
     <div class="row">
-        {% for diary in search_diary_content %}
+        {% for diary in searched_content %}
             <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
                <div class="diary__contents px-3">
                     <div class="diary__box">
@@ -27,6 +27,34 @@
             </div>
         {% endfor %}
     </div>
+
+
+    {% if searched_content.has_other_pages %}
+        <div class="row justify-content-center pagination">
+            <ul class="pagination">
+                {% if searched_content.has_previous %}
+                    <a href="?page={{ searched_content.previous_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+                {% for i in searched_content.paginator.page_range %}
+                    {% if searched_content.number == i %}
+                        <span class="active">{{ i }} <span class="sr-only"></span></span>
+                    {% else %}
+                        <a href="?search_content={{ search_content }}&page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if searched_content.has_next %}
+                    <a href="?search_content={{ search_content }}&&page={{ searched_content.next_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+
 {% endblock %}
 
 
