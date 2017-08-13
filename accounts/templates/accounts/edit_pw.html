@@ -1,7 +1,11 @@
 {% extends "layout_navi.html" %}
 {% load static %}
 {% block style %}
-
+<style type="text/css">
+    p.form-title.sign-in {
+        margin-top: 5%;
+    }
+</style>
 {% endblock %}
 {% block content %}
 
@@ -9,43 +13,34 @@
     <div class="row">
         <div class="col-md-12">
             <p class="form-title sign-in">Edit<br>PassWord</p>
-    <form action="" method="post" class="login">
-        {% csrf_token %}
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                            {{ message.message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form action="" method="post" class="login">
+                {% csrf_token %}
 
-        {% for error in form.non_field_errors %}
-            {{ error }}
-        {% endfor %}
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
 
-        <!-- hidden fields는 위젯만 렌더링 -->
-        {% for field in form.hidden_fields %}
-          {{ field }}
-        {% endfor %}
+                <!-- hidden fields는 위젯만 렌더링 -->
+                {% for field in form.hidden_fields %}
+                  {{ field }}
+                {% endfor %}
 
-        {% for field in form.visible_fields %}
-            {{ field }}
-            {{ field.errors }}
-        {% endfor %}
-
-        <input type="submit" value="변경하기" class="btn btn-success bg-success" />
-    </form>
-  </div>
-{% endblock %}
-
-
-
-{% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-                {{ message.message }}
-            </div>
-        {% endfor %}
+                {% for field in form.visible_fields %}
+                    {{ field }}
+                    {{ field.errors }}
+                {% endfor %}
+                <input type="submit" value="변경하기" class="btn btn-success bg-success" />
+            </form>
+        </div>
     </div>
-{% endif %}
-
-
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit">
-</form>
+</div>
+{% endblock %}

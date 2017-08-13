@@ -1,3 +1,108 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% load static %}
+<div id="header" class="container">
+    <div class="row logo">
+        <div class="logo__title col-12">Q : AM</div>
+        <div class="logo__box col-10 col-lg-8 push-1 push-lg-2 py-1" lang="ko">오늘 하루 어떻게 지내셨나요?</div>
+        <a href="{% url "login" %}" class="logo__start col-12" lang="ko">지금 시작하기</a>
+        <div class="col-12">
+            <a href="#about" class="logo__down btn btn-circle">
+                <i class="fa fa-angle-double-down"></i>
+            </a>
+        </div>
+
+    </div>
+    <div id="about" class="row inform">
+        <div class="col-8 offset-2">
+            <h1 class="inform__body" lang="ko">
+            오늘의 당신은 어땠나요?<br>
+            어제의 당신은요?<br>
+            내가 입었던 옷, 대화했던 사람들, 느꼈던 감정들 …<br>
+            어디서부터 떠올려야 할지 막막하기만 합니다.<br>
+            그럴 땐 저희의 질문에 답해주세요.<br>
+            그렇게 하지 못한 이야기는 일기에 남겨 주세요.<br>
+            다시 돌아오지 않을 당신의 소중한 하루, <br>
+            그 이야기를 기다립니다.<br>
+            </h1>
+        </div>
+        <div class="col-12">
+            <a href="#explain_part" class="logo__down btn btn-circle">
+                <i class="fa fa-angle-double-down"></i>
+            </a>
+        </div>
+    </div>
+    <div id="explain_part" class="row explain">
+        <div class="col-2 offset-1">
+            <img src="{% static "question2.png" %}" class="image">
+        </div>
+        <div class="col-8">
+            <p class="explain__body" lang="ko">
+                <질문><br>
+                매일 365개의 질문이 1년마다 돌아옵니다. 질문은 새벽 네 시에 업데이트되며, 매일 같은 시간에 알림을 설정할 수 있습니다. 가능한 문장으로 답변해 주시는 것이 달라진 모습을 보기에 좋습니다. 가끔씩 찾아오는 추가질문도 잊지 마세요. 수정은 답변입력 후 한 시간 이내로만 가능하니 주의하세요!<br>
+            </p>
+        </div>
+        <div class="col-2 offset-1">
+            <img src="{% static "share.png" %}" class="image">
+        </div>
+        <div class="col-8">
+            <p class="explain__body" lang="ko" >
+            <공유><br>
+            오늘의 질문에 대한 나의 답변을 공유할 수 있고, 이 질문에 대한 다른 사람들의 답변도 확인할 수 있습니다. 익명(혹은 닉네임)으로 공유하기, 공유하지 않기도 가능합니다.<br>
+            </p>
+        </div>
+        <div class="col-2 offset-1">
+            <img src="{% static "diary.png" %}" class="image">
+        </div>
+        <div class="col-8">
+            <p class="explain__body" lang="ko" >
+            <일기><br>
+            질문과는 별개로, 매일 최대 6개의 키워드 일기를 작성할 수 있습니다. 키워드에 #태그를 하여 제목을 만들고, 내용을 작성하면 키워드 일기가 됩니다. 일기는 작성일 자정까지만 수정할 수 있습니다.<br>
+            </p>
+        </div>
+        <div class="col-2 offset-1">
+            <img src="{% static "search2.png" %}" class="image">
+        </div>
+        <div class="col-8">
+            <p class="explain__body" lang="ko" >
+            <검색><br>
+            질문의 키워드와 일기의 제목을 검색창에 입력하여 작성기록을 확인할 수 있습니다. 달력의 날짜로도 검색이 가능합니다. 그러나 질문의 신비함을 유지하기 위해, 오늘로부터 1주일 후의 질문까지는 검색대상에서 제외합니다.<br>
+            </p>
+        </div>
+        <div class="col-2 offset-1">
+            <img src="{% static "bulb.png" %}" class="image">
+        </div>
+        <div class="col-8">
+            <p  class="explain__body" lang="ko" >
+            <제안><br>
+            다른 사람들과 나누고 싶은 질문, 그리고 그 질문에 대한 나의 답변을 제안해 주세요. 어느 날엔가 추가질문 코너에 등장할지도 모릅니다!<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('a[href^="#"]').on('click',function (e) {
+            e.preventDefault();
+
+            var target = this.hash;
+            var $target = $(target);
+
+            $('html, body').stop().animate({
+                'scrollTop': $target.offset().top
+            }, 900, 'swing', function () {
+                window.location.hash = target;
+            });
+        });
+    });
+</script>
+{% endblock %}
+
 <!DOCTYPE html>
 <html>
 <head>
