@@ -19,8 +19,9 @@
                             {{ diary.content }}</p>
                     </div>
                     <div class="diary__app main__card__button">
-                        <a href="{% url 'diary:diary_edit' diary.pk %}" lang="ko">수정</a>&nbsp;&nbsp;
-                        <a href="{% url 'diary:diary_delete' diary.pk %}" lang="ko">삭제</a>
+                        <p lang="ko">{{ diary.created_at.year }}년
+                                     {{ diary.created_at.month }}월
+                                     {{ diary.created_at.day }}일 </p>
                     </div>
                 </div>
             </div>
