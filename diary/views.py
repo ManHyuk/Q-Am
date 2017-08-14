@@ -233,7 +233,7 @@ def diary_delete(request, pk):
     if diary.user_id != request.user.id:
         return redirect('diary:diary_list')
 
-    # 질문 등록 날짜와 현재 날짜가 다르면 수정 불가
+    # 질문 등록 날짜와 현재 날짜가 다르면 삭제 불가
     if diary.created_at.day != timezone.now().day:
         return redirect('diary:diary_detail', pk)
     else:

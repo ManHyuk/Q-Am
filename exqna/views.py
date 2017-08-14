@@ -23,12 +23,14 @@ def exquestion(request):
     if exquestion.questioned_at:    #오늘의 추가질문인지 체크, 아니면 is_new 바꾸기
         if exquestion.questioned_at != today_id:
             exquestion.is_new = False   #is_new 바꾸고 다음 추가질문 얻어오기
+            exquestion.save()
             exquestion = ExtraQuestion.objects.filter(is_new=True).first()
             if not exquestion: #안 쓰인 것 없을 경우
                 return redirect('qna:main')
             exquestion.questioned_at = today_id
     else:   #questioned_at 등록안되어 있으면 today_id로 등록
         exquestion.questioned_at = today_id
+    exquestion.save()
 
 
     has_extraAnswer = ExtraAnswer.objects.filter(question=exquestion, user=request.user)    #이미 대답했으면 넘어가기
@@ -54,7 +56,7 @@ def exquestion(request):
 @login_required
 def required(request):
     #질문 요청하는 뷰
-    already_required = Required.objects.filter(user=request.user,created_at__year=datetime.datetime.now(timezone_kor('Asia/Seoul')).year,created_at__month=datetime.datetime.now(timezone_kor('Asia/Seoul')).month,created_at__day=datetime.datetime.now(timezone_kor('Asia/Seoul')).day)
+    already_required = Required.objects.filter(user=request.user,created_at__year=datetime.datetime.now(timezone_kor('Asia/Seoul')).year,created_at__month=datetime.datetime.now(timezone_kor('Asia/Seoul')).month,created_at__day=datetime.datetime.now(timezone_kor('Asia/Seoul')).day).first()
     # pytz를 이용하여 한국시간으로 timezone을 사용할 수 있었다
     # settings.py에서 한국 시간으로 변경하여 created_at시간도 다 한국시간이 됨
     # 고로 한국시간으로 매일매일 질문을 요청할 수 있게 됨
@@ -74,7 +76,7 @@ def required(request):
             required = form.save(commit=False)
             required.user = request.user
             required.save()
-            return redirect("qna:main")
+            return redirect("exqna:required")
     else:
         form = RequiredModelForm()
 
@@ -130,7 +132,9 @@ def other_people(request):
 
     #if로 바꿔서 오늘 추가질문이 없을 경우에 qna/other people 뷰로 넘어갈 수 있게
     if not exquestion:
+        messages.info(request, '오늘은 추가질문이 없습니다.')
         return redirect("qna:other_people")
+
     answer_set = ExtraAnswer.objects.filter(question=exquestion, is_public=True)   #공유한다고 한 것만 불러오기
     other_answer_set = answer_set.exclude(user=request.user)    #자기 답은 제외
 

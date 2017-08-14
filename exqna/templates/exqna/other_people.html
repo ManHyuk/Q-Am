@@ -10,7 +10,7 @@
 {%block content%}
 <main class="other_people container">
 
-{% if exquestion%}
+{% if exquestion %}
     <p class="today__question">Additional Question<br>
         <span lang="ko">{{ exquestion }}</span>
     </p>
@@ -34,9 +34,33 @@
                     </footer>
                 </blockquote>
             </div>
-        {% empty %}
-            아직 등록된 대답이 없습니다.
         {% endfor %}
+            <div class="card p-3 mr-3 mb-3">
+                <blockquote class="card-block card-blockquote">
+                    <article class="card__body">
+                        <p lang="ko">도저히 손댈 수가 없는 곤란에 부딪혔다면 과감하게 그 속으로 뛰어들라. 그리하면 불가능하다고 생각했던 일이 가능해진다. 용기있는 자로 살아라. 운이 따라주지 않는다면 용기 있는 가슴으로 불행에 맞서라. <br> -키케로
+                        </p>
+                    </article>
+                    <footer>
+                        <div class="text-muted" lang="ko">
+                            명언제조기
+                        </div>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card p-3 mr-3 mb-3">
+                <blockquote class="card-block card-blockquote">
+                    <article class="card__body">
+                        <p lang="ko">일하는 시간과 노는 시간을 뚜렷이 구분하라. 시간의 중요성을 이해하고 매순간을 즐겁게 보내고 유용하게 활용하라. 그러면 젋은 날은 유쾌함으로 가득찰것이고 늙어서도 후회할 일이 적어질것이며 비록 가난할 때라도 인생을 아름답게 살아갈수있다 <br> -루이사 메이올콧
+                        </p>
+                    </article>
+                    <footer>
+                        <div class="text-muted" lang="ko">
+                            명언제조기
+                        </div>
+                    </footer>
+                </blockquote>
+            </div>
         </div>
     </div>
     {% if other_answer.has_other_pages %}
@@ -62,36 +86,6 @@
         </ul>
     </div>
     {% endif %}
-{% endif %}
-
-{%if not exquestion %}
-    <p class="today__question">Additional Question<br>
-    <span lang="ko">오늘은 추가질문이 없습니다.</span>
-    <span lang="ko">명언을 보면서 하루를 되돌아 보세요.</span></p>
-
-<div class="row">
-  <div class="card-columns mx-3">
-  {% for answer in answer_set %}
-  <div class="card p-3 mr-3 mb-3">
-      <blockquote class="card-block card-blockquote">
-        <article class="card__body">
-          <p lang="ko">{{answer.content|linebreaksbr}}</p>
-        </article>
-        <footer>
-          <div class="text-muted" lang="ko">
-            {% if answer.user %}
-              {{ answer.user.profile.nickname }}
-            {% else %}
-              익명
-            {% endif %}
-          </div>
-        </footer>
-      </blockquote>
-  </div>
-
-  {% endfor %}
-</div>
-</div>
 {% endif %}
 
 

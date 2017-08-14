@@ -40,7 +40,7 @@
         <div class="col-8">
             <p class="explain__body" lang="ko">
                 <질문><br>
-                매일 365개의 질문이 1년마다 돌아옵니다. 질문은 새벽 네 시에 업데이트되며, 매일 같은 시간에 알림을 설정할 수 있습니다. 가능한 문장으로 답변해 주시는 것이 달라진 모습을 보기에 좋습니다. 가끔씩 찾아오는 추가질문도 잊지 마세요. 수정은 답변입력 후 한 시간 이내로만 가능하니 주의하세요!<br>
+                매일 365개의 질문이 1년마다 돌아옵니다. 질문은 새벽 네 시에 업데이트되며, 가능한 문장으로 답변해 주시는 것이 달라진 모습을 보기에 좋습니다. 가끔씩 찾아오는 추가질문도 잊지 마세요. 수정은 답변입력 후 한 시간 이내로만 가능하니 주의하세요!<br>
             </p>
         </div>
         <div class="col-2 offset-1">
@@ -67,7 +67,7 @@
         <div class="col-8">
             <p class="explain__body" lang="ko" >
             <검색><br>
-            질문의 키워드와 일기의 제목을 검색창에 입력하여 작성기록을 확인할 수 있습니다. 달력의 날짜로도 검색이 가능합니다. 그러나 질문의 신비함을 유지하기 위해, 오늘로부터 1주일 후의 질문까지는 검색대상에서 제외합니다.<br>
+            질문의 키워드와 일기의 제목을 검색창에 입력하여 작성기록을 확인할 수 있습니다. 내용이나 달력의 날짜로도 검색이 가능합니다. 그러나 질문의 신비함을 유지하기 위해, 오늘로부터 열흘 후의 질문까지는 검색대상에서 제외합니다.<br>
             </p>
         </div>
         <div class="col-2 offset-1">
@@ -99,6 +99,27 @@
                 window.location.hash = target;
             });
         });
+    });
+
+    function typeEffect(element, speed) {
+        var text = $(element).text();
+        $(element).html('');
+
+        var i = 0;
+        var timer = setInterval(function() {
+                        if (i < text.length) {
+                            $(element).append(text.charAt(i));
+                            i++;
+                        } else {
+                            clearInterval(timer);
+                        }
+                    }, speed);
+    }
+
+    $( document ).ready(function() {
+      var speed = 100;
+      var delay = $('.logo__box').text().length * speed + speed;
+      typeEffect($('.logo__box'), speed);
     });
 </script>
 {% endblock %}

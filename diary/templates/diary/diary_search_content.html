@@ -12,16 +12,18 @@
     <div class="row">
         {% for diary in searched_content %}
             <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
-               <div class="diary__contents px-3">
+               <div class="diary__contents px-3" style="background-color: rgba(150, 70, 10, {% cycle 0.2 0.3 0.4 0.5 0.6 0.7 %})">
                     <div class="diary__box">
                         <p class="diary__title" lang="ko">
                             #{{ diary.title }}</p>
                         <p class="diary__body" lang="ko">
                             {{ diary.content }}</p>
                     </div>
+
                     <div class="diary__app main__card__button">
-                        <a href="{% url 'diary:diary_edit' diary.pk %}" lang="ko">수정</a>&nbsp;&nbsp;
-                        <a href="{% url 'diary:diary_delete' diary.pk %}" lang="ko">삭제</a>
+                        <p lang="ko">{{ diary.created_at.year }}년
+                                     {{ diary.created_at.month }}월
+                                     {{ diary.created_at.day }}일 </p>
                     </div>
                 </div>
             </div>
