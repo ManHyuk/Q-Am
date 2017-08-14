@@ -1,0 +1,7 @@
+django>=1.11
+django-allauth
+django-bootstrap3
+django-extensions
+django-imagekit
+pilkit
+pillow

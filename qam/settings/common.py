@@ -54,8 +54,6 @@ INSTALLED_APPS = [
     'exqna',
     'accounts',
     'diary',
-
-
 ]
 
 MIDDLEWARE = [
@@ -75,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'qam', 'templates'),
+            os.path.join(BASE_DIR, '..', 'qam', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -152,15 +150,17 @@ LOGIN_REDIRECT_URL = 'signup_info'    #로그인 시 질문받는 페이지로 �
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
- os.path.join(BASE_DIR, 'qam', 'static'),
+ os.path.join(BASE_DIR, '..', 'qam', 'static'),
+ os.path.join(BASE_DIR, '..', 'accounts', 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'staticfiles')
 
 AUTH_USER_MODEL = 'auth.User'
 
 
 #이미지 업로드
 MEDIA_URL='/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 #비번찾기
 EMAIL_USE_TLS = True
@@ -170,5 +170,3 @@ EMAIL_HOST_USER = 'jkjun2091@gmail.com'
 EMAIL_HOST_PASSWORD = 'jinkwang12!'
 DEFAULT_FROM_EMAIL = 'jkjun2091@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-#remember me 만료 시간 세션

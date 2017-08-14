@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='extraquestion',
-            name='questioned_at',
-            field=models.IntegerField(blank=True),
-        ),
-        migrations.AlterField(
             model_name='required',
             name='title',
             field=models.CharField(max_length=32),

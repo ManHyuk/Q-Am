@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='address',
-            field=models.CharField(default='서울시', max_length=50, verbose_name='xx시 xx구'),
+            field=models.CharField(default=None, max_length=50, verbose_name='xx시 xx구'),
             preserve_default=False,
         ),
         migrations.AddField(

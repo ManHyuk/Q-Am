@@ -12,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='extraquestion',
-            name='is_new',
-            field=models.BooleanField(default=True),
-        ),
+
     ]

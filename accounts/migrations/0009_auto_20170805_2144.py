@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='name',
-            field=models.CharField(default='진광', max_length=10),
+            field=models.CharField(default=None, max_length=10),
             preserve_default=False,
         ),
     ]
