@@ -9,134 +9,93 @@
 
 {%block content%}
 <main class="other_people container">
-<p class="today__question">Today's Question<br>
-    <span lang="ko">{{ question }}</span></p>
+    <p class="today__question">Today's Question<br>
+        <span lang="ko">{{ question }}</span></p>
     <div class="about pb-2"><a href="{% url "exqna:other_people" %}">About Additional Question</a></div>
+    {% if messages %}
+        <div class="row">
+            <div class="form-group col-12 mt-3">
+                <div class="messages">
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                            {{ message.message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
-<div class="row justify-content-center">
-  <div class="card-columns mx-3">
-  {% for answer in other_answer %}
-  <div class="card p-3 mr-3 mb-3">
-      <blockquote class="card-block card-blockquote">
-        <article class="card__body">
-          <p lang="ko">{{answer.content|linebreaksbr}}</p>
-        </article>
-        <footer>
-          <div class="text-muted" lang="ko">
-            {% if answer.user %}
-              {{ answer.user.profile.nickname }}
-            {% else %}
-              익명
-            {% endif %}
-          </div>
-        </footer>
-      </blockquote>
-  </div>
-
-{% empty %}
-  아직 등록된 대답이 없습니다.
-{% endfor %}
-
-</div>
-</div>
-
-{% if other_answer.has_other_pages %}
-<div class="row justify-content-center pagination">
-        <ul class="pagination">
-            {% if other_answer.has_previous %}
-                <a href="?page={{ other_answer.previous_page_number }}"></a>
-            {% else %}
-                <span class="disabled"></span>
-            {% endif %}
-            {% for i in other_answer.paginator.page_range %}
-                {% if other_answer.number == i %}
-                    <span class="active">{{ i }} <span class="sr-only"></span></span>
-                {% else %}
-                    <a href="?page={{ i }}">{{ i }}</a>
-                {% endif %}
+    <div class="row justify-content-center">
+        <div class="card-columns mx-3">
+            {% for answer in other_answer %}
+            <div class="card p-3 mr-3 mb-3">
+                <blockquote class="card-block card-blockquote">
+                    <article class="card__body">
+                        <p lang="ko">{{answer.content|linebreaksbr}}</p>
+                    </article>
+                    <footer>
+                        <div class="text-muted" lang="ko">
+                        {% if answer.user %}
+                            {{ answer.user.profile.nickname }}
+                        {% else %}
+                            익명
+                        {% endif %}
+                        </div>
+                    </footer>
+                </blockquote>
+            </div>
             {% endfor %}
-            {% if other_answer.has_next %}
-                <a href="?page={{ other_answer.next_page_number }}"></a>
-            {% else %}
-                <span class="disabled"></span>
-            {% endif %}
+            <div class="card p-3 mr-3 mb-3">
+                <blockquote class="card-block card-blockquote">
+                    <article class="card__body">
+                        <p lang="ko">시시한 일에 시간을 낭비하지 말고 순간순간을 후회 없이 잘 살아야 한다. <br>-루소 </p>
+                    </article>
+                    <footer>
+                        <div class="text-muted" lang="ko">
+                            명언제조기
+                        </div>
+                    </footer>
+                </blockquote>
+            </div>
+            <div class="card p-3 mr-3 mb-3">
+                <blockquote class="card-block card-blockquote">
+                    <article class="card__body">
+                        <p lang="ko">내 비장의 무기는 아직 손안에 있다 .<br>그것은 희망이다. <br>-나폴레옹  </p>
+                    </article>
+                    <footer>
+                        <div class="text-muted" lang="ko">
+                            명언제조기
+                        </div>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
 
-        </ul>
-</div>
-{% endif %}
+    {% if other_answer.has_other_pages %}
+    <div class="row justify-content-center pagination">
+            <ul class="pagination">
+                {% if other_answer.has_previous %}
+                    <a href="?page={{ other_answer.previous_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+                {% for i in other_answer.paginator.page_range %}
+                    {% if other_answer.number == i %}
+                        <span class="active">{{ i }} <span class="sr-only"></span></span>
+                    {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if other_answer.has_next %}
+                    <a href="?page={{ other_answer.next_page_number }}"></a>
+                {% else %}
+                    <span class="disabled"></span>
+                {% endif %}
+            </ul>
+    </div>
+    {% endif %}
 
 </main>
 {%endblock%}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>qna:other_people</title>
-</head>
-<body>
-
-    {% for oa in other_answer %}
-        <p>{{ oa.content }} <br>
-        {{ oa.user.profile.nickname }}</p>
-    {% empty %}
-        아직 등록된 대답이 없습니다
-    {% endfor %}
-    <br><br>
-    <a href="{%url "qna:main" %}"><input type="button" value="메인으로"></a>
-    <br><br>
-<a href="{%url "exqna:other_people" %}"><input type="button" value="추가질문에 대한 다른 사람의 답변"></a>
-
-    {{ other_answer }}
-    {% if other_answer.has_other_pages %}
-
-        <ul class="pagination">
-            {% if other_answer.has_previous %}
-                <a href="?page={{ other_answer.previous_page_number }}">&laquo;</a>
-            {% else %}
-                <span class="disabled">&laquo;</span>
-            {% endif %}
-            {% for i in other_answer.paginator.page_range %}
-                {% if other_answer.number == i %}
-                    <span class="active">{{ i }} <span class="sr-only"></span></span>
-                {% else %}
-                    <a href="?page={{ i }}">{{ i }}</a>
-                {% endif %}
-            {% endfor %}
-            {% if other_answer.has_next %}
-                <a href="?page={{ other_answer.next_page_number }}">&raquo;</a>
-            {% else %}
-                <span class="disabled">&raquo;</span>
-            {% endif %}
-
-        </ul>
-
-    {% endif %}
-
-</body>
-</html>
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>qna:other_people</title>
-</head>
-<body>
-    <h2><strong>Today's Question</strong> {{ question }}</h2>
-    {% for answer in answer_set %}
-         <p>
-                {{ answer.content }} <br>
-                {{ answer.user }}
-        </p>
-    {% empty %}
-        아직 등록된 대답이 없습니다.
-    {% endfor %}
-    <br><br>
-    <a href="{%url "qna:main" %}"><input type="button" value="메인으로"></a>
-    <br><br>
-<a href="{%url "exqna:other_people" %}"><input type="button" value="추가질문에 대한 다른 사람의 답변"></a>
-</body>
-</html>

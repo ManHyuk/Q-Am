@@ -32,7 +32,7 @@
     <div class="row">
         {% for di in diary %}
             <div class="card diary col-10 col-sm-6 col-md-4 push-1 push-sm-0 px-3 my-3">
-               <div class="diary__contents px-3">
+               <div class="diary__contents px-3" style="background-color: rgba(150, 70, 10, {% cycle 0.2 0.3 0.4 0.5 0.6 %})">
                     <div class="diary__box">
                         <p class="diary__title" lang="ko">
                             #{{ di.title }}</p>
