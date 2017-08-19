@@ -1,7 +1,7 @@
 import os
 from .common import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
