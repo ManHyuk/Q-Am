@@ -3,7 +3,7 @@ from django.conf import settings
 
 class Question(models.Model):
     # 질문
-    question = models.CharField(max_length=32, null=False) # 제목
+    question = models.CharField(max_length=128, null=False) # 제목
     month = models.CharField(max_length=2, null=False)
     day = models.CharField(max_length=2, null=False)
 
